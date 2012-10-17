@@ -30,6 +30,9 @@ Still I'm not sure if I'm good or bad one (hope seeing comments saying that I'm 
 Last thing - from few days I'm called in our company **"Culture Ninja"**, whatever it is. Hope I will be able to be a Ninja enough to maintain this role
 and make something good.
 
+##What do I hate?
+Ruby! Had to write that because of problems which came with this language. No other positions on this list.
+
 Beneath you will find my certifications:
 
 ...
