@@ -23,3 +23,5 @@ DEFAULT_PAGINATION = 10
 GITHUB_URL = 'https://github.com/piteer1'
 
 DISQUS_SITENAME = "yetanotherboringprogrammersblog"
+
+REVERSE_CATEGORY_ORDER = True
