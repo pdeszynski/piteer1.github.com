@@ -19,3 +19,5 @@ SOCIAL = (('github', 'http://github.com/piteer1'),
           ('Another social link', '#'),)
 
 DEFAULT_PAGINATION = 10
+
+GITHUB_URL = 'https://github.com/piteer1'
