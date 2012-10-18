@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="http://www.piotrdeszynski.com/" rel="alternate"></link><link href="http://www.piotrdeszynski.com/feeds/10.atom.xml" rel="self"></link><id>http://www.piotrdeszynski.com/</id><updated>2012-10-17T22:00:00+02:00</updated><entry><title>Object Oriented Metrics - WTF?</title><link href="http://www.piotrdeszynski.com/object-oriented-metrics-introduction.html" rel="alternate"></link><updated>2012-10-17T22:00:00+02:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2012-10-17:object-oriented-metrics-introduction.html</id><summary type="html">&lt;h1&gt;WTF is that?&lt;/h1&gt;
+&lt;p&gt;We'll start from an image. Did you see in past something like that?&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overview pyramid" src="/images/2012/10/overview-pyramid.png" title="An example of overview pyramid" /&gt;&lt;/p&gt;
+&lt;p&gt;This is called &lt;strong&gt;Overview pyramid&lt;/strong&gt;. This is, I think, most commonly used visualization of &lt;strong&gt;Object oriented metrics&lt;/strong&gt;. What are they?
+&lt;strong&gt;Metrics&lt;/strong&gt; in short, are some kind of &lt;strong&gt;numeric values&lt;/strong&gt;, describing code (there is also a possibility to describe classess without code
+using for e.g. UML), or in Object Oriented Metrics, describing &lt;strong&gt;classess&lt;/strong&gt;. It might be easier to describe it on an example. Let's take 
+simpliest metric - &lt;strong&gt;LOC&lt;/strong&gt; (Lines Of Code), which is also seen on an overview pyramid. This metric describes an average amount of lines
+of code per method (in Overview Pyramid LOC exactly means all lines of code of all defined methods).&lt;/p&gt;</summary><category term="OOP"></category><category term="Metrics"></category><category term="Code Quality"></category></entry></feed>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="/" rel="alternate"></link><link href="/feeds/About.atom.xml" rel="self"></link><id>/</id><updated>2012-10-17T20:00:00+02:00</updated><entry><title>Something boring about me</title><link href="/about.html" rel="alternate"></link><updated>2012-10-17T20:00:00+02:00</updated><author><name>Piotr Deszyński</name></author><id>tag:,2012-10-17:about.html</id><summary type="html">&lt;h2&gt;Piotr Deszyński&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="http://www.piotrdeszynski.com/" rel="alternate"></link><link href="http://www.piotrdeszynski.com/feeds/About.atom.xml" rel="self"></link><id>http://www.piotrdeszynski.com/</id><updated>2012-10-17T20:00:00+02:00</updated><entry><title>Something boring about me</title><link href="http://www.piotrdeszynski.com/about.html" rel="alternate"></link><updated>2012-10-17T20:00:00+02:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2012-10-17:about.html</id><summary type="html">&lt;h2&gt;Piotr Deszyński&lt;/h2&gt;
 &lt;p&gt;placeholder for image ;)&lt;/p&gt;
 &lt;p&gt;Yup that's me. Or at least there will be me. I'm waiting for some picture that can be used here. But who am I?
 Yet another boring programmer, who loves sitting down nearby his computer and dive into different stuff. Sadly (or rather this is my big luck)
 I have a wife which doesn't allow me to sit and work too much. So basically I'm always having problem with time.&lt;/p&gt;
 &lt;h2&gt;What am I doing?&lt;/h2&gt;
 &lt;p&gt;Right now I'm working in company named &lt;strong&gt;Red Sky&lt;/strong&gt;. Don't know if you heard about it thought... 
-maybe you heard about &lt;a href="http://www.filestube.com," title="Filestube"&gt;Filestube&lt;/a&gt;... Still nothing?
+maybe you heard about &lt;a href="http://www.filestube.com" title="Filestube"&gt;Filestube&lt;/a&gt;... Still nothing?
 I'm working here mostly on webdevel. Using PHP, Javascript, Python, C++ and sometimes Java. When I have some free time (can say once per month) then
 I like to dig into OpenGL(ES) and Android platform.
 Besides these I'm interested in code quality (OOP metrics) and design patterns. So if you know any of these mail me (deszynski [at] red-sky.pl)! It'll be a pleasure to

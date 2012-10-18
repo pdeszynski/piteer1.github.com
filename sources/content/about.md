@@ -15,7 +15,7 @@ I have a wife which doesn't allow me to sit and work too much. So basically I'm 
 ##What am I doing?
 
 Right now I'm working in company named **Red Sky**. Don't know if you heard about it thought... 
-maybe you heard about [Filestube](http://www.filestube.com, "Filestube")... Still nothing?
+maybe you heard about [Filestube](http://www.filestube.com "Filestube")... Still nothing?
 I'm working here mostly on webdevel. Using PHP, Javascript, Python, C++ and sometimes Java. When I have some free time (can say once per month) then
 I like to dig into OpenGL(ES) and Android platform.
 Besides these I'm interested in code quality (OOP metrics) and design patterns. So if you know any of these mail me (deszynski [at] red-sky.pl)! It'll be a pleasure to
