@@ -20,12 +20,55 @@ These disharmonies are a bad thing in programming world and you should avoid the
 are called &lt;strong&gt;bad smells&lt;/strong&gt;.&lt;/p&gt;
 &lt;h2&gt;Still don't know why do I need these metrics them?&lt;/h2&gt;
 &lt;p&gt;Ok, so if your code grows really big, you need to use more and more time only to verify the code base. If it's really huge then detecting such a
-disharmonies is really hard work. Then the metrics are handy. Using them you can detect &lt;strong&gt;bad smelling code&lt;/strong&gt; and verify if somebody really farted
-there and left some bad suprises.&lt;/p&gt;
+disharmonies is really hard work. Then the metrics are handy. Using them you can detect &lt;strong&gt;bad smelling code&lt;/strong&gt; and verify if somebody really left some bad suprises.&lt;/p&gt;
 &lt;h2&gt;So what's with Overview Pyramid (Watch out! Yet another boring explaination)?&lt;/h2&gt;
 &lt;p&gt;Let's get back to Overview Pyramid. There was one metric already described as an example: &lt;strong&gt;LOC&lt;/strong&gt;. But we have here also other ones:
 &lt;strong&gt;CYCLO&lt;/strong&gt; - Cyclomatic Number. This number counts all possible paths that it can take. For e.g. &lt;strong&gt;if&lt;/strong&gt; instruction
 will increase this number by one, cause program can go though this if or not. Of course bigger value means higher complexity, which in many 
 cases might be bad.&lt;/p&gt;
 &lt;p&gt;Further on the left side you can find &lt;strong&gt;NOM&lt;/strong&gt; - Number Of Methods, &lt;strong&gt;NOC&lt;/strong&gt; - Number Of Classess and &lt;strong&gt;NOP&lt;/strong&gt; - Number Of Packages, depending
-on which language it can be Package (Java), Module (Python, JavaScript), Namespace (C++, PHP) etc.&lt;/p&gt;</summary><category term="OOP"></category><category term="Metrics"></category><category term="Code Quality"></category></entry></feed>
+on which language it can be Package (Java), Module (Python, JavaScript), Namespace (C++, PHP) etc.&lt;/p&gt;
+&lt;p&gt;How to read them? Number on the right of metric is value of this metric. Number above the metric is more important - it's a ratio of a metric
+divided by next metric. For e.g. using previous image:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;LOC/NOM = 7082/461 = 15.362&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;As you can see this value is shown on green - it means that's too high. Code for which this image was generated had too long, not specialized methods.
+For the rest metrics calculations are analogical.&lt;/p&gt;
+&lt;p&gt;Whole Overview Pyramid is divided into 3 parts:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;One, already described tells about &lt;strong&gt;Size and Complexity&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Right one (&lt;strong&gt;FANOUT, CALLS, NOM&lt;/strong&gt;) tells about &lt;strong&gt;Coupling&lt;/strong&gt; between classes.&lt;/li&gt;
+&lt;li&gt;Upper part (AHH, ANDC) tells about bad smells in &lt;strong&gt;Inheritance&lt;/strong&gt; tree.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Based on these number you can think how to refactor your code, to be more maintanable and clearer.&lt;/p&gt;
+&lt;p&gt;It's possible to generate such a diagram using for e.g. &lt;strong&gt;PHP_Depend&lt;/strong&gt;, for Java you can use &lt;strong&gt;Cultivate, inFusion&lt;/strong&gt; plugin for Eclipse.&lt;/p&gt;
+&lt;h2&gt;Heart of the problem - Disharmonies&lt;/h2&gt;
+&lt;p&gt;As said using metrics it is possible to detect anomalies in code. Such an anomalies are divided into 3 groups:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Identity Disharmonies&lt;/li&gt;
+&lt;li&gt;Colaboration Disharmonies&lt;/li&gt;
+&lt;li&gt;Classification Disharmonies&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These ones should be remembered! You should watch out for them. I will shortly describe them by saying few words about their opposition - Harmonies.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Identity Harmony means that every entity is justified. All entities have their meaning and are specialized in what they're doing or they're representing.
+In practice you can say that class should have compact interface, also data and operations should collaborate with each other (for e.g. no data that is not
+used by any of the methods), methods should be cohesive.&lt;/li&gt;
+&lt;li&gt;Collaboration Harmony describes how entities are interacting with each others - if they're not communicating with too many other entities, or if entities
+are not doing too much work (so do not use too many services, but also do not do everything alone).&lt;/li&gt;
+&lt;li&gt;Classification Harmony focuses on inheritance. Tells if entities are justified in inheritance tree.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;All the artfacts of a system should be in harmony.&lt;/p&gt;
+&lt;p&gt;So now the disharmonies. Of course they should be avoided, cause they make the code smelling bad - mostly they show that system is designed against
+the OOP rules. An example of such disharmony is &lt;strong&gt;God Class&lt;/strong&gt;. Such class have a set of different methods, which are not cohesive (cohession means
+that methods use the same class attribute) and are not compact. Such a class is not defined correctly cause does not represent real entity and 
+takes too much responsibility on itself. These classes often have more than 1000 lines of code. Maintaining such a class is really hard
+because of it's complexity. God Class should be divided into smaller entities which will be specialized in what they're meant for.
+Other disharmonies are be:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Feature Envy - objects instead of using their own data, tend to use data of other classes (accessors also count!)&lt;/li&gt;
+&lt;li&gt;Data Class - objects which are really structures. They have data but no encapsulation or interface to work on this data.&lt;/li&gt;
+&lt;li&gt;Brain Method - mostly occures in God Class. It's a huge method that mixes different functionalities and tries to solve more than
+one small problem.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These ones are only examples, because there are many more. To know about other ones I
+suggest reading &lt;strong&gt;Object Oriented Metrics in Practics by Michele Lanza and Radu Marinescu&lt;/strong&gt;. Knowing them will make you write good Object-Oriented code.&lt;/p&gt;</summary><category term="OOP"></category><category term="Metrics"></category><category term="Code Quality"></category></entry></feed>

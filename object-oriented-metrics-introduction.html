@@ -92,8 +92,7 @@ These disharmonies are a bad thing in programming world and you should avoid the
 are called <strong>bad smells</strong>.</p>
 <h2>Still don't know why do I need these metrics them?</h2>
 <p>Ok, so if your code grows really big, you need to use more and more time only to verify the code base. If it's really huge then detecting such a
-disharmonies is really hard work. Then the metrics are handy. Using them you can detect <strong>bad smelling code</strong> and verify if somebody really farted
-there and left some bad suprises.</p>
+disharmonies is really hard work. Then the metrics are handy. Using them you can detect <strong>bad smelling code</strong> and verify if somebody really left some bad suprises.</p>
 <h2>So what's with Overview Pyramid (Watch out! Yet another boring explaination)?</h2>
 <p>Let's get back to Overview Pyramid. There was one metric already described as an example: <strong>LOC</strong>. But we have here also other ones:
 <strong>CYCLO</strong> - Cyclomatic Number. This number counts all possible paths that it can take. For e.g. <strong>if</strong> instruction
@@ -101,6 +100,50 @@ will increase this number by one, cause program can go though this if or not. Of
 cases might be bad.</p>
 <p>Further on the left side you can find <strong>NOM</strong> - Number Of Methods, <strong>NOC</strong> - Number Of Classess and <strong>NOP</strong> - Number Of Packages, depending
 on which language it can be Package (Java), Module (Python, JavaScript), Namespace (C++, PHP) etc.</p>
+<p>How to read them? Number on the right of metric is value of this metric. Number above the metric is more important - it's a ratio of a metric
+divided by next metric. For e.g. using previous image:</p>
+<p><strong>LOC/NOM = 7082/461 = 15.362</strong></p>
+<p>As you can see this value is shown on green - it means that's too high. Code for which this image was generated had too long, not specialized methods.
+For the rest metrics calculations are analogical.</p>
+<p>Whole Overview Pyramid is divided into 3 parts:</p>
+<ul>
+<li>One, already described tells about <strong>Size and Complexity</strong></li>
+<li>Right one (<strong>FANOUT, CALLS, NOM</strong>) tells about <strong>Coupling</strong> between classes.</li>
+<li>Upper part (AHH, ANDC) tells about bad smells in <strong>Inheritance</strong> tree.</li>
+</ul>
+<p>Based on these number you can think how to refactor your code, to be more maintanable and clearer.</p>
+<p>It's possible to generate such a diagram using for e.g. <strong>PHP_Depend</strong>, for Java you can use <strong>Cultivate, inFusion</strong> plugin for Eclipse.</p>
+<h2>Heart of the problem - Disharmonies</h2>
+<p>As said using metrics it is possible to detect anomalies in code. Such an anomalies are divided into 3 groups:</p>
+<ul>
+<li>Identity Disharmonies</li>
+<li>Colaboration Disharmonies</li>
+<li>Classification Disharmonies</li>
+</ul>
+<p>These ones should be remembered! You should watch out for them. I will shortly describe them by saying few words about their opposition - Harmonies.</p>
+<ol>
+<li>Identity Harmony means that every entity is justified. All entities have their meaning and are specialized in what they're doing or they're representing.
+In practice you can say that class should have compact interface, also data and operations should collaborate with each other (for e.g. no data that is not
+used by any of the methods), methods should be cohesive.</li>
+<li>Collaboration Harmony describes how entities are interacting with each others - if they're not communicating with too many other entities, or if entities
+are not doing too much work (so do not use too many services, but also do not do everything alone).</li>
+<li>Classification Harmony focuses on inheritance. Tells if entities are justified in inheritance tree.</li>
+</ol>
+<p>All the artfacts of a system should be in harmony.</p>
+<p>So now the disharmonies. Of course they should be avoided, cause they make the code smelling bad - mostly they show that system is designed against
+the OOP rules. An example of such disharmony is <strong>God Class</strong>. Such class have a set of different methods, which are not cohesive (cohession means
+that methods use the same class attribute) and are not compact. Such a class is not defined correctly cause does not represent real entity and 
+takes too much responsibility on itself. These classes often have more than 1000 lines of code. Maintaining such a class is really hard
+because of it's complexity. God Class should be divided into smaller entities which will be specialized in what they're meant for.
+Other disharmonies are be:</p>
+<ul>
+<li>Feature Envy - objects instead of using their own data, tend to use data of other classes (accessors also count!)</li>
+<li>Data Class - objects which are really structures. They have data but no encapsulation or interface to work on this data.</li>
+<li>Brain Method - mostly occures in God Class. It's a huge method that mixes different functionalities and tries to solve more than
+one small problem.</li>
+</ul>
+<p>These ones are only examples, because there are many more. To know about other ones I
+suggest reading <strong>Object Oriented Metrics in Practics by Michele Lanza and Radu Marinescu</strong>. Knowing them will make you write good Object-Oriented code.</p>
     </div><!-- /.entry-content -->
     
     <div class="comments">
@@ -130,6 +173,8 @@ on which language it can be Package (Java), Module (Python, JavaScript), Namespa
                         
                             <li><a href="http://python.org">Python.org</a></li>
                         
+                            <li><a href="http://validator.w3.org/check?uri=http%3A%2F%2Fpiotrdeszynski.com%2F">HTML5 Validator</a></li>
+                        
                         </ul>
                 </div><!-- /.blogroll -->
         
@@ -158,6 +203,16 @@ on which language it can be Package (Java), Module (Python, JavaScript), Namespa
                 <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
 
+
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-35673065-1");
+    pageTracker._trackPageview();
+    } catch(err) {}</script>
 
 
 

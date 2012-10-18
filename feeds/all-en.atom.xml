@@ -1,5 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="http://www.piotrdeszynski.com/" rel="alternate"></link><link href="http://www.piotrdeszynski.com/feeds/all-en.atom.xml" rel="self"></link><id>http://www.piotrdeszynski.com/</id><updated>2012-10-17T22:29:57+02:00</updated><entry><title>First post using Pelican</title><link href="http://www.piotrdeszynski.com/first-post.html" rel="alternate"></link><updated>2012-10-17T22:29:57+02:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2012-10-17:first-post.html</id><summary type="html">&lt;h1&gt;Hello!&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="http://www.piotrdeszynski.com/" rel="alternate"></link><link href="http://www.piotrdeszynski.com/feeds/all-en.atom.xml" rel="self"></link><id>http://www.piotrdeszynski.com/</id><updated>2012-10-18T22:00:00+02:00</updated><entry><title>Object Oriented Metrics - WTF?</title><link href="http://www.piotrdeszynski.com/object-oriented-metrics-introduction.html" rel="alternate"></link><updated>2012-10-18T22:00:00+02:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2012-10-18:object-oriented-metrics-introduction.html</id><summary type="html">&lt;h1&gt;WTF is that?&lt;/h1&gt;
+&lt;p&gt;We'll start from an image. Did you see in past something like that?&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overview pyramid" src="/images/2012/10/overview-pyramid.png" title="An example of overview pyramid" /&gt;&lt;/p&gt;
+&lt;p&gt;This is called &lt;strong&gt;Overview Pyramid&lt;/strong&gt;. This is, I think, most commonly used visualization of &lt;strong&gt;Object oriented metrics&lt;/strong&gt;. What are they?
+&lt;strong&gt;Metrics&lt;/strong&gt; in short, are some kind of &lt;strong&gt;numeric values&lt;/strong&gt;, describing code (there is also a possibility to describe classess without code
+using for e.g. UML), or in Object Oriented Metrics, describing &lt;strong&gt;classess&lt;/strong&gt;. It might be easier to describe it on an example. Let's take 
+simpliest metric - &lt;strong&gt;LOC&lt;/strong&gt; (Lines Of Code), which is also seen on an overview pyramid. This metric describes how many lines of code 
+are in all defined methods.&lt;/p&gt;
+&lt;h2&gt;Ok, but why do we need them?&lt;/h2&gt;
+&lt;p&gt;During my career I found myself in many situations that I had to review people's code. And I have to say I'm getting really often angry 
+on what I see. Code likes to be really unreadable - lot's of &lt;em&gt;if&lt;/em&gt; instructions, hellish long methods, everywhere high coupling (sometimes
+I think people don't know what's an DI, they just heard it it's fashionable in new frameworks but what the hell... I don't need it!).
+This might be because mostly I'm used to look into PHP/JavaSript code and I think these languages are really really bad for person which
+learns programming.&lt;/p&gt;
+&lt;p&gt;Additionally I saw also people using for e.g. &lt;em&gt;'Design Patterns'&lt;/em&gt; without any knowledge about them. The're used only for the sake of 
+using them. And this is make you more problematic to mainain the code than just have it done simple.&lt;/p&gt;
+&lt;p&gt;Personally I think that people before starting to learn about Design Patterns should read about something that is called &lt;strong&gt;Design Disharmonies&lt;/strong&gt;.
+These disharmonies are a bad thing in programming world and you should avoid them to maintain your code &lt;strong&gt;readable&lt;/strong&gt; and &lt;strong&gt;maintanable&lt;/strong&gt;. They
+are called &lt;strong&gt;bad smells&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2&gt;Still don't know why do I need these metrics them?&lt;/h2&gt;
+&lt;p&gt;Ok, so if your code grows really big, you need to use more and more time only to verify the code base. If it's really huge then detecting such a
+disharmonies is really hard work. Then the metrics are handy. Using them you can detect &lt;strong&gt;bad smelling code&lt;/strong&gt; and verify if somebody really left some bad suprises.&lt;/p&gt;
+&lt;h2&gt;So what's with Overview Pyramid (Watch out! Yet another boring explaination)?&lt;/h2&gt;
+&lt;p&gt;Let's get back to Overview Pyramid. There was one metric already described as an example: &lt;strong&gt;LOC&lt;/strong&gt;. But we have here also other ones:
+&lt;strong&gt;CYCLO&lt;/strong&gt; - Cyclomatic Number. This number counts all possible paths that it can take. For e.g. &lt;strong&gt;if&lt;/strong&gt; instruction
+will increase this number by one, cause program can go though this if or not. Of course bigger value means higher complexity, which in many 
+cases might be bad.&lt;/p&gt;
+&lt;p&gt;Further on the left side you can find &lt;strong&gt;NOM&lt;/strong&gt; - Number Of Methods, &lt;strong&gt;NOC&lt;/strong&gt; - Number Of Classess and &lt;strong&gt;NOP&lt;/strong&gt; - Number Of Packages, depending
+on which language it can be Package (Java), Module (Python, JavaScript), Namespace (C++, PHP) etc.&lt;/p&gt;
+&lt;p&gt;How to read them? Number on the right of metric is value of this metric. Number above the metric is more important - it's a ratio of a metric
+divided by next metric. For e.g. using previous image:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;LOC/NOM = 7082/461 = 15.362&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;As you can see this value is shown on green - it means that's too high. Code for which this image was generated had too long, not specialized methods.
+For the rest metrics calculations are analogical.&lt;/p&gt;
+&lt;p&gt;Whole Overview Pyramid is divided into 3 parts:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;One, already described tells about &lt;strong&gt;Size and Complexity&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Right one (&lt;strong&gt;FANOUT, CALLS, NOM&lt;/strong&gt;) tells about &lt;strong&gt;Coupling&lt;/strong&gt; between classes.&lt;/li&gt;
+&lt;li&gt;Upper part (AHH, ANDC) tells about bad smells in &lt;strong&gt;Inheritance&lt;/strong&gt; tree.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Based on these number you can think how to refactor your code, to be more maintanable and clearer.&lt;/p&gt;
+&lt;p&gt;It's possible to generate such a diagram using for e.g. &lt;strong&gt;PHP_Depend&lt;/strong&gt;, for Java you can use &lt;strong&gt;Cultivate, inFusion&lt;/strong&gt; plugin for Eclipse.&lt;/p&gt;
+&lt;h2&gt;Heart of the problem - Disharmonies&lt;/h2&gt;
+&lt;p&gt;As said using metrics it is possible to detect anomalies in code. Such an anomalies are divided into 3 groups:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Identity Disharmonies&lt;/li&gt;
+&lt;li&gt;Colaboration Disharmonies&lt;/li&gt;
+&lt;li&gt;Classification Disharmonies&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These ones should be remembered! You should watch out for them. I will shortly describe them by saying few words about their opposition - Harmonies.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Identity Harmony means that every entity is justified. All entities have their meaning and are specialized in what they're doing or they're representing.
+In practice you can say that class should have compact interface, also data and operations should collaborate with each other (for e.g. no data that is not
+used by any of the methods), methods should be cohesive.&lt;/li&gt;
+&lt;li&gt;Collaboration Harmony describes how entities are interacting with each others - if they're not communicating with too many other entities, or if entities
+are not doing too much work (so do not use too many services, but also do not do everything alone).&lt;/li&gt;
+&lt;li&gt;Classification Harmony focuses on inheritance. Tells if entities are justified in inheritance tree.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;All the artfacts of a system should be in harmony.&lt;/p&gt;
+&lt;p&gt;So now the disharmonies. Of course they should be avoided, cause they make the code smelling bad - mostly they show that system is designed against
+the OOP rules. An example of such disharmony is &lt;strong&gt;God Class&lt;/strong&gt;. Such class have a set of different methods, which are not cohesive (cohession means
+that methods use the same class attribute) and are not compact. Such a class is not defined correctly cause does not represent real entity and 
+takes too much responsibility on itself. These classes often have more than 1000 lines of code. Maintaining such a class is really hard
+because of it's complexity. God Class should be divided into smaller entities which will be specialized in what they're meant for.
+Other disharmonies are be:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Feature Envy - objects instead of using their own data, tend to use data of other classes (accessors also count!)&lt;/li&gt;
+&lt;li&gt;Data Class - objects which are really structures. They have data but no encapsulation or interface to work on this data.&lt;/li&gt;
+&lt;li&gt;Brain Method - mostly occures in God Class. It's a huge method that mixes different functionalities and tries to solve more than
+one small problem.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These ones are only examples, because there are many more. To know about other ones I
+suggest reading &lt;strong&gt;Object Oriented Metrics in Practics by Michele Lanza and Radu Marinescu&lt;/strong&gt;. Knowing them will make you write good Object-Oriented code.&lt;/p&gt;</summary><category term="OOP"></category><category term="Metrics"></category><category term="Code Quality"></category></entry><entry><title>First post using Pelican</title><link href="http://www.piotrdeszynski.com/first-post.html" rel="alternate"></link><updated>2012-10-17T22:29:57+02:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2012-10-17:first-post.html</id><summary type="html">&lt;h1&gt;Hello!&lt;/h1&gt;
 &lt;p&gt;Welcome on another boring blog! Generally I don't think too many people will be reading this stuff,
 but this is the first time that I'm trying to write something.&lt;/p&gt;
 &lt;h2&gt;Behind the scenes&lt;/h2&gt;
