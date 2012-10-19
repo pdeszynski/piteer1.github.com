@@ -94,3 +94,5 @@ one small problem.
 These ones are only examples, because there are many more. To know about other ones I
 suggest reading **Object Oriented Metrics in Practics by Michele Lanza and Radu Marinescu**. Knowing them will make you write good Object-Oriented code.
 
+Uff... that's the end for now. This post started to be too long. I will later continue disharmonies topic in separate article to say about them a little bit
+more - how to detect them, how to get rid of them.
