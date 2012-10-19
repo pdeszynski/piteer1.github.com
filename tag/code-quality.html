@@ -109,7 +109,14 @@ For the rest metrics calculations are analogical.</p>
 <li>Upper part (AHH, ANDC) tells about bad smells in <strong>Inheritance</strong> tree.</li>
 </ul>
 <p>Based on these number you can think how to refactor your code, to be more maintanable and clearer.</p>
-<p>It's possible to generate such a diagram using for e.g. <strong>PHP_Depend</strong>, for Java you can use <strong>Cultivate, inFusion</strong> plugin for Eclipse.</p>
+<p>It's possible to generate such a diagram using for e.g. <strong>PHP_Depend</strong>, for Java you can use <strong>Cultivate, inFusion</strong> plugin for Eclipse.
+Below you will find example how to generate this diagram using PHP_Depend</p>
+<div class="codehilite"><pre>php pdepend.php --summary-xml<span class="o">=</span>output/metrics.log --overview-pyramid<span class="o">=</span>output/pyramid.svg PATH_TO_CODE
+</pre></div>
+
+
+<p>This command will generate you a Overview Pyramid in <em>output/pyramid.svg</em> file for a code inside <em>PATH_TO_CODE</em>. Additionally
+it will generate metrics values for each of the files in that folder.</p>
 <h2>Heart of the problem - Disharmonies</h2>
 <p>As said using metrics it is possible to detect anomalies in code. Such an anomalies are divided into 3 groups:</p>
 <ul>

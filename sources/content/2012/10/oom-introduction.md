@@ -60,6 +60,13 @@ Whole Overview Pyramid is divided into 3 parts:
 Based on these number you can think how to refactor your code, to be more maintanable and clearer.
 
 It's possible to generate such a diagram using for e.g. **PHP_Depend**, for Java you can use **Cultivate, inFusion** plugin for Eclipse.
+Below you will find example how to generate this diagram using PHP_Depend
+
+	:::bash
+	php pdepend.php --summary-xml=output/metrics.log --overview-pyramid=output/pyramid.svg PATH_TO_CODE
+
+This command will generate you a Overview Pyramid in *output/pyramid.svg* file for a code inside *PATH_TO_CODE*. Additionally
+it will generate metrics values for each of the files in that folder.
 
 ##Heart of the problem - Disharmonies
 As said using metrics it is possible to detect anomalies in code. Such an anomalies are divided into 3 groups:
