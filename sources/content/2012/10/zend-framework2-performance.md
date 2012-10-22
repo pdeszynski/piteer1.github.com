@@ -50,7 +50,7 @@ Before making second try, I've added into *ZF2 Skeleton App* **EdsSuperLuminal**
 What a surprise... results didn't change too much!
 To be honest I got dissapointed. I was hoping for competition between ZF2 and Symfony 2 (or at least 50% performance boost) but looking at these graphs we
 can observe around 20% increase in number of requests handled. Still something, but comparing to *Symfony 2* It's quite a low value. Looking at the results further
-we could say that *ZF2* will be using quite less I/O operations (from 163 to 20, it's quite a result), but still memory usage might be a little terryfying.
+we could say that *ZF2* will be using quite less I/O operations (from 163 to 20 included files, it's quite a result), but still memory usage might be a little terryfying.
 
 ##Should I care?
 Depends. In  most of cases these results doesn't matter. Firstly this is "Hello World!" test. Such tests doesn't have too big meaning in real life applications,
