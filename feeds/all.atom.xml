@@ -21,7 +21,7 @@ available at &lt;a href="https://github.com/trq/phpBenches"&gt;Github&lt;/a&gt;.
 &lt;li&gt;APC&lt;/li&gt;
 &lt;li&gt;xhprof&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;First try - without class cache&lt;/h2&gt;
+&lt;h2&gt;First try - without a class cache&lt;/h2&gt;
 &lt;p&gt;Basically my results didn't differ from one provided by &lt;em&gt;trq&lt;/em&gt;
 &lt;img alt="Requests per second" src="/images/2012/10/no_cache_zf2/request-per-second.png" title="Requests per sec" /&gt;
 &lt;img alt="Response time" src="/images/2012/10/no_cache_zf2/response-time.png" title="Requests per sec" /&gt;
@@ -30,7 +30,7 @@ available at &lt;a href="https://github.com/trq/phpBenches"&gt;Github&lt;/a&gt;.
 &lt;img alt="Average load" src="/images/2012/10/no_cache_zf2/loadavg.png" title="Average load" /&gt;
 &lt;img alt="Memory usage" src="/images/2012/10/no_cache_zf2/memory-usage.png" title="Memory usage" /&gt;&lt;/p&gt;
 &lt;p&gt;As you can see &lt;strong&gt;ZF2 is far behind Symfony 2&lt;/strong&gt;. Response time was 4 times slower. That's quite bad. Let's move on to second try.&lt;/p&gt;
-&lt;h2&gt;Second try - with class cache&lt;/h2&gt;
+&lt;h2&gt;Second try - with a class cache&lt;/h2&gt;
 &lt;p&gt;Before making second try, I've added into &lt;em&gt;ZF2 Skeleton App&lt;/em&gt; &lt;strong&gt;EdsSuperLuminal&lt;/strong&gt; module and enabled it (this module is available at &lt;a href="https://github.com/EvanDotPro/EdpSuperluminal"&gt;Github&lt;/a&gt;)
 &lt;img alt="Requests per second" src="/images/2012/10/with_cache_zf2/request-per-second.png" title="Requests per sec" /&gt;
 &lt;img alt="Response time" src="/images/2012/10/with_cache_zf2/response-time.png" title="Requests per sec" /&gt;

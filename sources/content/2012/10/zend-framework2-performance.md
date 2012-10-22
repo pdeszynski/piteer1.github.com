@@ -27,7 +27,7 @@ I've run tests on machine
 * APC
 * xhprof
 
-##First try - without class cache
+##First try - without a class cache
 Basically my results didn't differ from one provided by *trq*
 ![Requests per second](/images/2012/10/no_cache_zf2/request-per-second.png "Requests per sec")
 ![Response time](/images/2012/10/no_cache_zf2/response-time.png "Requests per sec")
@@ -38,7 +38,7 @@ Basically my results didn't differ from one provided by *trq*
 
 As you can see **ZF2 is far behind Symfony 2**. Response time was 4 times slower. That's quite bad. Let's move on to second try.
 
-##Second try - with class cache
+##Second try - with a class cache
 Before making second try, I've added into *ZF2 Skeleton App* **EdsSuperLuminal** module and enabled it (this module is available at [Github](https://github.com/EvanDotPro/EdpSuperluminal))
 ![Requests per second](/images/2012/10/with_cache_zf2/request-per-second.png "Requests per sec")
 ![Response time](/images/2012/10/with_cache_zf2/response-time.png "Requests per sec")
