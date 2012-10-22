@@ -53,8 +53,97 @@
         
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="./object-oriented-metrics-introduction.html">Object Oriented Metrics - WTF?</a></h1> 
+                    <h1 class="entry-title"><a href="./zend-framework2-performance.html">Yet another Zend Framework 2 performance test</a></h1> 
                     <footer class="post-info">
+        <abbr class="published" title="2012-10-22T20:00:00">
+                pon 22 październik 2012
+        </abbr>
+
+        
+        <address class="vcard author">
+                By <a class="url fn" href="./author/piotr-deszynski.html">Piotr Deszyński</a>
+        </address>
+        
+<p>In <a href="./category/misc.html">Misc</a>. </p>
+<p>tags: <a href="./tag/php.html">PHP</a><a href="./tag/frameworks.html">Frameworks</a><a href="./tag/zend-framework-2.html">Zend Framework 2</a><a href="./tag/symfony-2.html">Symfony 2</a><a href="./tag/performance.html">Performance</a></p>
+
+
+</footer><!-- /.post-info --><p>We have full version of ZF2! There's even a Zend Framework 2.0.3 version. Full of optimism I've started reading about it and
+full of curiousity I've looked on performance charts. How big was my surprise when i've looked on charts seeing that ZF2 is 4 times slower
+than ZF1 <a href="http://www.enrise.com/2012/02/zend-framework-2-performance/">Enrise</a>. Said to myself, it's an old post and tests were done on an old
+version of ZF2, so probably it's not so bad at the end. Still I didn't think about doing that day any tests by myself.</p>
+<p>Few days ago I saw another great post by <a href="http://www.enrise.com/2012/02/zend-framework-2-performance/">trq</a>. He in opposition to previous test compared ZF2 with other
+decent frameworks (<strong>Symfony 2</strong> and <a href="http://proemframework.org">Proem</a>). Sadly this time also it didn't satisfy me with the results. For my luck test framework written by <em>trq</em> is
+available at <a href="https://github.com/trq/phpBenches">Github</a>. In the meantime I've found an module for ZF2 which caches classes (and as they write <em>"EDPSUPERLUMINAL - Caches the common Zend* classes used by your application into a single cache file, reducing reliance on the autoloader, and greatly improving the baseline performance of ZF2. By EVAN COURY"</em>) on official ZF2 modules page. Being unsure if in testes done by <em>trq</em> class caching was turned on, full of optimism I've decided to make tests by myself.</p>
+<h2>Machine spec</h2>
+<p>I've run tests on machine</p>
+<ul>
+<li>Core i7 Intel® Core™ i7-2630QM Processor (6M Cache, up to 2.90 GHz)</li>
+<li>16 GB DDR-3 RAM</li>
+<li>1TB (RAID 2x500GB 7200 RPM STRIPE) HDD</li>
+<li>Kubuntu 12.04</li>
+</ul>
+<h2>Environment</h2>
+<ul>
+<li>PHP 5.3.10-1ubuntu3.4 with Suhosin-Patch (cli) (built: Sep 12 2012 18:59:41)</li>
+<li>Apache/2.2.22 (Ubuntu)</li>
+<li>APC</li>
+<li>xhprof</li>
+</ul>
+<h2>First try - without class cache</h2>
+<p>Basically my results didn't differ from one provided by <em>trq</em>
+<img alt="Requests per second" src="static/images/2012/10/no_cache_zf2/request-per-second.png" title="Requests per sec" />
+<img alt="Response time" src="static/images/2012/10/no_cache_zf2/response-time.png" title="Requests per sec" />
+<img alt="Number of function calls" src="static/images/2012/10/no_cache_zf2/number-of-function-calls.png" title="Number of function calls" />
+<img alt="Number of files included" src="static/images/2012/10/no_cache_zf2/number-of-files.png" title="Number of files included" />
+<img alt="Average load" src="static/images/2012/10/no_cache_zf2/loadavg.png" title="Average load" />
+<img alt="Memory usage" src="static/images/2012/10/no_cache_zf2/memory-usage.png" title="Memory usage" /></p>
+<p>As you can see <strong>ZF2 is far behind Symfony 2</strong>. Response time was 4 times slower. That's quite bad. Let's move on to second try.</p>
+<h2>Second try - with class cache</h2>
+<p>Before making second try, I've added into <em>ZF2 Skeleton App</em> <strong>EdsSuperLuminal</strong> module and enabled it (this module is available at <a href="https://github.com/EvanDotPro/EdpSuperluminal">Github</a>)
+<img alt="Requests per second" src="static/images/2012/10/with_cache_zf2/request-per-second.png" title="Requests per sec" />
+<img alt="Response time" src="static/images/2012/10/with_cache_zf2/response-time.png" title="Requests per sec" />
+<img alt="Number of function calls" src="static/images/2012/10/with_cache_zf2/number-of-function-calls.png" title="Number of function calls" />
+<img alt="Number of files included" src="static/images/2012/10/with_cache_zf2/number-of-files.png" title="Number of files included" />
+<img alt="Average load" src="static/images/2012/10/with_cache_zf2/loadavg.png" title="Average load" />
+<img alt="Memory usage" src="static/images/2012/10/with_cache_zf2/memory-usage.png" title="Memory usage" /></p>
+<p>What a surprise... results didn't change too much!
+To be honest I got dissapointed. I was hoping for competition between ZF2 and Symfony 2 (or at least 50% performance boost) but looking at these graphs we
+can observe around 20% increase in number of requests handled. Still something, but comparing to <em>Symfony 2</em> It's quite a low value. Looking at the results further
+we could say that <em>ZF2</em> will be using quite less I/O operations (from 163 to 20, it's quite a result), but still memory usage might be a little terryfying.</p>
+<h2>Should I care?</h2>
+<p>Depends. In  most of cases these results doesn't matter. Firstly this is "Hello World!" test. Such tests doesn't have too big meaning in real life applications,
+where bottleneck is mostly a database. Secondary, in most of the cases you don't need to squeeze 60 ms from your servers. In case of websites with huge traffic, sadly
+<em>ZF2</em> is not the best choice. In such a website 60ms difference might be huge performance impact. <em>Math.pow('Sadly', 2)</em>  because I'm looking for framework
+for a one of my company's big pages, cause it needs a lot of updates and rather I won't be able to use this framework. There performance really matters.</p>
+<h2>What next?</h2>
+<p>I have to wait. Hope that there will be some performance tunning with next minor releases of <em>ZF2</em>. Until then I might stick to <em>Symfony 2</em> or to some smaller framework available.
+If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 5.4) repository, or mine forked repository with code updated to support PHP 5.3  available at <a href="https://github.com/piteer1/phpBenches">Github</a></p><p>There are <a href="./zend-framework2-performance.html#disqus_thread">comments</a>.</p>
+                </article>
+                
+            </aside><!-- /#featured -->
+            
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+            
+        
+        
+        
+            
+
+        
+         
+            
+            <li><article class="hentry">    
+                <header>
+                    <h1><a href="./object-oriented-metrics-introduction.html" rel="bookmark"
+                           title="Permalink to Object Oriented Metrics - WTF?">Object Oriented Metrics - WTF?</a></h1>
+                </header>
+                
+                <div class="entry-content">
+                <footer class="post-info">
         <abbr class="published" title="2012-10-18T22:00:00">
                 czw 18 październik 2012
         </abbr>
@@ -68,98 +157,16 @@
 <p>tags: <a href="./tag/oop.html">OOP</a><a href="./tag/metrics.html">Metrics</a><a href="./tag/code-quality.html">Code Quality</a></p>
 
 
-</footer><!-- /.post-info --><h1>WTF is that?</h1>
+</footer><!-- /.post-info -->
+                <h1>WTF is that?</h1>
 <p>We'll start from an image. Did you see in past something like that?</p>
 <p><img alt="Overview pyramid" src="static/images/2012/10/overview-pyramid.png" title="An example of overview pyramid" /></p>
 <p>This is called <strong>Overview Pyramid</strong>. This is, I think, most commonly used visualization of <strong>Object oriented metrics</strong>. What are they?
-<strong>Metrics</strong> in short, are some kind of <strong>numeric values</strong>, describing code (there is also a possibility to describe classess without code
-using for e.g. UML), or in Object Oriented Metrics, describing <strong>classess</strong>. It might be easier to describe it on an example. Let's take 
-simpliest metric - <strong>LOC</strong> (Lines Of Code), which is also seen on an overview pyramid. This metric describes how many lines of code 
-are in all defined methods.</p>
-<h2>Ok, but why do we need them?</h2>
-<p>During my career I found myself in many situations that I had to review people's code. And I have to say I'm getting really often angry 
-on what I see. Code likes to be really unreadable - lot's of <em>if</em> instructions, hellish long methods, everywhere high coupling (sometimes
-I think people don't know what's an DI, they just heard it it's fashionable in new frameworks but what the hell... I don't need it!).
-This might be because mostly I'm used to look into PHP/JavaSript code and I think these languages are really really bad for person which
-learns programming.</p>
-<p>Additionally I saw also people using for e.g. <em>'Design Patterns'</em> without any knowledge about them. The're used only for the sake of 
-using them. And this is make you more problematic to mainain the code than just have it done simple.</p>
-<p>Personally I think that people before starting to learn about Design Patterns should read about something that is called <strong>Design Disharmonies</strong>.
-These disharmonies are a bad thing in programming world and you should avoid them to maintain your code <strong>readable</strong> and <strong>maintanable</strong>. They
-are called <strong>bad smells</strong>.</p>
-<h2>Still don't know why do I need these metrics them?</h2>
-<p>Ok, so if your code grows really big, you need to use more and more time only to verify the code base. If it's really huge then detecting such a
-disharmonies is really hard work. Then the metrics are handy. Using them you can detect <strong>bad smelling code</strong> and verify if somebody really left some bad suprises.</p>
-<h2>So what's with Overview Pyramid (Watch out! Yet another boring explaination)?</h2>
-<p>Let's get back to Overview Pyramid. There was one metric already described as an example: <strong>LOC</strong>. But we have here also other ones:
-<strong>CYCLO</strong> - Cyclomatic Number. This number counts all possible paths that it can take. For e.g. <strong>if</strong> instruction
-will increase this number by one, cause program can go though this if or not. Of course bigger value means higher complexity, which in many 
-cases might be bad.</p>
-<p>Further on the left side you can find <strong>NOM</strong> - Number Of Methods, <strong>NOC</strong> - Number Of Classess and <strong>NOP</strong> - Number Of Packages, depending
-on which language it can be Package (Java), Module (Python, JavaScript), Namespace (C++, PHP) etc.</p>
-<p>How to read them? Number on the right of metric is value of this metric. Number above the metric is more important - it's a ratio of a metric
-divided by next metric. For e.g. using previous image:</p>
-<p><strong>LOC/NOM = 7082/461 = 15.362</strong></p>
-<p>As you can see this value is shown on green - it means that's too high. Code for which this image was generated had too long, not specialized methods.
-For the rest metrics calculations are analogical.</p>
-<p>Whole Overview Pyramid is divided into 3 parts:</p>
-<ul>
-<li>One, already described tells about <strong>Size and Complexity</strong></li>
-<li>Right one (<strong>FANOUT, CALLS, NOM</strong>) tells about <strong>Coupling</strong> between classes.</li>
-<li>Upper part (AHH, ANDC) tells about bad smells in <strong>Inheritance</strong> tree.</li>
-</ul>
-<p>Based on these number you can think how to refactor your code, to be more maintanable and clearer.</p>
-<p>It's possible to generate such a diagram using for e.g. <strong>PHP_Depend</strong>, for Java you can use <strong>Cultivate, inFusion</strong> plugin for Eclipse.
-Below you will find example how to generate this diagram using PHP_Depend</p>
-<div class="codehilite"><pre>php pdepend.php --summary-xml<span class="o">=</span>output/metrics.log --overview-pyramid<span class="o">=</span>output/pyramid.svg PATH_TO_CODE
-</pre></div>
-
-
-<p>This command will generate you a Overview Pyramid in <em>output/pyramid.svg</em> file for a code inside <em>PATH_TO_CODE</em>. Additionally
-it will generate metrics values for each of the files in that folder.</p>
-<h2>Heart of the problem - Disharmonies</h2>
-<p>As said using metrics it is possible to detect anomalies in code. Such an anomalies are divided into 3 groups:</p>
-<ul>
-<li>Identity Disharmonies</li>
-<li>Colaboration Disharmonies</li>
-<li>Classification Disharmonies</li>
-</ul>
-<p>These ones should be remembered! You should watch out for them. I will shortly describe them by saying few words about their opposition - Harmonies.</p>
-<ol>
-<li>Identity Harmony means that every entity is justified. All entities have their meaning and are specialized in what they're doing or they're representing.
-In practice you can say that class should have compact interface, also data and operations should collaborate with each other (for e.g. no data that is not
-used by any of the methods), methods should be cohesive.</li>
-<li>Collaboration Harmony describes how entities are interacting with each others - if they're not communicating with too many other entities, or if entities
-are not doing too much work (so do not use too many services, but also do not do everything alone).</li>
-<li>Classification Harmony focuses on inheritance. Tells if entities are justified in inheritance tree.</li>
-</ol>
-<p>All the artfacts of a system should be in harmony.</p>
-<p>So now the disharmonies. Of course they should be avoided, cause they make the code smelling bad - mostly they show that system is designed against
-the OOP rules. An example of such disharmony is <strong>God Class</strong>. Such class have a set of different methods, which are not cohesive (cohession means
-that methods use the same class attribute) and are not compact. Such a class is not defined correctly cause does not represent real entity and 
-takes too much responsibility on itself. These classes often have more than 1000 lines of code. Maintaining such a class is really hard
-because of it's complexity. God Class should be divided into smaller entities which will be specialized in what they're meant for.
-Other disharmonies are be:</p>
-<ul>
-<li>Feature Envy - objects instead of using their own data, tend to use data of other classes (accessors also count!)</li>
-<li>Data Class - objects which are really structures. They have data but no encapsulation or interface to work on this data.</li>
-<li>Brain Method - mostly occures in God Class. It's a huge method that mixes different functionalities and tries to solve more than
-one small problem.</li>
-</ul>
-<p>These ones are only examples, because there are many more. To know about other ones I
-suggest reading <strong>Object Oriented Metrics in Practics by Michele Lanza and Radu Marinescu</strong>. Knowing them will make you write good Object-Oriented code.</p>
-<p>Uff... that's the end for now. This post started to be too long. I will later continue disharmonies topic in separate article to say about them a little bit
-more - how to detect them, how to get rid of them.</p><p>There are <a href="./object-oriented-metrics-introduction.html#disqus_thread">comments</a>.</p>
-                </article>
-                
-            </aside><!-- /#featured -->
-            
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-            
-        
+<strong>Metrics</strong> in short, are some kind of <strong>numeric values</strong>, describing code (there is ...</p>
+                <a class="readmore" href="./object-oriented-metrics-introduction.html">read more</a>
+                <p>There are <a href="./object-oriented-metrics-introduction.html#disqus_thread">comments</a>.</p>
+                </div><!-- /.entry-content -->
+            </article></li>
         
         
             
