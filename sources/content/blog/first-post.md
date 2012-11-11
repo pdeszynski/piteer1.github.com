@@ -2,6 +2,7 @@ Title: First post using Pelican
 Tags: boring, something new
 Slug: first-post
 Category: Misc
+Date: 2012-10-17 15:00
 
 #Hello!
 

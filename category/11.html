@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Yet another boring programmer's blog - 11</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href=".././theme/css/main.css" type="text/css" />
+        
+        <link href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yet another boring programmer's blog Atom Feed" />
+        
+        
+
+        <!--[if IE]>
+                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+        <!--[if lte IE 7]>
+                <link rel="stylesheet" type="text/css" media="all" href=".././css/ie.css"/>
+                <script src=".././js/IE8.js" type="text/javascript"></script><![endif]-->
+
+        <!--[if lt IE 7]>
+                <link rel="stylesheet" type="text/css" media="all" href=".././css/ie6.css"/><![endif]-->
+
+</head>
+
+<body id="index" class="home">
+
+<a href="https://github.com/piteer1">
+
+<img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" />
+
+</a>
+
+        <header id="banner" class="body">
+                <h1><a href="../.">Yet another boring programmer's blog </a></h1>
+                <nav><ul>
+                
+                
+                
+                
+                
+                    <li ><a href=".././category/oop.html">OOP</a></li>
+                
+                    <li ><a href=".././category/misc.html">Misc</a></li>
+                
+                    <li ><a href=".././category/about.html">About</a></li>
+                
+                    <li class="active"><a href=".././category/11.html">11</a></li>
+                
+                </ul></nav>
+        </header><!-- /#banner -->
+                
+
+            
+
+        
+        
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href=".././vagrant-virtualbox-puppet-and-how-to-make-it-together.html">Vagrant, VirtualBox, Puppet and how to make it together</a></h1> 
+                    <footer class="post-info">
+        <abbr class="published" title="2012-11-10T20:00:00">
+                sob 10 listopada 2012
+        </abbr>
+
+        
+        <address class="vcard author">
+                By <a class="url fn" href=".././author/piotr-deszynski.html">Piotr Deszyński</a>
+        </address>
+        
+<p>In <a href=".././category/11.html">11</a>. </p>
+<p>tags: <a href=".././tag/vagrant.html">Vagrant</a><a href=".././tag/virtualbox.html">VirtualBox</a><a href=".././tag/puppet.html">Puppet</a><a href=".././tag/development.html">Development</a></p>
+
+
+</footer><!-- /.post-info --><p>How many times in your career you heard from other programmers in your team: <em>"For me it works"</em> while developing some functionality. It happen to me really often. Why does it happen? 99% of the cases it's the difference between environments on which app was run. By myself, I install huge amount of libs on my system not relevant to current project and I forget about them really often having a mess in my personal system. I think, lots of people does the same.</p>
+<p>Coming back to the previously stated problem, how to solve it? One of the possible approaches might be using <strong>Continous Integration</strong> for that, by creating for e.g. unstable, unreviewed branch and setuping CI to make builds based on it. Even if this will work then still it's not optimal solution, because it forces you to push unstable code to repository. Additionally you have to schedule new build and wait for the results.</p>
+<p>Much better approach would be having during the development a way to ensure that everybody have the same environment adn as close as it's possible similar to production one. Answer for all and even more might be <a href="http://vagrantup.com" title="Vagrant home page"><strong>Vagrant!</strong></a>.</p>
+<p><strong>Vagrant</strong> uses <strong>VirtualBox</strong> to build for you a virtual machine ready for work. The main advantage of it is it's simplicity to run it. As manual says to start a VM it's enough</p>
+<div class="codehilite"><pre>vagrant box add lucid32 http://files.vagrantup.com/lucid32.box
+vagrant init lucid32
+vagrant up
+</pre></div>
+
+
+<p>This will download you a box (it's something like base image of a system) and add it to system, initialize it in current directory and run VirtualBox. It's really simple!</p><p>There are <a href=".././vagrant-virtualbox-puppet-and-how-to-make-it-together.html#disqus_thread">comments</a>.</p>
+                </article>
+                
+                    
+<p class="paginator">
+    
+    Page 1 / 1
+    
+</p>
+
+                
+            </aside><!-- /#featured -->
+            
+        
+        
+        
+            </ol><!-- /#posts-list -->
+            
+            </section><!-- /#content -->
+        
+    
+
+
+        <section id="extras" class="body">
+        
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                        
+                            <li><a href="http://docs.notmyidea.org/alexis/pelican/">Pelican</a></li>
+                        
+                            <li><a href="http://python.org">Python.org</a></li>
+                        
+                            <li><a href="http://validator.w3.org/check?uri=http%3A%2F%2Fpiotrdeszynski.com%2F">HTML5 Validator</a></li>
+                        
+                        </ul>
+                </div><!-- /.blogroll -->
+        
+        
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+                            
+
+                        
+                            <li><a href="http://github.com/piteer1">github</a></li>
+                        
+                            <li><a href="http://www.linkedin.com/pub/piotr-deszy%C5%84ski/14/762/17">linkedin.com</a></li>
+                        
+                        </ul>
+                </div><!-- /.social -->
+        
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35673065-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'yetanotherboringprogrammersblog';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</body>
+</html>

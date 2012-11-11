@@ -53,10 +53,10 @@
         
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="./zend-framework2-performance.html">Yet another Zend Framework 2 performance test</a></h1> 
+                    <h1 class="entry-title"><a href="./vagrant-virtualbox-puppet-yet-another-boring-explanation.html">Vagrant, VirtualBox, Puppet, yet another boring explanation</a></h1> 
                     <footer class="post-info">
-        <abbr class="published" title="2012-10-22T20:00:00">
-                pon 22 październik 2012
+        <abbr class="published" title="2012-11-10T20:00:00">
+                sob 10 listopada 2012
         </abbr>
 
         
@@ -65,60 +65,449 @@
         </address>
         
 <p>In <a href="./category/misc.html">Misc</a>. </p>
-<p>tags: <a href="./tag/php.html">PHP</a><a href="./tag/frameworks.html">Frameworks</a><a href="./tag/zend-framework-2.html">Zend Framework 2</a><a href="./tag/symfony-2.html">Symfony 2</a><a href="./tag/performance.html">Performance</a></p>
+<p>tags: <a href="./tag/vagrant.html">Vagrant</a><a href="./tag/virtualbox.html">VirtualBox</a><a href="./tag/puppet.html">Puppet</a><a href="./tag/development.html">Development</a></p>
 
 
-</footer><!-- /.post-info --><p>We have full version of ZF2! There's even a Zend Framework 2.0.3 version. Full of optimism I've started reading about it and
-full of curiousity I've looked on performance charts. How big was my surprise when i've looked on charts seeing that ZF2 is 4 times slower
-than ZF1 <a href="http://www.enrise.com/2012/02/zend-framework-2-performance/">Enrise</a>. Said to myself, it's an old post and tests were done on an old
-version of ZF2, so probably it's not so bad at the end. Still I didn't think about doing that day any tests by myself.</p>
-<p>Few days ago I saw another great post by <a href="http://www.enrise.com/2012/02/zend-framework-2-performance/">trq</a>. He in opposition to previous test compared ZF2 with other
-decent frameworks (<strong>Symfony 2</strong> and <a href="http://proemframework.org">Proem</a>). Sadly this time also it didn't satisfy me with the results. For my luck test framework written by <em>trq</em> is
-available at <a href="https://github.com/trq/phpBenches">Github</a>. In the meantime I've found an module for ZF2 which caches classes (and as they write <em>"EDPSUPERLUMINAL - Caches the common Zend* classes used by your application into a single cache file, reducing reliance on the autoloader, and greatly improving the baseline performance of ZF2. By EVAN COURY"</em>) on official ZF2 modules page. Being unsure if in testes done by <em>trq</em> class caching was turned on, full of optimism I've decided to make tests by myself.</p>
-<h2>Machine spec</h2>
-<p>I've run tests on machine</p>
+</footer><!-- /.post-info --><p>How many times in your career you heard from other programmers in your team: <em>"For me it works"</em> while developing some functionality. It happen to me really often. Why does it happen? 99% of the cases it's the difference between environments on which app was run. By myself, I install huge amount of libs on my system not relevant to current project and I forget about them really often having a mess in my personal system. I think, lots of people does the same.</p>
+<p>Coming back to the previously stated problem, how to solve it? One of the possible approaches might be using <strong>Continuous Integration</strong> for that, by creating for e.g. unstable, un-reviewed branch and setupping CI to make builds based on it. Even if this will work then still it's not optimal solution, because it forces you to push unstable code to repository. Additionally you have to schedule new build and wait for the results.</p>
+<p>Much better approach would be having during the development a way to ensure that everybody have the same environment and as close as it's possible similar to production one. Answer for all and even more might be <a href="http://vagrantup.com" title="Vagrant home page"><strong>Vagrant!</strong></a>.</p>
+<p><strong>Vagrant</strong> uses <strong>VirtualBox</strong> to build for you a virtual machine ready for work. The main advantage of it is it's simplicity to run it. As manual says to start a VM it's enough</p>
+<div class="codehilite"><pre>vagrant box add lucid32 http://files.vagrantup.com/lucid32.box
+vagrant init lucid32
+vagrant up
+</pre></div>
+
+
+<p>This will download you a box (it's a base image of a system) and add it to system globally, initialize it (it create for you file named <strong>Vagrantfile</strong>) in current directory and run VirtualBox. This VM already sees the folder in which you ran these commands, so all the files in your project are already accessible. What does it give you? If you ran a server inside a VM it will be able to read all the necessary files out of the box! 
+But this was just easiest example, this server does not do too much other that just running. Imagine now that we need running server with PHP support, how to get it?</p>
+<p>Again one of the approaches would be connecting to this VM and installing all necessary libs (using my beloved Debian's apt-get). It's not the best solution for many reasons:</p>
 <ul>
-<li>Core i7 Intel® Core™ i7-2630QM Processor (6M Cache, up to 2.90 GHz)</li>
-<li>16 GB DDR-3 RAM</li>
-<li>1TB (RAID 2x500GB 7200 RPM STRIPE) HDD</li>
-<li>Kubuntu 12.04</li>
+<li>People might install different libraries and forget what did they install.</li>
+<li>To have the same VM you would have to add whole image to your version control system. These images are big, imagine that with each lib install you have to push it. This is Madness!</li>
+<li>How to manage conflicts when two developers install some other libraries at the same time and there's a conflict on this file?</li>
 </ul>
-<h2>Environment</h2>
+<p>When you use <strong>Vagrant</strong> you do not install this way any necessary libraries. Vagrant uses provisioning system for that. You can choose between <a href="http://www.opscode.com/chef/"><strong>Chef</strong></a> and <a href="http://puppetlabs.com"><strong>Puppet</strong></a>. You define in special file what kind of libraries and actions have to be made on a server to setup it according to your needs. I think it'll be easier while trying to explain it using an example.</p>
+<h2>A long Puppet example</h2>
+<p>Let's assume that we have web project in that's written PHP. For that we will need a web server and a PHP installation. For that let's choose <em>Nginx</em> as a server and <em>php-fpm</em>. All puppet files will be in project root (<strong>not</strong> document root) in <em>private/puppet</em> folder. All files for Puppet have to be put in correct place in directory structure which should look like that:</p>
+<div class="codehilite"><pre><span class="n">manifests</span>
+    #<span class="n">here</span> <span class="n">goes</span> <span class="n">all</span> <span class="n">top</span> <span class="n">directory</span> <span class="n">manifests</span> <span class="k">for</span> <span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.</span> <span class="n">production</span> <span class="n">setup</span> <span class="n">file</span> <span class="p">(</span><span class="n">file</span> <span class="n">should</span> <span class="k">end</span> <span class="n">with</span> <span class="p">.</span><span class="n">pp</span> <span class="n">extension</span> <span class="n">here</span><span class="p">)</span>
+<span class="n">modules</span>
+    #<span class="n">here</span> <span class="n">go</span> <span class="n">all</span> <span class="n">modules</span> <span class="n">which</span> <span class="n">can</span> <span class="n">represent</span> <span class="k">for</span> <span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.</span> <span class="n">the</span> <span class="n">way</span> <span class="n">how</span> <span class="n">apache</span> <span class="n">should</span> <span class="n">be</span> <span class="n">initialized</span>
+    <span class="n">module</span>
+        <span class="n">manifests</span>
+            <span class="n">init</span><span class="p">.</span><span class="n">pp</span> #<span class="n">additional</span> <span class="n">module</span> <span class="n">manifets</span><span class="p">,</span> <span class="n">it</span><span class="o">&#39;</span><span class="n">s</span> <span class="n">important</span> <span class="n">that</span> <span class="n">main</span> <span class="n">module</span> <span class="n">file</span> <span class="n">is</span> <span class="n">named</span> <span class="n">init</span><span class="p">.</span><span class="n">pp</span>
+        <span class="n">files</span>
+            #<span class="n">any</span> <span class="n">files</span> <span class="n">used</span> <span class="n">by</span> <span class="n">module</span>
+        <span class="n">templates</span>
+            #<span class="n">any</span> <span class="n">templates</span> <span class="n">used</span> <span class="n">by</span> <span class="n">module</span><span class="p">,</span> <span class="n">I</span> <span class="n">will</span> <span class="n">use</span> <span class="n">a</span> <span class="n">template</span> <span class="k">for</span> <span class="n">virtual</span> <span class="n">host</span> <span class="n">definition</span>
+</pre></div>
+
+
+<p>Ok, so let's prepare firstly production environment. For that I will create such a directory structure:</p>
+<div class="codehilite"><pre><span class="n">manifests</span>
+    <span class="n">production</span><span class="p">.</span><span class="n">pp</span>
+    <span class="n">development</span><span class="p">.</span><span class="n">pp</span>
+<span class="n">modules</span>
+    <span class="n">php</span><span class="o">-</span><span class="n">fpm</span>
+    <span class="n">php</span><span class="o">-</span><span class="n">devel</span>
+    <span class="n">nginx</span>
+    <span class="n">users</span>
+</pre></div>
+
+
+<p>And an initialization manifest</p>
+<div class="codehilite"><pre><span class="c"># private/puppet/manifests/production.pp</span>
+<span class="nb">class</span> <span class="n">production</span><span class="o">-</span><span class="n">init</span> <span class="p">(</span>$<span class="n">page</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">exec</span> <span class="p">{</span> <span class="s">&#39;apt-get update&#39;</span><span class="p">:</span> 
+        <span class="n">command</span> <span class="p">=</span><span class="o">&gt;</span> <span class="s">&#39;/usr/bin/apt-get update&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="c">#create a webadmin user</span>
+    <span class="n">users</span><span class="p">::</span><span class="n">add_user</span> <span class="p">{</span><span class="s">&#39;webadmin&#39;</span><span class="p">:</span>
+        <span class="n">uid</span> <span class="p">=</span><span class="o">&gt;</span> 500
+    <span class="p">}</span>
+    <span class="n">include</span> <span class="n">php</span><span class="o">-</span><span class="n">fpm</span>
+    <span class="nb">class</span> <span class="p">{</span><span class="s">&#39;nginx&#39;</span><span class="p">:</span>
+        <span class="n">page</span> <span class="p">=</span><span class="o">&gt;</span> $<span class="n">page</span><span class="p">,</span>
+    <span class="p">}</span>    
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Let's explain what's happening here.</p>
+<div class="codehilite"><pre><span class="n">class</span> <span class="n">production</span><span class="o">-</span><span class="n">init</span> <span class="p">(</span>$<span class="n">page</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This is Puppet class definition. I've called production-init, so as the name said it's responsible for whole production initialization. This class get's one $page parameter which is the page domain name. This is not normally necessary, but I wanted to be able to easily create other pages without making copy&amp;paste of Puppet manifests. Let's go further:</p>
+<div class="codehilite"><pre><span class="n">exec</span> <span class="p">{</span> <span class="s">&#39;apt-get update&#39;</span><span class="p">:</span> 
+    <span class="n">command</span> <span class="p">=</span><span class="o">&gt;</span> <span class="s">&#39;/usr/bin/apt-get update&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Exec task just executes command on server (our VM). This will just update repositories before starting any installations.  Important thing in exec is that commands have to have <strong>full path to executable</strong>!</p>
+<p>In most of the cases while running webserver on production environment you run it in different user (webadmin), so also let's create one not to have later some permission problems on a different machine, when on ours it'll be working ok (for e.g. with cache folder).</p>
+<div class="codehilite"><pre><span class="c">#create a webadmin user</span>
+<span class="n">users</span><span class="p">::</span><span class="n">add_user</span> <span class="p">{</span><span class="s">&#39;webadmin&#39;</span><span class="p">:</span>
+    <span class="n">uid</span> <span class="p">=</span><span class="o">&gt;</span> 500
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Here we called <strong>defined resource type</strong>. If you have good eyesight you saw that previously class was used (production-init). Defined types and classes are similar, but they have one difference. Classes are singletons and any call will Puppet to raise an error.</p>
+<p>'users::add_user' means: call add_user from users module. This implies that there is an add_user.pp file in a path:</p>
+<div class="codehilite"><pre><span class="n">modules</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="n">manifests</span><span class="o">/</span>
+</pre></div>
+
+
+<p>Last parts are calls to <em>php-fpm</em> and <em>nginx</em> classes. You can see the difference how they're called. Why like that? It's because <em>php-fpm</em> is a class without any parameters, so it's allowed to use shorter <strong>include</strong> version.</p>
+<div class="codehilite"><pre><span class="n">include</span> <span class="n">php</span><span class="o">-</span><span class="n">fpm</span> # <span class="o">==</span><span class="p">=</span> <span class="n">class</span> <span class="p">{</span><span class="s">&#39;php-fpm&#39;</span><span class="p">:</span> <span class="p">}</span>
+</pre></div>
+
+
+<p>You have to remember that there is <strong>no possibility</strong> to call a class with a param(s) with include!</p>
+<h2>Resource add_user</h2>
+<p>Definition of <em>add_user</em> looks as follows:</p>
+<div class="codehilite"><pre><span class="c">#private/puppet/modules/users/manifests/user_add.pp</span>
+<span class="n">define</span> <span class="n">users</span><span class="p">::</span><span class="n">add_user</span> <span class="p">(</span> $<span class="n">username</span> <span class="p">=</span> $<span class="nb">title</span><span class="p">,</span> $<span class="n">uid</span> <span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">user</span> <span class="p">{</span> $<span class="n">username</span><span class="p">:</span>
+            <span class="n">comment</span> <span class="p">=</span><span class="o">&gt;</span> <span class="s">&quot;Automatically generated by puppet&quot;</span><span class="p">,</span>
+            <span class="n">shell</span>   <span class="p">=</span><span class="o">&gt;</span> <span class="s">&quot;/bin/bash&quot;</span><span class="p">,</span>
+            <span class="n">uid</span>     <span class="p">=</span><span class="o">&gt;</span> $<span class="n">uid</span><span class="p">,</span>
+            <span class="n">managehome</span> <span class="p">=</span><span class="o">&gt;</span> <span class="nb">true</span>
+    <span class="p">}</span>
+
+    <span class="n">group</span> <span class="p">{</span> $<span class="n">username</span><span class="p">:</span>
+            <span class="n">gid</span>     <span class="p">=</span><span class="o">&gt;</span> $<span class="n">uid</span><span class="p">,</span>
+            <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">User</span><span class="p">[</span>$<span class="n">username</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="n">file</span> <span class="p">{</span> <span class="s">&quot;/home/${username}/&quot;</span><span class="p">:</span>
+        <span class="n">ensure</span>  <span class="p">=</span><span class="o">&gt;</span> <span class="n">directory</span><span class="p">,</span>
+        <span class="n">owner</span>   <span class="p">=</span><span class="o">&gt;</span> $<span class="n">username</span><span class="p">,</span>
+        <span class="n">group</span>   <span class="p">=</span><span class="o">&gt;</span> $<span class="n">username</span><span class="p">,</span>
+        <span class="nb">mode</span>    <span class="p">=</span><span class="o">&gt;</span> 750<span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="p">[</span> <span class="n">User</span><span class="p">[</span>$<span class="n">username</span><span class="p">],</span> <span class="n">Group</span><span class="p">[</span>$<span class="n">username</span><span class="p">]</span> <span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="n">file</span> <span class="p">{</span> <span class="s">&quot;/home/${username}/.ssh&quot;</span><span class="p">:</span>
+            <span class="n">ensure</span>  <span class="p">=</span><span class="o">&gt;</span> <span class="n">directory</span><span class="p">,</span>
+            <span class="n">owner</span>   <span class="p">=</span><span class="o">&gt;</span> $<span class="n">username</span><span class="p">,</span>
+            <span class="n">group</span>   <span class="p">=</span><span class="o">&gt;</span> $<span class="n">username</span><span class="p">,</span>
+            <span class="nb">mode</span>    <span class="p">=</span><span class="o">&gt;</span> 700<span class="p">,</span>
+            <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">File</span><span class="p">[</span><span class="s">&quot;/home/${username}/&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="c"># now make sure that the ssh key authorized files is around</span>
+    <span class="n">file</span> <span class="p">{</span> <span class="s">&quot;/home/${username}/.ssh/authorized_keys&quot;</span><span class="p">:</span>
+            <span class="n">ensure</span>  <span class="p">=</span><span class="o">&gt;</span> <span class="n">present</span><span class="p">,</span>
+            <span class="n">owner</span>   <span class="p">=</span><span class="o">&gt;</span> $<span class="n">username</span><span class="p">,</span>
+            <span class="n">group</span>   <span class="p">=</span><span class="o">&gt;</span> $<span class="n">username</span><span class="p">,</span>
+            <span class="nb">mode</span>    <span class="p">=</span><span class="o">&gt;</span> 600<span class="p">,</span>
+            <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">File</span><span class="p">[</span><span class="s">&quot;/home/${username}/&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>This code creates an user and a group with the same name. Additionally checks if home this user has home folder, <em>.ssh</em> fodler, and <em>authorized_keys</em> file.</p>
+<p>There are still few things that have to be explained.</p>
+<div class="codehilite"><pre><span class="n">define</span> <span class="n">users</span><span class="p">::</span><span class="n">add_user</span> <span class="p">(</span> $<span class="n">username</span> <span class="p">=</span> $<span class="n">title</span><span class="p">,</span> $<span class="n">uid</span> <span class="p">)</span> <span class="p">{</span>
+</pre></div>
+
+
+<p>This one defines add_user 'routine', which can be invoked many times (for e.g. you don't want to create two instances of <em>apache</em> so it will be a <em>class</em> not a resource type). This resource has two params</p>
 <ul>
-<li>PHP 5.3.10-1ubuntu3.4 with Suhosin-Patch (cli) (built: Sep 12 2012 18:59:41)</li>
-<li>Apache/2.2.22 (Ubuntu)</li>
-<li>APC</li>
-<li>xhprof</li>
+<li>$username that defaults to $title ($title is a special variable in <em>Puppet</em>, it's always present and it's a first 'param', for e.g. <em>user { 'webadmin': }</em>, here <em>'webadmin'</em> is a title of resource user).</li>
+<li>$uid which will be created user uid.</li>
 </ul>
-<h2>First try - without a class cache</h2>
-<p>Basically my results didn't differ from one provided by <em>trq</em>
-<img alt="Requests per second" src="static/images/2012/10/no_cache_zf2/request-per-second.png" title="Requests per sec" />
-<img alt="Response time" src="static/images/2012/10/no_cache_zf2/response-time.png" title="Requests per sec" />
-<img alt="Number of function calls" src="static/images/2012/10/no_cache_zf2/number-of-function-calls.png" title="Number of function calls" />
-<img alt="Number of files included" src="static/images/2012/10/no_cache_zf2/number-of-files.png" title="Number of files included" />
-<img alt="Average load" src="static/images/2012/10/no_cache_zf2/loadavg.png" title="Average load" />
-<img alt="Memory usage" src="static/images/2012/10/no_cache_zf2/memory-usage.png" title="Memory usage" /></p>
-<p>As you can see <strong>ZF2 is far behind Symfony 2</strong>. Response time was 4 times slower. That's quite bad. Let's move on to second try.</p>
-<h2>Second try - with a class cache</h2>
-<p>Before making second try, I've added into <em>ZF2 Skeleton App</em> <strong>EdsSuperLuminal</strong> module and enabled it (this module is available at <a href="https://github.com/EvanDotPro/EdpSuperluminal">Github</a>)
-<img alt="Requests per second" src="static/images/2012/10/with_cache_zf2/request-per-second.png" title="Requests per sec" />
-<img alt="Response time" src="static/images/2012/10/with_cache_zf2/response-time.png" title="Requests per sec" />
-<img alt="Number of function calls" src="static/images/2012/10/with_cache_zf2/number-of-function-calls.png" title="Number of function calls" />
-<img alt="Number of files included" src="static/images/2012/10/with_cache_zf2/number-of-files.png" title="Number of files included" />
-<img alt="Average load" src="static/images/2012/10/with_cache_zf2/loadavg.png" title="Average load" />
-<img alt="Memory usage" src="static/images/2012/10/with_cache_zf2/memory-usage.png" title="Memory usage" /></p>
-<p>What a surprise... results didn't change too much!
-To be honest I got dissapointed. I was hoping for competition between ZF2 and Symfony 2 (or at least 50% performance boost) but looking at these graphs we
-can observe around 20% increase in number of requests handled. Still something, but comparing to <em>Symfony 2</em> It's quite a low value. Looking at the results further
-we could say that <em>ZF2</em> will be using quite less I/O operations (from 163 to 20 included files, it's quite a result), but still memory usage might be a little terryfying.</p>
-<h2>Should I care?</h2>
-<p>Depends. In  most of cases these results doesn't matter. Firstly this is "Hello World!" test. Such tests doesn't have too big meaning in real life applications,
-where bottleneck is mostly a database. Secondary, in most of the cases you don't need to squeeze 60 ms from your servers. In case of websites with huge traffic, sadly
-<em>ZF2</em> is not the best choice. In such a website 60ms difference might be huge performance impact. <em>Math.pow('Sadly', 2)</em>  because I'm looking for framework
-for a one of my company's big pages, cause it needs a lot of updates and rather I won't be able to use this framework. There performance really matters.</p>
-<h2>What next?</h2>
-<p>I have to wait. Hope that there will be some performance tunning with next minor releases of <em>ZF2</em>. Until then I might stick to <em>Symfony 2</em> or to some smaller framework available.
-If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 5.4) repository, or mine forked repository with code updated to support PHP 5.3  available at <a href="https://github.com/piteer1/phpBenches">Github</a></p><p>There are <a href="./zend-framework2-performance.html#disqus_thread">comments</a>.</p>
+<p>In <em>Puppet</em> there is a possibility to define requirements for each resources. The simplest example will be group creation</p>
+<div class="codehilite"><pre><span class="n">group</span> <span class="p">{</span> $<span class="n">username</span><span class="p">:</span>
+    <span class="n">gid</span>     <span class="p">=</span><span class="o">&gt;</span> $<span class="n">uid</span><span class="p">,</span>
+    <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">User</span><span class="p">[</span>$<span class="n">username</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Here group with $username name is created. But to create this grup it's required that previously user with the same name was also created. Thanks to it, if for some reason user was not created, then the creation of group will not be made at all, because of not satisfied dependencies.</p>
+<p>Other important part is that Puppet is able to <strong>evaluate variables in a string</strong>, this is done by putting variable in brackets with dollar sign in front (to be honest it is enough to put $var, but according to Puppet standards brackets should be also there):</p>
+<div class="codehilite"><pre>require =&gt; File[&quot;/home/<span class="cp">${</span><span class="n">username</span><span class="cp">}</span>/&quot;]
+</pre></div>
+
+
+<p>I will skip rest of the code in add_user, it should be self explanatory.</p>
+<h2>php-fpm installation</h2>
+<p>Code for <em>php-fpm</em> looks as follows:</p>
+<div class="codehilite"><pre><span class="n">class</span> <span class="n">php</span><span class="o">-</span><span class="n">fpm</span> <span class="p">{</span>
+    <span class="n">package</span> <span class="p">{</span> <span class="s">&#39;php5-fpm&#39;</span><span class="p">:</span>
+        <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">present</span><span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Exec</span><span class="p">[</span><span class="s">&#39;apt-get update&#39;</span><span class="p">],</span>
+    <span class="p">}</span>
+
+    <span class="n">package</span> <span class="p">{</span> &quot;<span class="n">php5</span><span class="o">-</span><span class="n">mysql</span>&quot;<span class="p">:</span>
+        <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">present</span><span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Package</span><span class="p">[</span><span class="s">&#39;php5-fpm&#39;</span><span class="p">],</span>
+        <span class="n">notify</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Service</span><span class="p">[</span><span class="s">&#39;php5-fpm&#39;</span><span class="p">],</span>
+    <span class="p">}</span>
+
+    <span class="n">package</span> <span class="p">{</span> &quot;<span class="n">php5</span><span class="o">-</span><span class="n">curl</span>&quot;<span class="p">:</span>
+        <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">present</span><span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Package</span><span class="p">[</span><span class="s">&#39;php5-fpm&#39;</span><span class="p">],</span>
+        <span class="n">notify</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Service</span><span class="p">[</span><span class="s">&#39;php5-fpm&#39;</span><span class="p">],</span>
+    <span class="p">}</span>
+
+    <span class="n">package</span> <span class="p">{</span> &quot;<span class="n">php5</span><span class="o">-</span><span class="n">xcache</span>&quot;<span class="p">:</span>
+        <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">present</span><span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Package</span><span class="p">[</span><span class="s">&#39;php5-fpm&#39;</span><span class="p">],</span>
+        <span class="n">notify</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Service</span><span class="p">[</span><span class="s">&#39;php5-fpm&#39;</span><span class="p">],</span>
+    <span class="p">}</span>
+
+    <span class="n">service</span> <span class="p">{</span> <span class="s">&#39;php5-fpm&#39;</span><span class="p">:</span>
+        <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">running</span><span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Package</span><span class="p">[</span><span class="s">&#39;php5-fpm&#39;</span><span class="p">],</span>
+        <span class="n">notify</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Service</span><span class="p">[</span><span class="s">&#39;php5-fpm&#39;</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Let's say what's happening here.</p>
+<div class="codehilite"><pre><span class="n">class</span> <span class="n">php</span><span class="o">-</span><span class="n">fpm</span> <span class="p">{</span>
+</pre></div>
+
+
+<p>This is a <em>php-fpm</em> class definition without any params. This class just install some of the PHP5 packages with <strong>PHP5 FPM</strong> itself.</p>
+<div class="codehilite"><pre><span class="n">package</span> <span class="p">{</span> <span class="s">&#39;php5-fpm&#39;</span><span class="p">:</span>
+    <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">present</span><span class="p">,</span>
+    <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Exec</span><span class="p">[</span><span class="s">&#39;apt-get update&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>This installs <em>php5-fpm</em>, only interesting part here it's that we want to ensure that we're installing the newest possible package in repositories. For that it's required that command <strong>apt-get update</strong> finished successfully. </p>
+<div class="codehilite"><pre><span class="n">package</span> <span class="p">{</span> &quot;<span class="n">php5</span><span class="o">-</span><span class="n">xcache</span>&quot;<span class="p">:</span>
+    <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">present</span><span class="p">,</span>
+    <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Package</span><span class="p">[</span><span class="s">&#39;php5-fpm&#39;</span><span class="p">],</span>
+    <span class="n">notify</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Service</span><span class="p">[</span><span class="s">&#39;php5-fpm&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>I will describe one more package as an example. The code above install <em><em>php5 xcache</em> extension. What's interesting here it's the notify part. It tells Puppet that, he has to notify </em>php5 fpm* service that new package was installed and it has to load it (do not mistake it with creating necessary ini files - it doesn't do that, it only informs that it should make reload/restart). Puppet knows how to notify most common services out of the box (for e.g. if it needs to be restarted or reload will be enough).</p>
+<h2>The last step - Nginx</h2>
+<p>Nginx installation will be defined in three separate files. Let's start with first one - virtual host definition</p>
+<div class="codehilite"><pre><span class="c">#private/puppet/modules/nginx/manifests/virtual-host.pp</span>
+<span class="nb">class</span> <span class="n">nginx</span><span class="p">::</span><span class="n">virtual</span><span class="o">-</span><span class="n">host</span> <span class="p">(</span>$<span class="n">page</span><span class="p">,</span> $<span class="n">template</span> <span class="p">=</span> <span class="s">&#39;default&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">file</span> <span class="p">{</span> <span class="s">&quot;/home/virtual/${page}&quot;</span><span class="p">:</span>
+        <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="s">&quot;directory&quot;</span><span class="p">,</span>
+        <span class="n">owner</span>  <span class="p">=</span><span class="o">&gt;</span> <span class="s">&quot;webadmin&quot;</span><span class="p">,</span>
+        <span class="n">group</span>  <span class="p">=</span><span class="o">&gt;</span> <span class="s">&quot;webadmin&quot;</span><span class="p">,</span>
+        <span class="nb">mode</span>   <span class="p">=</span><span class="o">&gt;</span> 755<span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">User</span><span class="p">[</span><span class="s">&#39;webadmin&#39;</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="n">file</span> <span class="p">{</span> <span class="s">&quot;/home/virtual/${page}/public&quot;</span><span class="p">:</span>
+        <span class="n">ensure</span>  <span class="p">=</span><span class="o">&gt;</span> <span class="n">directory</span><span class="p">,</span>
+        <span class="nb">mode</span>    <span class="p">=</span><span class="o">&gt;</span> <span class="s">&#39;0755&#39;</span><span class="p">,</span>
+        <span class="n">owner</span>   <span class="p">=</span><span class="o">&gt;</span> <span class="s">&#39;webadmin&#39;</span><span class="p">,</span>
+        <span class="n">group</span>   <span class="p">=</span><span class="o">&gt;</span> <span class="s">&#39;webadmin&#39;</span><span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">File</span><span class="p">[</span><span class="s">&quot;/home/virtual/${page}&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="n">file</span> <span class="p">{</span> <span class="s">&#39;nginx-site-available&#39;</span><span class="p">:</span>
+        <span class="nb">path</span> <span class="p">=</span><span class="o">&gt;</span> <span class="s">&quot;/etc/nginx/sites-available/${page}&quot;</span><span class="p">,</span>
+        <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">file</span><span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Package</span><span class="p">[</span><span class="s">&#39;nginx&#39;</span><span class="p">],</span>
+        <span class="n">group</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">root</span><span class="p">,</span>
+        <span class="n">owner</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">root</span><span class="p">,</span>
+        <span class="n">content</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">template</span><span class="p">(</span><span class="s">&quot;nginx/${template}&quot;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="n">file</span> <span class="p">{</span> <span class="s">&#39;/etc/nginx/sites-enabled/${page}&#39;</span><span class="p">:</span>
+        <span class="n">target</span> <span class="p">=</span><span class="o">&gt;</span> <span class="s">&quot;/etc/nginx/sites-available/${page}&quot;</span><span class="p">,</span>
+        <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="nb">link</span><span class="p">,</span>
+        <span class="n">notify</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Service</span><span class="p">[</span><span class="s">&#39;nginx&#39;</span><span class="p">],</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="p">[</span>
+            <span class="n">File</span><span class="p">[</span><span class="s">&#39;nginx-site-available&#39;</span><span class="p">],</span>
+            <span class="n">File</span><span class="p">[</span><span class="s">&#39;default-nginx-disable&#39;</span><span class="p">],</span>
+            <span class="n">Package</span><span class="p">[</span><span class="s">&#39;nginx&#39;</span><span class="p">],</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>As always let's start from the beginning to say a few words about this code.</p>
+<div class="codehilite"><pre><span class="n">class</span> <span class="n">nginx</span><span class="p">::</span><span class="n">virtual</span><span class="o">-</span><span class="n">host</span> <span class="p">(</span>$<span class="n">page</span><span class="p">,</span> $<span class="n">template</span> <span class="p">=</span> <span class="s">&#39;default&#39;</span><span class="p">)</span> <span class="p">{...}</span>
+</pre></div>
+
+
+<p>This one defines class virtual host. This class has two params where on has a default value. In our case <em>$page</em> param is a domain for which virtual host is created. The <em>$template</em> variable defines which template to use for virtual host definition. How to call this class? It's done by such a call:</p>
+<div class="codehilite"><pre><span class="n">class</span> <span class="p">{</span><span class="s">&#39;nginx::virtual-host&#39;</span><span class="p">:</span>
+    <span class="n">page</span> <span class="p">=</span><span class="o">&gt;</span> <span class="s">&#39;www.example.com&#39;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Here I've shown how you can call this class with a param with default value, because I omitted the $template param.</p>
+<p>I didn't say earlier</p>
+<p>You can ask, why this way, why nginx::virtual-host is a class not a defined resource type.
+This question is good. For you define might be much better. I've used here class because during development of a project I use only one VM per domain. If you plan having multiple virtual hosts on one VM, then make it define!</p>
+<h2>Templates</h2>
+<p>The only other interesting part in previous definition is part with virtual host file.</p>
+<div class="codehilite"><pre>file <span class="p">{</span> <span class="s">&#39;nginx-site-available&#39;</span>:
+    path <span class="o">=&gt;</span> <span class="s">&quot;/etc/nginx/sites-available/${page}&quot;</span><span class="p">,</span>
+    ensure <span class="o">=&gt;</span> file<span class="p">,</span>
+    require <span class="o">=&gt;</span> Package<span class="p">[</span><span class="s">&#39;nginx&#39;</span><span class="p">],</span>
+    group <span class="o">=&gt;</span> root<span class="p">,</span>
+    owner <span class="o">=&gt;</span> root<span class="p">,</span>
+    content <span class="o">=&gt;</span> template<span class="p">(</span><span class="s">&quot;nginx/${template}&quot;</span><span class="p">),</span> <span class="c1"># &lt;- load a template file in a path: nginx/templates/${template}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>This is the first time I've used here a template. Here I've put a virtual host definition in such a file and it looks as follows</p>
+<div class="codehilite"><pre>server <span class="p">{</span>
+    listen <span class="m">80</span><span class="p">;</span>
+    server_name <span class="o">&lt;%=</span> <span class="p">@</span>page <span class="o">%&gt;</span><span class="p">;</span> <span class="c1"># &lt;- put here value of $page variable</span>
+    root <span class="o">/</span>home<span class="o">/</span>virtual<span class="o">/&lt;%=</span> <span class="p">@</span>page <span class="o">%&gt;/</span>public<span class="p">;</span>
+    index index.php<span class="p">;</span>
+
+    location <span class="o">/</span> <span class="p">{</span>
+        try_files <span class="p">$</span>uri <span class="p">$</span>uri<span class="o">/</span> <span class="o">/</span>index.php?<span class="p">$</span>args<span class="p">;</span>
+    <span class="p">}</span>
+
+    location ~ \<span class="m">.</span>php<span class="p">$</span> <span class="p">{</span>
+        fastcgi_pass <span class="m">127.0.0.1</span>:<span class="m">9000</span><span class="p">;</span>
+        fastcgi_index index.php<span class="p">;</span>
+        include fastcgi_params<span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>As you can see it's really simple definition, where <strong>Nginx</strong> will route all the addresses into index.php file. The important part here is that, we declare variables in templates slightly different. You put them between:</p>
+<div class="codehilite"><pre><span class="cp">&lt;%=</span> <span class="vi">@variable</span> <span class="cp">%&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>The question that you can ask right now, is how we pass a value to a template? It's simple. <strong>All the variables in parent scope are available in a template!</strong>. What does it mean in the end? If we have a variable named $variable in a class/define, then this variable has to have exactly the same name. To access this variable you would put in template &lt;%= @variable %&gt;</p>
+<h2>Nginx itself (phew, it was long..)</h2>
+<p>Let's go to Nginx installation itself. I've done it by this Puppet manifest:</p>
+<div class="codehilite"><pre><span class="c">#private/puppet/modules/nginx/manifests/init.pp</span>
+<span class="nb">class</span> <span class="n">nginx</span> <span class="p">(</span>$<span class="n">page</span><span class="p">,</span> $<span class="n">template</span> <span class="p">=</span> <span class="s">&#39;default&#39;</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">package</span> <span class="p">{</span> <span class="s">&#39;nginx&#39;</span><span class="p">:</span> 
+        <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">present</span><span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Exec</span><span class="p">[</span><span class="s">&#39;apt-get update&#39;</span><span class="p">],</span>
+    <span class="p">}</span>
+
+    <span class="n">service</span> <span class="p">{</span> <span class="s">&#39;nginx&#39;</span><span class="p">:</span>
+        <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">running</span><span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Package</span><span class="p">[</span><span class="s">&#39;nginx&#39;</span><span class="p">],</span>
+    <span class="p">}</span>
+
+    <span class="nb">class</span> <span class="p">{</span> <span class="s">&#39;nginx::virtual-host&#39;</span><span class="p">:</span>
+        <span class="n">page</span> <span class="p">=</span><span class="o">&gt;</span> $<span class="n">page</span><span class="p">,</span>
+        <span class="n">template</span> <span class="p">=</span><span class="o">&gt;</span> $<span class="n">template</span><span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Package</span><span class="p">[</span><span class="s">&#39;nginx&#39;</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="n">file</span> <span class="p">{</span> <span class="s">&#39;default-nginx-disable&#39;</span><span class="p">:</span>
+        <span class="nb">path</span> <span class="p">=</span><span class="o">&gt;</span> <span class="s">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
+        <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">absent</span><span class="p">,</span>
+        <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Package</span><span class="p">[</span><span class="s">&#39;nginx&#39;</span><span class="p">],</span>
+        <span class="n">notify</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Service</span><span class="p">[</span><span class="s">&#39;nginx&#39;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>This code:</p>
+<ul>
+<li>installs <strong>nginx</strong> package</li>
+<li>ensures that nginx is up and running</li>
+<li>adds one virtual host</li>
+<li>at the end it ensures also that there is no default virtual host present</li>
+</ul>
+<h2>What's next?</h2>
+<p>Ok, so we defined all necessary manifests and templates, but we need to still define an entry point. At the beginning I've defined a <strong>production-init</strong> class. To be honest all the contents of this class can be removed from it and just called one by one. I did it this way, because I have one more file <strong>development.pp</strong> which calls this class. It's done this way because it allows me to use this manifest on production, but also I can make small alterations to environment for a dev (for example for a dev you might install additionally xdebug, change error_reporting to E_STRICT &amp; E_ALL etc.)</p>
+<p>So <em>development.pp</em> file might be looking like:</p>
+<div class="codehilite"><pre><span class="c">#private/puppet/manifests/development.pp</span>
+<span class="n">import</span> <span class="s">&quot;production-init&quot;</span>
+<span class="nb">class</span> <span class="p">{</span><span class="s">&#39;production-init&#39;</span><span class="p">:</span> <span class="n">page</span> <span class="p">=</span><span class="o">&gt;</span> <span class="s">&#39;example.com&#39;</span><span class="p">}</span>
+
+<span class="c">#install development packages, set additional development settings</span>
+<span class="p">...</span>
+</pre></div>
+
+
+<h3>Setup Vagrantfile</h3>
+<p>Now really last thing - we have to show Vagrant where our manifest file is and which one to use. When you'll open this <em>Vagrantfile</em> in root of your project you should add:</p>
+<div class="codehilite"><pre><span class="n">config</span><span class="p">.</span><span class="n">vm</span><span class="p">.</span><span class="n">provision</span> <span class="p">:</span><span class="n">puppet</span><span class="p">,</span> <span class="p">:</span><span class="n">module_path</span> <span class="p">=</span><span class="o">&gt;</span> &quot;<span class="n">private</span><span class="o">/</span><span class="n">puppet</span><span class="o">/</span><span class="n">modules</span>&quot;<span class="p">,</span> <span class="p">:</span><span class="n">options</span> <span class="p">=</span><span class="o">&gt;</span> &quot;<span class="o">--</span><span class="n">verbose</span> <span class="o">--</span><span class="n">debug</span>&quot; <span class="n">do</span> <span class="o">|</span><span class="n">puppet</span><span class="o">|</span>
+    <span class="n">puppet</span><span class="p">.</span><span class="n">manifests_path</span> <span class="p">=</span> &quot;<span class="n">private</span><span class="o">/</span><span class="n">puppet</span><span class="o">/</span><span class="n">manifests</span>&quot;
+    <span class="n">puppet</span><span class="p">.</span><span class="n">manifest_file</span>  <span class="p">=</span> &quot;<span class="n">development</span><span class="p">.</span><span class="n">pp</span>&quot;
+<span class="k">end</span>
+<span class="n">config</span><span class="p">.</span><span class="n">vm</span><span class="p">.</span><span class="n">share_folder</span> &quot;<span class="n">app</span><span class="o">-</span><span class="n">root</span>&quot;<span class="p">,</span> &quot;<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">virtual</span><span class="o">/</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>&quot;<span class="p">,</span> &quot;<span class="p">.</span>&quot;
+</pre></div>
+
+
+<p>Now you should be able to run</p>
+<div class="codehilite"><pre><span class="n">vagrant</span> <span class="n">reload</span>
+</pre></div>
+
+
+<p>This should restart VM and run Puppet on it.</p>
+<h2>Closing comments</h2>
+<p>This example shows how to run a <strong>Nginx</strong> server with PHP using minimal configuration. Probably it might be not enough for you. You might need for example a database on VM (which I don't prefer to have there, I like more to have a real DB server accessible by everybody).</p>
+<p>After all work is done and development environment prepared, it can be easily shared between all devs using for example Git and adding all files.</p>
+<p>There's one important thing before you'll start developing on this VM. I <strong>strongly suggest enabling NFS!</strong> Shared folder build in VM is really slow. When I said really slow I meant <strong>it's hellish slow</strong>.</p>
+<p>To enable NFS firstly install it on host machine by doing</p>
+<div class="codehilite"><pre><span class="n">vagrant</span> <span class="n">ssh</span>
+
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">nfs</span><span class="o">-</span><span class="n">common</span>
+</pre></div>
+
+
+<p>On local machine it might be also required to install <strong>nfs-server</strong> package.
+At the end just modify in Vagrantfile definition of shared folder by adding :nfs =&gt; true at the end, so it'll be looking like</p>
+<div class="codehilite"><pre><span class="n">config</span><span class="p">.</span><span class="n">vm</span><span class="p">.</span><span class="n">share_folder</span> &quot;<span class="n">app</span><span class="o">-</span><span class="n">root</span>&quot;<span class="p">,</span> &quot;<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">virtual</span><span class="o">/</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>&quot;<span class="p">,</span> &quot;<span class="p">.</span>&quot;<span class="p">,</span> <span class="p">:</span><span class="n">nfs</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">true</span>
+</pre></div>
+
+
+<p>We did a lot of work, but was it worth? I will say yes. Here are some <strong>pros</strong> using Vagrant:</p>
+<ul>
+<li>Unified development environment which is identical or really close to production environment,</li>
+<li>No more problems with with "For me it works",</li>
+<li>A documented configuration of environment thanks to Puppet manifests, which allows all to see which libs are necessary to be present on production env,</li>
+<li>No more hacks to have few versions of libs/interpreters etc. (look at <strong>Ruby</strong> programs - every of them require different version of <em>Ruby</em>, some gems and other, so you need to have rbenv installed to manage it).</li>
+</ul>
+<p>Still there is no ideal tool and <strong>Vagrant</strong> is not ideal either. As a <strong>cons</strong> you can count:</p>
+<ul>
+<li>It likes to hang, without any reason. The good part is that it happens only when booting up the VM. Sometimes sadly it requires then to do cleaning up by <em>vagrant destroy</em> and then <em>vagrant up</em>. This thing leads to loss of a lot of time.</li>
+<li>It takes a lot of time to setup environment. </li>
+</ul>
+<p>What's easier?</p>
+<div class="codehilite"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">nginx</span>
+</pre></div>
+
+
+<p>or</p>
+<div class="codehilite"><pre><span class="n">class</span> <span class="n">nginx</span> <span class="p">{</span><span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">present</span><span class="p">,</span> <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Exec</span><span class="p">[</span><span class="s">&#39;apt-get update&#39;</span><span class="p">]}</span>
+<span class="n">service</span> <span class="p">{</span> <span class="s">&#39;nginx&#39;</span><span class="p">:</span>
+    <span class="n">ensure</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">running</span><span class="p">,</span>
+    <span class="n">require</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">Package</span><span class="p">[</span><span class="s">&#39;nginx&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>For me the first option.</p>
+<ul>
+<li>Without a NFS the VM is really slow, so don't try to use it for development.</li>
+</ul>
+<p>Still I think that the Vagrant will stay in my computer as a really useful tool for long time.</p>
+<p>Thanks!</p><p>There are <a href="./vagrant-virtualbox-puppet-yet-another-boring-explanation.html#disqus_thread">comments</a>.</p>
                 </article>
                 
             </aside><!-- /#featured -->
@@ -138,6 +527,41 @@ If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 
             
             <li><article class="hentry">    
                 <header>
+                    <h1><a href="./zend-framework2-performance.html" rel="bookmark"
+                           title="Permalink to Yet another Zend Framework 2 performance test">Yet another Zend Framework 2 performance test</a></h1>
+                </header>
+                
+                <div class="entry-content">
+                <footer class="post-info">
+        <abbr class="published" title="2012-10-22T20:00:00">
+                pon 22 października 2012
+        </abbr>
+
+        
+        <address class="vcard author">
+                By <a class="url fn" href="./author/piotr-deszynski.html">Piotr Deszyński</a>
+        </address>
+        
+<p>In <a href="./category/misc.html">Misc</a>. </p>
+<p>tags: <a href="./tag/php.html">PHP</a><a href="./tag/frameworks.html">Frameworks</a><a href="./tag/zend-framework-2.html">Zend Framework 2</a><a href="./tag/symfony-2.html">Symfony 2</a><a href="./tag/performance.html">Performance</a></p>
+
+
+</footer><!-- /.post-info -->
+                <p>We have full version of ZF2! There's even a Zend Framework 2.0.3 version. Full of optimism I've started reading about it and
+full of curiousity I've looked on performance charts. How big was my surprise when i've looked on charts seeing that ZF2 is ...</p>
+                <a class="readmore" href="./zend-framework2-performance.html">read more</a>
+                <p>There are <a href="./zend-framework2-performance.html#disqus_thread">comments</a>.</p>
+                </div><!-- /.entry-content -->
+            </article></li>
+        
+        
+            
+
+        
+         
+            
+            <li><article class="hentry">    
+                <header>
                     <h1><a href="./object-oriented-metrics-introduction.html" rel="bookmark"
                            title="Permalink to Object Oriented Metrics - WTF?">Object Oriented Metrics - WTF?</a></h1>
                 </header>
@@ -145,7 +569,7 @@ If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 
                 <div class="entry-content">
                 <footer class="post-info">
         <abbr class="published" title="2012-10-18T22:00:00">
-                czw 18 październik 2012
+                czw 18 października 2012
         </abbr>
 
         
@@ -176,14 +600,51 @@ If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 
             
             <li><article class="hentry">    
                 <header>
+                    <h1><a href="./about.html" rel="bookmark"
+                           title="Permalink to Something boring about me">Something boring about me</a></h1>
+                </header>
+                
+                <div class="entry-content">
+                <footer class="post-info">
+        <abbr class="published" title="2012-10-17T20:00:00">
+                śro 17 października 2012
+        </abbr>
+
+        
+        <address class="vcard author">
+                By <a class="url fn" href="./author/piotr-deszynski.html">Piotr Deszyński</a>
+        </address>
+        
+<p>In <a href="./category/about.html">About</a>. </p>
+<p>tags: <a href="./tag/about.html">about</a></p>
+
+
+</footer><!-- /.post-info -->
+                <h2>Piotr Deszyński</h2>
+<p>placeholder for image ;)</p>
+<p>Yup that's me. Or at least there will be me. I'm waiting for some picture that can be used here. But who am I?
+Yet another boring programmer, who loves sitting down nearby his computer and dive into different stuff. Sadly (or rather ...</p>
+                <a class="readmore" href="./about.html">read more</a>
+                <p>There are <a href="./about.html#disqus_thread">comments</a>.</p>
+                </div><!-- /.entry-content -->
+            </article></li>
+        
+        
+            
+
+        
+         
+            
+            <li><article class="hentry">    
+                <header>
                     <h1><a href="./first-post.html" rel="bookmark"
                            title="Permalink to First post using Pelican">First post using Pelican</a></h1>
                 </header>
                 
                 <div class="entry-content">
                 <footer class="post-info">
-        <abbr class="published" title="2012-10-17T22:29:57.772416">
-                śro 17 październik 2012
+        <abbr class="published" title="2012-10-17T15:00:00">
+                śro 17 października 2012
         </abbr>
 
         
@@ -203,43 +664,6 @@ but this is the first time that I'm trying to write something.</p>
 <p>This blog is generated by Pelican - static blog generator written in python. Firstly I would ...</p>
                 <a class="readmore" href="./first-post.html">read more</a>
                 <p>There are <a href="./first-post.html#disqus_thread">comments</a>.</p>
-                </div><!-- /.entry-content -->
-            </article></li>
-        
-        
-            
-
-        
-         
-            
-            <li><article class="hentry">    
-                <header>
-                    <h1><a href="./about.html" rel="bookmark"
-                           title="Permalink to Something boring about me">Something boring about me</a></h1>
-                </header>
-                
-                <div class="entry-content">
-                <footer class="post-info">
-        <abbr class="published" title="2012-10-17T20:00:00">
-                śro 17 październik 2012
-        </abbr>
-
-        
-        <address class="vcard author">
-                By <a class="url fn" href="./author/piotr-deszynski.html">Piotr Deszyński</a>
-        </address>
-        
-<p>In <a href="./category/about.html">About</a>. </p>
-<p>tags: <a href="./tag/about.html">about</a></p>
-
-
-</footer><!-- /.post-info -->
-                <h2>Piotr Deszyński</h2>
-<p>placeholder for image ;)</p>
-<p>Yup that's me. Or at least there will be me. I'm waiting for some picture that can be used here. But who am I?
-Yet another boring programmer, who loves sitting down nearby his computer and dive into different stuff. Sadly (or rather ...</p>
-                <a class="readmore" href="./about.html">read more</a>
-                <p>There are <a href="./about.html#disqus_thread">comments</a>.</p>
                 </div><!-- /.entry-content -->
             </article></li>
         
@@ -301,14 +725,15 @@ Yet another boring programmer, who loves sitting down nearby his computer and di
 
 
     <script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35673065-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
     </script>
-    <script type="text/javascript">
-    try {
-        var pageTracker = _gat._getTracker("UA-35673065-1");
-    pageTracker._trackPageview();
-    } catch(err) {}</script>
 
 
 
