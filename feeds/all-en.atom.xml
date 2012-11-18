@@ -1,5 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="http://www.piotrdeszynski.com/" rel="alternate"></link><link href="http://www.piotrdeszynski.com/feeds/all-en.atom.xml" rel="self"></link><id>http://www.piotrdeszynski.com/</id><updated>2012-11-10T20:00:00+01:00</updated><entry><title>Vagrant, VirtualBox, Puppet, yet another boring explanation</title><link href="http://www.piotrdeszynski.com/vagrant-virtualbox-puppet-yet-another-boring-explanation.html" rel="alternate"></link><updated>2012-11-10T20:00:00+01:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2012-11-10:vagrant-virtualbox-puppet-yet-another-boring-explanation.html</id><summary type="html">&lt;p&gt;How many times in your career you heard from other programmers in your team: &lt;em&gt;"For me it works"&lt;/em&gt; while developing some functionality. It happen to me really often. Why does it happen? 99% of the cases it's the difference between environments on which app was run. By myself, I install huge amount of libs on my system not relevant to current project and I forget about them really often having a mess in my personal system. I think, lots of people does the same.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="http://www.piotrdeszynski.com/" rel="alternate"></link><link href="http://www.piotrdeszynski.com/feeds/all-en.atom.xml" rel="self"></link><id>http://www.piotrdeszynski.com/</id><updated>2012-11-18T10:00:00+01:00</updated><entry><title>Zend Framework 2 and Doctrine 2 Integration</title><link href="http://www.piotrdeszynski.com/zend-framework-2-and-doctrine-2-integration.html" rel="alternate"></link><updated>2012-11-18T10:00:00+01:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2012-11-18:zend-framework-2-and-doctrine-2-integration.html</id><summary type="html">&lt;p&gt;Lately I was playing with ZF2 and Doctrine 2, trying to integrate them into one app. There's a nice &lt;a href="http://www.jasongrimes.org/2012/01/using-doctrine-2-in-zend-framework-2/" title="Using Doctrine 2 in Zend Framework 2"&gt;&lt;strong&gt;tutorial&lt;/strong&gt;&lt;/a&gt;. Here I will try to solve the most common problems which are happening during this integration.&lt;/p&gt;
+&lt;h2&gt;Helper "em"&lt;/h2&gt;
+&lt;p&gt;First of the problems that can occur is the following one:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;InvalidArgumentException&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;       
+&lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;helper&lt;/span&gt; &amp;quot;&lt;span class="n"&gt;em&lt;/span&gt;&amp;quot; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;not&lt;/span&gt; &lt;span class="n"&gt;defined&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you'll have the same error it's most probably caused by using wrong command for ORM generation. By default in Doctrine you should use:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;doctrine&lt;/span&gt; &lt;span class="n"&gt;orm&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;schema&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;tool&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;create&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But in case of &lt;strong&gt;ZF2&lt;/strong&gt; this command won't work. You should call instead of it: &lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="o"&gt;./&lt;/span&gt;&lt;span class="n"&gt;vendor&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;doctrine&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;doctrine&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;module&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;doctrine&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;module&lt;/span&gt; &lt;span class="n"&gt;orm&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;schema&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;tool&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;create&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;No Metadata Classes to process.&lt;/h2&gt;
+&lt;p&gt;Check if for sure you have correct path in your &lt;strong&gt;module.config.php&lt;/strong&gt; setup for &lt;strong&gt;Annotation Driver&lt;/strong&gt;, it should look like:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nx"&gt;MyNamespace&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="c1"&gt;//...&lt;/span&gt;
+&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="c1"&gt;//...&lt;/span&gt;
+    &lt;span class="c1"&gt;// Doctrine config&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;doctrine&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;driver&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+            &lt;span class="nx"&gt;__NAMESPACE__&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;_driver&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+                &lt;span class="s1"&gt;&amp;#39;class&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Doctrine\ORM\Mapping\Driver\AnnotationDriver&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="s1"&gt;&amp;#39;cache&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;array&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="s1"&gt;&amp;#39;paths&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;__DIR__&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/../src/&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="nx"&gt;__NAMESPACE__&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/Entity&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="p"&gt;),&lt;/span&gt;
+            &lt;span class="s1"&gt;&amp;#39;orm_default&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+                &lt;span class="s1"&gt;&amp;#39;drivers&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+                    &lt;span class="nx"&gt;__NAMESPACE__&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;\Entity&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;__NAMESPACE__&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;_driver&amp;#39;&lt;/span&gt;
+                &lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Be sure not to forget the part with namespace!&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="x"&gt;namespace MyNamespace;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;After that you should be able to work with Doctrine!&lt;/p&gt;</summary></entry><entry><title>Vagrant, VirtualBox, Puppet, yet another boring explanation</title><link href="http://www.piotrdeszynski.com/vagrant-virtualbox-puppet-yet-another-boring-explanation.html" rel="alternate"></link><updated>2012-11-10T20:00:00+01:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2012-11-10:vagrant-virtualbox-puppet-yet-another-boring-explanation.html</id><summary type="html">&lt;p&gt;How many times in your career you heard from other programmers in your team: &lt;em&gt;"For me it works"&lt;/em&gt; while developing some functionality. It happen to me really often. Why does it happen? 99% of the cases it's the difference between environments on which app was run. By myself, I install huge amount of libs on my system not relevant to current project and I forget about them really often having a mess in my personal system. I think, lots of people does the same.&lt;/p&gt;
 &lt;p&gt;Coming back to the previously stated problem, how to solve it? One of the possible approaches might be using &lt;strong&gt;Continuous Integration&lt;/strong&gt; for that, by creating for e.g. unstable, un-reviewed branch and setupping CI to make builds based on it. Even if this will work then still it's not optimal solution, because it forces you to push unstable code to repository. Additionally you have to schedule new build and wait for the results.&lt;/p&gt;
 &lt;p&gt;Much better approach would be having during the development a way to ensure that everybody have the same environment and as close as it's possible similar to production one. Answer for all and even more might be &lt;a href="http://vagrantup.com" title="Vagrant home page"&gt;&lt;strong&gt;Vagrant!&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Vagrant&lt;/strong&gt; uses &lt;strong&gt;VirtualBox&lt;/strong&gt; to build for you a virtual machine ready for work. The main advantage of it is it's simplicity to run it. As manual says to start a VM it's enough&lt;/p&gt;

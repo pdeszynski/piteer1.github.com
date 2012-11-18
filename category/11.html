@@ -55,10 +55,10 @@
         
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href=".././vagrant-virtualbox-puppet-and-how-to-make-it-together.html">Vagrant, VirtualBox, Puppet and how to make it together</a></h1> 
+                    <h1 class="entry-title"><a href=".././zend-framework-2-and-doctrine-2-integration.html">Zend Framework 2 and Doctrine 2 Integration</a></h1> 
                     <footer class="post-info">
-        <abbr class="published" title="2012-11-10T20:00:00">
-                sob 10 listopada 2012
+        <abbr class="published" title="2012-11-18T10:08:39">
+                ndz 18 listopada 2012
         </abbr>
 
         
@@ -67,20 +67,59 @@
         </address>
         
 <p>In <a href=".././category/11.html">11</a>. </p>
-<p>tags: <a href=".././tag/vagrant.html">Vagrant</a><a href=".././tag/virtualbox.html">VirtualBox</a><a href=".././tag/puppet.html">Puppet</a><a href=".././tag/development.html">Development</a></p>
 
 
-</footer><!-- /.post-info --><p>How many times in your career you heard from other programmers in your team: <em>"For me it works"</em> while developing some functionality. It happen to me really often. Why does it happen? 99% of the cases it's the difference between environments on which app was run. By myself, I install huge amount of libs on my system not relevant to current project and I forget about them really often having a mess in my personal system. I think, lots of people does the same.</p>
-<p>Coming back to the previously stated problem, how to solve it? One of the possible approaches might be using <strong>Continous Integration</strong> for that, by creating for e.g. unstable, unreviewed branch and setuping CI to make builds based on it. Even if this will work then still it's not optimal solution, because it forces you to push unstable code to repository. Additionally you have to schedule new build and wait for the results.</p>
-<p>Much better approach would be having during the development a way to ensure that everybody have the same environment adn as close as it's possible similar to production one. Answer for all and even more might be <a href="http://vagrantup.com" title="Vagrant home page"><strong>Vagrant!</strong></a>.</p>
-<p><strong>Vagrant</strong> uses <strong>VirtualBox</strong> to build for you a virtual machine ready for work. The main advantage of it is it's simplicity to run it. As manual says to start a VM it's enough</p>
-<div class="codehilite"><pre>vagrant box add lucid32 http://files.vagrantup.com/lucid32.box
-vagrant init lucid32
-vagrant up
+
+</footer><!-- /.post-info --><p>Lately I was playing with ZF2 and Doctrine 2, trying to integrate them into one app. There's a nice <a href="http://www.jasongrimes.org/2012/01/using-doctrine-2-in-zend-framework-2/%20Using%20Doctrine%202%20in%20Zend%20Framework%202"><strong>tutorial</strong></a>. Here I will try to solve the most common problems which are happening during this integration.</p>
+<h2>Helper "em"</h2>
+<p>First of the problems that can occur is the following one:</p>
+<div class="codehilite"><pre><span class="p">[</span><span class="n">InvalidArgumentException</span><span class="p">]</span>       
+<span class="n">The</span> <span class="n">helper</span> &quot;<span class="n">em</span>&quot; <span class="n">is</span> <span class="n">not</span> <span class="n">defined</span><span class="p">.</span>
 </pre></div>
 
 
-<p>This will download you a box (it's something like base image of a system) and add it to system, initialize it in current directory and run VirtualBox. It's really simple!</p><p>There are <a href=".././vagrant-virtualbox-puppet-and-how-to-make-it-together.html#disqus_thread">comments</a>.</p>
+<p>If you'll have the same error it's most probably caused by using wrong command for ORM generation. By default in Doctrine you should use:</p>
+<div class="codehilite"><pre><span class="n">doctrine</span> <span class="n">orm</span><span class="p">:</span><span class="n">schema</span><span class="o">-</span><span class="n">tool</span><span class="p">:</span><span class="n">create</span>
+</pre></div>
+
+
+<p>But in case of <strong>ZF2</strong> this command won't work. You should call instead of it: </p>
+<div class="codehilite"><pre><span class="o">./</span><span class="n">vendor</span><span class="o">/</span><span class="n">doctrine</span><span class="o">/</span><span class="n">doctrine</span><span class="o">-</span><span class="n">module</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">doctrine</span><span class="o">-</span><span class="n">module</span> <span class="n">orm</span><span class="p">:</span><span class="n">schema</span><span class="o">-</span><span class="n">tool</span><span class="p">:</span><span class="n">create</span>
+</pre></div>
+
+
+<h2>No Metadata Classes to process.</h2>
+<p>Check if for sure you have correct path in your <strong>module.config.php</strong> setup for <strong>Annotation Driver</strong>, it should look like:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">namespace</span> <span class="nx">MyNamespace</span><span class="p">;</span>
+<span class="c1">//...</span>
+<span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+    <span class="c1">//...</span>
+    <span class="c1">// Doctrine config</span>
+    <span class="s1">&#39;doctrine&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+            <span class="nx">__NAMESPACE__</span> <span class="o">.</span> <span class="s1">&#39;_driver&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+                <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Doctrine\ORM\Mapping\Driver\AnnotationDriver&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;cache&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;array&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;paths&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">__DIR__</span> <span class="o">.</span> <span class="s1">&#39;/../src/&#39;</span> <span class="o">.</span> <span class="nx">__NAMESPACE__</span> <span class="o">.</span> <span class="s1">&#39;/Entity&#39;</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="s1">&#39;orm_default&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+                <span class="s1">&#39;drivers&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+                    <span class="nx">__NAMESPACE__</span> <span class="o">.</span> <span class="s1">&#39;\Entity&#39;</span> <span class="o">=&gt;</span> <span class="nx">__NAMESPACE__</span> <span class="o">.</span> <span class="s1">&#39;_driver&#39;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">),</span>
+<span class="p">);</span>
+</pre></div>
+
+
+<p>Be sure not to forget the part with namespace!</p>
+<div class="codehilite"><pre><span class="x">namespace MyNamespace;</span>
+</pre></div>
+
+
+<p>After that you should be able to work with Doctrine!</p><p>There are <a href=".././zend-framework-2-and-doctrine-2-integration.html#disqus_thread">comments</a>.</p>
                 </article>
                 
                     
