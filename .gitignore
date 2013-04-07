@@ -1,1 +1,7 @@
 *.pyc
+output
+*.sublime-project
+*.sublime-workspace
+pelican.pid
+srv.pid
+pelican
