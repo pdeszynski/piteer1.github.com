@@ -3,175 +3,1480 @@
 <head>
         <title>Yet another boring programmer's blog - Zend Framework 2</title>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href=".././theme/css/main.css" type="text/css" />
-        
-        <link href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yet another boring programmer's blog Atom Feed" />
-        
-        
-
+        <link rel="stylesheet" href="../theme/css/main.css" type="text/css" />
+                <link href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yet another boring programmer's blog Atom Feed" />
+                
         <!--[if IE]>
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
         <!--[if lte IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href=".././css/ie.css"/>
-                <script src=".././js/IE8.js" type="text/javascript"></script><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="../css/ie.css"/>
+                <script src="../js/IE8.js" type="text/javascript"></script><![endif]-->
 
         <!--[if lt IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href=".././css/ie6.css"/><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="../css/ie6.css"/><![endif]-->
 
 </head>
 
 <body id="index" class="home">
-
 <a href="https://github.com/piteer1">
-
 <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" />
-
 </a>
-
         <header id="banner" class="body">
-                <h1><a href="../.">Yet another boring programmer's blog </a></h1>
+                <h1><a href="../">Yet another boring programmer's blog </a></h1>
                 <nav><ul>
-                
-                
-                
-                
-                
-                    <li ><a href=".././category/oop.html">OOP</a></li>
-                
-                    <li ><a href=".././category/misc.html">Misc</a></li>
-                
-                    <li ><a href=".././category/about.html">About</a></li>
-                
-                </ul></nav>
+                                                                                                    <li ><a href="../category/oop.html">OOP</a></li>
+                                    <li ><a href="../category/misc.html">Misc</a></li>
+                                    <li ><a href="../category/javascript.html">JavaScript</a></li>
+                                    <li ><a href="../category/about.html">About</a></li>
+                                </ul></nav>
         </header><!-- /#banner -->
                 
-
             
 
-        
-        
-            <aside id="featured" class="body">
+                            <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href=".././zend-framework2-performance.html">Yet another Zend Framework 2 performance test</a></h1> 
+                    <h1 class="entry-title"><a href="../backbonejs-and-zend-framework-2-facebook-like-wall.html">Backbone.js and Zend Framework 2 Facebook like wall</a></h1> 
                     <footer class="post-info">
+        <abbr class="published" title="2013-04-07T20:00:00">
+                ndz 07 kwietnia 2013
+        </abbr>
+
+                <address class="vcard author">
+                By <a class="url fn" href="../author/piotr-deszynski.html">Piotr Deszyński</a>
+        </address>
+        <p>In <a href="../category/javascript.html">JavaScript</a>. </p>
+<p>tags: <a href="../tag/backbonejs.html">Backbone.js</a><a href="../tag/zend-framework-2.html">Zend Framework 2</a></p>
+</footer><!-- /.post-info --><h1>I love spaghetti code!</h1>
+<p>Yup, I really love it, cause I see it everyday looking into my old code or my teammates. The worst looking is always JavaScript code. Why? I would say it's because the JavaScript is the most powerful language. It allows you to express yourself in many ways and do almost everything. Because of that it's really important to find some good conventions.</p>
+<p>For long time MVC pattern is used why not to use it also in JavaScript? It will help structuring the code. So we can start writing our MVC framework... but wait! There are already plenty of these!</p>
+<p>The 3 most known MVC frameworks right now are (to be honest not exactly MVC but really close):</p>
+<ul>
+<li><a href="http://angularjs.org/">AngularJS</a></li>
+<li><a href="http://backbonejs.org/">Backbone.js</a></li>
+<li><a href="http://emberjs.com/">Ember.js</a></li>
+</ul>
+<p>From these three I've chosen <strong>Backbone.js</strong> from simple reason. It allows to use existing DOM. Sadly the other ones are not meant for that. If your app would be an internal app or a SEO is not your priority at all then I would suggest using different framework than <strong>Backbone</strong>. But if SEO matters for you, then I would say that the best pick will be Backbone (until you would like to use for e.g. a <strong>Phantom.js</strong> to crawl your site and generate HTML files for <strong>Google</strong>).</p>
+<h2>Foreword</h2>
+<p>This application is an 'not finished', but working example. It would need some refactoring before sending it to 'production'. I had a limited time while playing with Backbone and that's all what I was able to do. If you're interested in this tutorial, please leave a comment and I will try to refactor this code.</p>
+<h2>Let's start with an app!</h2>
+<p>As an example app I've decided to implement simple <strong>FB</strong> like wall with likes mechanism. I didn't want to generate everything from JavaScript but preload data earlier. Server side part I've decided to write in PHP using <strong>Zend Framework 2</strong> (as a big fan of <strong>ZF1</strong>).</p>
+<p>One of the important things was not writing any views twice. It's really often when you use JavaScript and PHP to write some views twice, once inside PHP as a returned response, secondary inside JS itself when some additional data is loaded through AJAX. It's really bad if you will catch yourself doing that. It leads to a lot of code duplication and need of change in many files when altering HTML structure. This can cause a lot of hard to find bugs, when pre-loaded page will work ok, but all dynamically loaded elements will cause you troubles. Let's say no to that!</p>
+<h3>ZF2 Skeleton App</h3>
+<p>As many <strong>ZF2</strong> apps it will start with getting ZF2 Skeleton app from github. So firstly create a <code>backbonejs</code> folder inside your webserver root and then create the app using composer.phar</p>
+<div class="codehilite"><pre>curl -s https://getcomposer.org/installer | php --
+php composer.phar create-project --repository-url<span class="o">=</span><span class="s2">&quot;http://packages.zendframework.com&quot;</span> zendframework/skeleton-application backbonejs
+</pre></div>
+
+
+<p>Alternatively (like me) instead of the root folder inside webserver you can use your workspace and <a href="http://www.vagrantup.com/">Vagrant</a>. I live it to your choice.</p>
+<p>It's also necessary to setup webserver correctly to run <strong>ZF2</strong>, for that please refer to <a href="http://framework.zend.com/manual/2.1/en/user-guide/overview.html">instruction</a> available on ZF2 documentation page.</p>
+<p>I'm assuming that you were able to start the ZF2 application correctly and it's up and running.</p>
+<p>Normally before you would be able to share something, you should firstly login. Because there's not much of work, let's make a login page. Not to reinvent the wheel and write it form the beginning we will use <a href="https://github.com/ZF-Commons/ZfcUser">ZfcUser</a>. To do it, just put inside <code>composer.json</code> requirement for <strong>ZfcUser</strong> module</p>
+<div class="codehilite"><pre><span class="p">{</span>
+    <span class="nt">&quot;some additional&quot;</span><span class="p">:</span> <span class="s2">&quot;keys&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;require&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;php&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=5.3.3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;zendframework/zsendframework&quot;</span><span class="p">:</span> <span class="s2">&quot;2.*&quot;</span><span class="p">,</span>
+
+        <span class="nt">&quot;zf-commons/zfc-user&quot;</span><span class="p">:</span> <span class="s2">&quot;dev-master&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>and run php composer.phar install. It should install you ZfcUser module.
+Now let's enable this module. To do it, edit main configuration file for <strong>ZF2</strong> and make the <strong>modules</strong> array look like</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="c1">///config/application.config.php</span>
+<span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+    <span class="c1">// This should be an array of module namespaces used in the application.</span>
+    <span class="s1">&#39;modules&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;Application&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ZfcBase&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ZfcUser&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="c1">//other zf2 app settings</span>
+<span class="p">);</span>
+</pre></div>
+
+
+<p><strong>ZfcUser</strong> also requires module configuration. You should copy base configuration file <code>/vendor/zf-commons/zfc-user/config/zfc-user.global.php.dist</code>, put it inside <code>/config/autoload/</code> and rename it to <code>zfcuser.global.php</code>. For the sake of this project we will enable also registration, because I would like to register myself nicely instead of writing into database my data. For that, just uncomment line inside <code>zfcuser.global.php</code></p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="c1">//...</span>
+    <span class="s1">&#39;enable_registration&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+<span class="c1">//...</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>Last step will be adding user schema into database to store somewhere bunch of users which will register. Create a database called <code>social</code> and run queries on it from a <code>schema.mysql.sql</code> file inside <code>vendor/zf-commons/zfc-user/data/</code> folder.</p>
+<p>Don't forget also to setup <strong>ZF2</strong> to use correct database. It'll be done inside <code>/config/autoload/local.php</code>. This file should not get inside the repository, not to store the credentials to database. Update this file to look similar to:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;db&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&lt;username&gt;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&lt;password&gt;&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>You should have now working login page. Try to navigate into <code>http://&lt;server_name&gt;/user/login</code>. You should see login form now. Wasn't that hard to make the login/register functionality.</p>
+<p>But wait, it's not working yet as it should. It's fine with the login/registration but still I'm able to navigate to any page without a login in first. We will implement the functionality to disallow navigation through all application without firstly logging in. Inside the <code>/modules/Application/Module.php</code> (for simplicity I will use this module which came from Skeleton App) in bootstrap function update the code so it will look as follows</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="c1">//...</span>
+<span class="k">class</span> <span class="nc">Module</span> 
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">onBootstrap</span><span class="p">(</span><span class="nx">MvcEvent</span> <span class="nv">$e</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getApplication</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getServiceManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;translator&#39;</span><span class="p">);</span>
+        <span class="nv">$eventManager</span>        <span class="o">=</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getApplication</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">();</span>
+        <span class="nv">$moduleRouteListener</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ModuleRouteListener</span><span class="p">();</span>
+        <span class="nv">$moduleRouteListener</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span><span class="nv">$eventManager</span><span class="p">);</span>
+        <span class="nv">$eventManager</span> <span class="o">=</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getApplication</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">();</span>
+        <span class="c1">//nothing&#39;s available for non logged user, so redirect him to login page</span>
+        <span class="nv">$eventManager</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span><span class="s2">&quot;dispatch&quot;</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$sm</span> <span class="o">=</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getApplication</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getServiceManager</span><span class="p">();</span>
+            <span class="nv">$controller</span> <span class="o">=</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getTarget</span><span class="p">();</span>
+            <span class="nv">$auth</span> <span class="o">=</span> <span class="nv">$sm</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;zfcuser_auth_service&#39;</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$auth</span><span class="o">-&gt;</span><span class="na">hasIdentity</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getRouteMatch</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getMatchedRouteName</span><span class="p">()</span> <span class="o">!==</span> <span class="s1">&#39;zfcuser/login&#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$application</span> <span class="o">=</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getTarget</span><span class="p">();</span>
+
+                <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">stopPropagation</span><span class="p">();</span>
+                <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">();</span>
+                <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">setStatusCode</span><span class="p">(</span><span class="mi">302</span><span class="p">);</span>
+                <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">getHeaders</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">addHeaderLine</span><span class="p">(</span><span class="s1">&#39;Location&#39;</span><span class="p">,</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getRouter</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">assemble</span><span class="p">(</span><span class="k">array</span><span class="p">(),</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;zfcuser/login&#39;</span><span class="p">)));</span>
+                <span class="c1">//returning response will cause zf2 to stop further dispatch loop</span>
+                <span class="k">return</span> <span class="nv">$response</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">//...</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>Now every time you will try to go to any page other than login you will be immediately redirected to login page. And we have already a simple login implemented! Now try to login and enter the site.</p>
+<h2>I see a wall?!</h2>
+<p>Yes, but it's... empty (or rather you're seeing a ZF2 logo). Let's cleanup it a little. ZF2 already comes with <a href="http://twitter.github.io/bootstrap/">Twitter Bootstrap</a>, so let's us it. We will only alter layout a little. Please open <code>module/Application/view/layout.phtml</code> file (yeah we'll be altering already existing Skeleton App).</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php echo $this-&gt;doctype(); ?&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;?php echo $this-&gt;headTitle(&#39;MY Social Network &#39;. $this-&gt;translate(&#39;Skeleton Application&#39;))-&gt;setSeparator(&#39; - &#39;)-&gt;setAutoEscape(false) ?&gt;</span>
+
+        <span class="cp">&lt;?php echo $this-&gt;headMeta()-&gt;appendName(&#39;viewport&#39;, &#39;width=device-width, initial-scale=1.0&#39;) ?&gt;</span>
+
+        <span class="c">&lt;!-- Le styles --&gt;</span>
+        <span class="cp">&lt;?php echo $this-&gt;headLink(array(&#39;rel&#39; =&gt; &#39;shortcut icon&#39;, &#39;type&#39; =&gt; &#39;image/vnd.microsoft.icon&#39;, &#39;href&#39; =&gt; $this-&gt;basePath() . &#39;/img/favicon.ico&#39;))</span>
+<span class="cp">                        -&gt;prependStylesheet($this-&gt;basePath() . &#39;/css/bootstrap-responsive.min.css&#39;)</span>
+<span class="cp">                        -&gt;prependStylesheet($this-&gt;basePath() . &#39;/css/style.css&#39;)</span>
+<span class="cp">                        -&gt;prependStylesheet($this-&gt;basePath() . &#39;/css/bootstrap.css&#39;) ?&gt;</span>
+
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;navbar navbar-inverse navbar-fixed-top&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;navbar-inner&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;btn btn-navbar&quot;</span> <span class="na">data-toggle=</span><span class="s">&quot;collapse&quot;</span> <span class="na">data-target=</span><span class="s">&quot;.nav-collapse&quot;</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;icon-bar&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
+                        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;icon-bar&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
+                        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;icon-bar&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
+                    <span class="nt">&lt;/a&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;brand&quot;</span> <span class="na">href=</span><span class="s">&quot;&lt;?php echo $this-&gt;url(&#39;home&#39;) ?&gt;&quot;</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $this-&gt;translate(&#39;MY Social Network&#39;) ?&gt;</span><span class="nt">&lt;/a&gt;</span>
+                    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;nav-collapse collapse&quot;</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;nav&quot;</span><span class="nt">&gt;</span>
+                            <span class="cp">&lt;?php if ($this-&gt;zfcUserIdentity()): ?&gt;</span>
+                                <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;active&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;?php echo $this-&gt;url(&#39;home&#39;) ?&gt;&quot;</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $this-&gt;translate(&#39;Home&#39;) ?&gt;</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                                <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;active&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;?php echo $this-&gt;url(&#39;zfcuser&#39;) ?&gt;&quot;</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $this-&gt;translate(&#39;Me&#39;) ?&gt;</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                                <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;active&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;?php echo $this-&gt;url(&#39;zfcuser/logout&#39;) ?&gt;&quot;</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $this-&gt;translate(&#39;Logout&#39;) ?&gt;</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                            <span class="cp">&lt;?php else: ?&gt;</span>
+                                <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;active&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;?php echo $this-&gt;url(&#39;zfcuser/login&#39;) ?&gt;&quot;</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $this-&gt;translate(&#39;Login&#39;) ?&gt;</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                            <span class="cp">&lt;?php endif; ?&gt;</span>
+                        <span class="nt">&lt;/ul&gt;</span>
+                    <span class="nt">&lt;/div&gt;</span><span class="c">&lt;!--/.nav-collapse --&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span> <span class="na">id=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;</span>
+            <span class="cp">&lt;?php echo $this-&gt;content; ?&gt;</span>
+            <span class="nt">&lt;hr&gt;</span>
+            <span class="nt">&lt;footer&gt;</span>
+                <span class="nt">&lt;p&gt;</span><span class="ni">&amp;copy;</span> 2013 - <span class="cp">&lt;?php echo date(&#39;Y&#39;) ?&gt;</span> My super company <span class="cp">&lt;?php echo $this-&gt;translate(&#39;All rights reserved.&#39;) ?&gt;</span><span class="nt">&lt;/p&gt;</span>
+            <span class="nt">&lt;/footer&gt;</span>
+        <span class="nt">&lt;/div&gt;</span> <span class="c">&lt;!-- /container --&gt;</span>
+        <span class="c">&lt;!-- Scripts --&gt;</span>
+
+        <span class="cp">&lt;?php echo $this-&gt;headScript()</span>
+<span class="cp">                        -&gt;prependFile($this-&gt;basePath() . &#39;/js/backbone.js&#39;)</span>
+<span class="cp">                        -&gt;prependFile($this-&gt;basePath() . &#39;/js/underscore.js&#39;)</span>
+<span class="cp">                        -&gt;prependFile($this-&gt;basePath() . &#39;/js/html5.js&#39;, &#39;text/javascript&#39;, array(&#39;conditional&#39; =&gt; &#39;lt IE 9&#39;,))</span>
+<span class="cp">                        -&gt;prependFile($this-&gt;basePath() . &#39;/js/bootstrap.min.js&#39;)</span>
+<span class="cp">                        -&gt;prependFile($this-&gt;basePath() . &#39;/js/jquery.min.js&#39;); ?&gt;</span>
+
+        <span class="cp">&lt;?php echo $this-&gt;inlineScript() ?&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+
+<p>Here are some important notes. You saw where the scripts went? Almost at the end of body.</p>
+<div class="codehilite"><pre> <span class="c">&lt;!-- Scripts --&gt;</span>
+<span class="cp">&lt;?php echo $this-&gt;headScript()</span>
+<span class="cp">                -&gt;prependFile($this-&gt;basePath() . &#39;/js/backbone.js&#39;)</span>
+<span class="cp">                -&gt;prependFile($this-&gt;basePath() . &#39;/js/underscore.js&#39;)</span>
+<span class="cp">                -&gt;prependFile($this-&gt;basePath() . &#39;/js/html5.js&#39;, &#39;text/javascript&#39;, array(&#39;conditional&#39; =&gt; &#39;lt IE 9&#39;,))</span>
+<span class="cp">                -&gt;prependFile($this-&gt;basePath() . &#39;/js/bootstrap.min.js&#39;)</span>
+<span class="cp">                -&gt;prependFile($this-&gt;basePath() . &#39;/js/jquery.min.js&#39;); ?&gt;</span>
+
+<span class="cp">&lt;?php echo $this-&gt;inlineScript() ?&gt;</span>
+</pre></div>
+
+
+<p>Why you ask? When your social network will be growing you will start adding more and more JavaScript. There are many methods of optimization, but one of the simplest one will be moving your scripts at the end of HTML. This will make browser parse the scripts after showing the rest of the page to an user. There's one minus though - until scripts are loaded user cannot interact with your app. This problem can be solved but I won't be doing it here.
+It's important to have them added in the same order. First thing that should be loaded is jQuery. This is one of the dependencies required for <strong>Backbone.js</strong>. Other one is <strong>Underscore.js</strong>. This JavaScript has to be also inside the DOM before <strong>Backbone</strong> (we use here <code>prependFile</code> function). Last included JavaScript is <strong>Backbone.js</strong> itself.</p>
+<div class="codehilite"><pre><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;nav&quot;</span><span class="nt">&gt;</span>
+<span class="cp">&lt;?php if ($this-&gt;zfcUserIdentity()): ?&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;active&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;?php echo $this-&gt;url(&#39;home&#39;) ?&gt;&quot;</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $this-&gt;translate(&#39;Home&#39;) ?&gt;</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;active&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;?php echo $this-&gt;url(&#39;zfcuser&#39;) ?&gt;&quot;</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $this-&gt;translate(&#39;Me&#39;) ?&gt;</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;active&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;?php echo $this-&gt;url(&#39;zfcuser/logout&#39;) ?&gt;&quot;</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $this-&gt;translate(&#39;Logout&#39;) ?&gt;</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="cp">&lt;?php else: ?&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;active&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;?php echo $this-&gt;url(&#39;zfcuser/login&#39;) ?&gt;&quot;</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $this-&gt;translate(&#39;Login&#39;) ?&gt;</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="cp">&lt;?php endif; ?&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+
+
+<p>ZfcUser gives you out of the box functionality to check whether user is logged or not. You can do it by calling</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">zfcUserIdentity</span><span class="p">();</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>in a view file. Right now our social network is really simple and allows only to show wall or user info (this is also provided by <strong>ZfcUser</strong>) and eventually log out.</p>
+<p>Let's also add a little bit of CSS styles for later usage (they're really simple not to make the first steps too complex, style the application as you would like).</p>
+<div class="codehilite"><pre><span class="c">/* public/css/style.css */</span>
+<span class="nc">.border-bottom</span> <span class="p">{</span>
+  <span class="k">border-bottom</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="m">#ccc</span><span class="p">;</span>
+  <span class="k">margin-bottom</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.border-left</span> <span class="p">{</span>
+  <span class="k">border-left</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="m">#ccc</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.border-right</span> <span class="p">{</span>
+  <span class="k">border-right</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="m">#ccc</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">div</span><span class="nc">.share-form</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span><span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">textarea</span><span class="nf">#share-input</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">40px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+  <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">div</span><span class="nc">.post</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">div</span><span class="nc">.post-footer</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#3b5998</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">p</span><span class="nc">.post-author</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#3b5998</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.btn-share</span> <span class="p">{</span>
+  <span class="k">float</span><span class="o">:</span><span class="k">right</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">5px</span> <span class="m">0</span> <span class="m">5px</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">span</span><span class="nc">.post-like-likes</span> <span class="p">{</span>
+  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#000</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
+  <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">5px</span> <span class="m">5px</span> <span class="m">2px</span> <span class="m">#aaa</span><span class="p">;</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">5px</span> <span class="m">5px</span> <span class="m">2px</span> <span class="m">#aaa</span><span class="p">;</span>
+  <span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">5px</span> <span class="m">5px</span> <span class="m">2px</span> <span class="m">#aaa</span><span class="p">;</span>
+  <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">2px</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span><span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Ok, so we can assume that layout is done. Now you should see simple menu with 3 tabs on the top, but still no posts.</p>
+<h3>My share form</h3>
+<p>What kind of social network would be without a share form? We need one. Let's do it then.</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="c1">//module/Application/src/Application/Form/ShareForm.php</span>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">namespace</span> <span class="nx">Application\Form</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Zend\Form\Form</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">ShareForm</span> <span class="k">extends</span> <span class="nx">Form</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="s1">&#39;share&#39;</span><span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+            <span class="k">array</span><span class="p">(</span>
+                <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;share&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;options&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+                    <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;Status&quot;</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="s1">&#39;attributes&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+                    <span class="s1">&#39;type&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;textarea&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;share-input&#39;</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">);</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+            <span class="k">array</span><span class="p">(</span>
+                <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;submit&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;attributes&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+                    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;submit&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Share&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;btn btn-primary btn-share&#39;</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>This will create a simple form with a textarea and a submit button. We will use later <strong>id</strong> attribute to attach events to this form. Also not that the form will be without any <strong>Filter</strong> nor validation. In a production application validation should be added (ZF2 Forms support it really nicely).</p>
+<p>Next step will be putting this form inside view for our wall (till now only layout exists). Create a view inside of <code>module/Application/src/view/application/index</code> and name it <code>index.phtml</code>.</p>
+<div class="codehilite"><pre><span class="x">&lt;div class=&quot;container&quot;&gt;</span>
+<span class="x">    &lt;div class=&quot;row&quot;&gt;</span>
+<span class="x">        &lt;div class=&quot;span1&quot;&gt;</span>
+<span class="x">            &lt;p&gt;sidebar left&lt;/p&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">        &lt;div class=&quot;content span6 border-left&quot;&gt;</span>
+<span class="x">            &lt;div class=&quot;border-bottom share-form&quot;&gt;</span>
+<span class="x">                </span><span class="cp">&lt;?php</span> 
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">();</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">url</span><span class="p">(</span><span class="s1">&#39;application/default&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;share&#39;</span><span class="p">,</span> <span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;add&#39;</span><span class="p">)));</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;share-form&#39;</span><span class="p">);</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">,</span> <span class="s1">&#39;post&#39;</span><span class="p">);</span>
+
+                <span class="c1">//open form</span>
+                <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">openTag</span><span class="p">(</span><span class="nv">$form</span><span class="p">);</span>
+                <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formRow</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;share&#39;</span><span class="p">));</span>
+                <span class="k">echo</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
+                <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formRow</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">));</span>
+                <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">closeTag</span><span class="p">();</span>
+                <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                &lt;br clear:both; /&gt;</span>
+<span class="x">            &lt;/div&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">        &lt;div class=&quot;span2&quot;&gt;</span>
+<span class="x">            &lt;p&gt;sidebar right&lt;/p&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+</pre></div>
+
+
+<p>In the code above you will see a 3 column layout for the wall page (later you will want probably to put there some additional navbar). For now left and right sidebars will be empty.</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+ <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">url</span><span class="p">(</span><span class="s1">&#39;application/default&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;share&#39;</span><span class="p">,</span> <span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;add&#39;</span><span class="p">)));</span>
+ <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>Also already an url for a form was added (for now not working) where your new shares will be put. This will generate a form with textarea and a button under it, but the form is still not inside the view. Later we will pass it to the view from controller with all shares. If you enter the index page there will be and error so wait some more time.</p>
+<h3>Models to get'em all</h3>
+<p>To obtain shares of users model will be necessary. For simplicity there will be only one table, and you will be able to see for now (sadly) only your shares. Create schema inside your <strong>social</strong> database.</p>
+<div class="codehilite"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="k">share</span><span class="o">`</span> <span class="p">(</span>
+  <span class="o">`</span><span class="n">share_id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="n">unsigned</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">user_id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="n">unsigned</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">COMMENT</span> <span class="s1">&#39;User id of an the posts should be visible&#39;</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">author_id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="n">unsigned</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">author</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">COMMENT</span> <span class="s1">&#39;Name of author of post&#39;</span><span class="p">,</span>
+  <span class="o">`</span><span class="nb">text</span><span class="o">`</span> <span class="nb">text</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">COMMENT</span> <span class="s1">&#39;Share text&#39;</span><span class="p">,</span>
+  <span class="o">`</span><span class="k">type</span><span class="o">`</span> <span class="n">tinyint</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;0&#39;</span> <span class="k">COMMENT</span> <span class="s1">&#39;Has link&#39;</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">thumbnail</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="k">NULL</span> <span class="k">COMMENT</span> <span class="s1">&#39;Optional thumbnail&#39;</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">added</span><span class="o">`</span> <span class="n">datetime</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">likes</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">unsigned</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">share_id</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">KEY</span> <span class="o">`</span><span class="n">user_idx</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">user_id</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">KEY</span> <span class="o">`</span><span class="n">author_idx</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">author_id</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">KEY</span> <span class="o">`</span><span class="n">user_id_added</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">user_id</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">added</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">CONSTRAINT</span> <span class="o">`</span><span class="n">author</span><span class="o">`</span> <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">author_id</span><span class="o">`</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="o">`</span><span class="n">users</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">user_id</span><span class="o">`</span><span class="p">)</span> <span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span> <span class="k">ON</span> <span class="k">UPDATE</span> <span class="k">NO</span> <span class="n">ACTION</span><span class="p">,</span>
+  <span class="k">CONSTRAINT</span> <span class="o">`</span><span class="k">user</span><span class="o">`</span> <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">user_id</span><span class="o">`</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="o">`</span><span class="n">users</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">user_id</span><span class="o">`</span><span class="p">)</span> <span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span> <span class="k">ON</span> <span class="k">UPDATE</span> <span class="k">NO</span> <span class="n">ACTION</span>
+<span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">1</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span>
+</pre></div>
+
+
+<p>With each share there will be stored likes counter. It is necessary to already show how many likes one share will have without using counts for each post. Now let's create a <strong>ShareTable</strong> which will be a <strong>TableGateway</strong></p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">namespace</span> <span class="nx">Application\Model</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Zend\Db\TableGateway\TableGateway</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Zend\Db\Sql</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">ShareTable</span> <span class="k">extends</span> <span class="nx">TableGateway</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$tableGateway</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">TableGateway</span> <span class="nv">$tableGateway</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tableGateway</span> <span class="o">=</span> <span class="nv">$tableGateway</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getByUserId</span><span class="p">(</span><span class="nv">$userId</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tableGateway</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nx">Sql\Select</span> <span class="nv">$select</span><span class="p">)</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$userId</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$select</span>
+                <span class="o">-&gt;</span><span class="na">order</span><span class="p">(</span><span class="s1">&#39;added DESC&#39;</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">where</span>
+                    <span class="o">-&gt;</span><span class="na">equalTo</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="nv">$userId</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tableGateway</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;user_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;author_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;author_id&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;author&#39;</span> <span class="o">=&gt;</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;text&#39;</span> <span class="o">=&gt;</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;added&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">Sql\Expression</span><span class="p">(</span><span class="s1">&#39;NOW()&#39;</span><span class="p">),</span>
+        <span class="p">));</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tableGateway</span><span class="o">-&gt;</span><span class="na">lastInsertValue</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">updateLikes</span><span class="p">(</span><span class="nv">$shareId</span><span class="p">,</span> <span class="nv">$amount</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tableGateway</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+                <span class="s1">&#39;likes&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">\Zend\Db\Sql\Expression</span><span class="p">(</span><span class="s1">&#39;likes + &#39;</span> <span class="o">.</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$amount</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="k">array</span><span class="p">(</span><span class="s1">&#39;share_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$shareId</span><span class="p">)</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Hope that the code is self explanatory this time.</p>
+<p>Because the same model can be used later in different places inside our module, the best way will be registering it as a factory. This will allow you to use the same instance of ShareTable across the system. Let's register it as a factory, cause it's dependent on TableGateway, which is dependent on <code>Zend\Db\Adapter\Adapter</code>. Open <code>module/Application/Module.php</code> and make <code>getServiceConfig()</code> function to look as follows</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="c1">//module/Application/Module.php</span>
+
+<span class="k">namespace</span> <span class="nx">Application</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Zend\Mvc\ModuleRouteListener</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Zend\Mvc\MvcEvent</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Zend\Db\TableGateway\TableGateway</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Application\Model</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Application\View</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Module</span>
+<span class="p">{</span>
+    <span class="c1">//...</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getServiceConfig</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;factories&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+                <span class="s1">&#39;Application\Model\ShareTable&#39;</span> <span class="o">=&gt;</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$sm</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$tableGateway</span> <span class="o">=</span> <span class="nv">$sm</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;ShareTableGateway&#39;</span><span class="p">);</span>
+                    <span class="nv">$table</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Model\ShareTable</span><span class="p">(</span><span class="nv">$tableGateway</span><span class="p">);</span>
+                    <span class="k">return</span> <span class="nv">$table</span><span class="p">;</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;ShareTableGateway&#39;</span> <span class="o">=&gt;</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$sm</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$dbAdapter</span> <span class="o">=</span> <span class="nv">$sm</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;Zend\Db\Adapter\Adapter&#39;</span><span class="p">);</span>
+
+                    <span class="k">return</span> <span class="k">new</span> <span class="nx">TableGateway</span><span class="p">(</span><span class="s1">&#39;share&#39;</span><span class="p">,</span> <span class="nv">$dbAdapter</span><span class="p">);</span>
+                <span class="p">},</span>
+            <span class="p">)</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>So we have now 2 services <code>Application\Model\ShareTable</code> and <code>ShareTableGateway</code>. Also a nice idea would be registering prototype row for <code>ShareTableGateway</code> but we'll omit that for now.</p>
+<h3>Controller for gluing all the pieces together</h3>
+<p>Now it's time for our controller to glue everything and start viewing some shares (if there are any).</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="c1">//module/Application/src/Application/Controller/IndexController.php</span>
+
+<span class="k">namespace</span> <span class="nx">Application\Controller</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Zend\Mvc\Controller\AbstractActionController</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Zend\View\Model\ViewModel</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Application\Form</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Application\Model</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">IndexController</span> <span class="k">extends</span> <span class="nx">AbstractActionController</span>
+<span class="p">{</span>
+
+    <span class="k">protected</span> <span class="nv">$shareTable</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$form</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Form\ShareForm</span><span class="p">();</span>
+        <span class="nv">$shareTable</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getShareTable</span><span class="p">();</span>
+        <span class="nv">$userId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">zfcUserAuthentication</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getIdentity</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">();</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">ViewModel</span><span class="p">(</span>
+            <span class="k">array</span><span class="p">(</span>
+                <span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$form</span><span class="p">,</span>
+                <span class="s1">&#39;posts&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getShareTable</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getByUserId</span><span class="p">(</span><span class="nv">$userId</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getShareTable</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">shareTable</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$sm</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getServiceLocator</span><span class="p">();</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">shareTable</span> <span class="o">=</span> <span class="nv">$sm</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;Application\Model\ShareTable&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">shareTable</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Function <code>indexAction</code> will render our wall with all shares that are specified for currently logged user. Note that here we use <strong>Inversion of Control</strong> for our share table.</p>
+<p>The last step will be altering our view by adding some code responsible for viewing each share. Modify the <code>module/Application/view/index/index.phtml</code> file so it will now look like</p>
+<div class="codehilite"><pre><span class="x">&lt;div class=&quot;container&quot;&gt;</span>
+<span class="x">    &lt;div class=&quot;row&quot;&gt;</span>
+<span class="x">        &lt;div class=&quot;span1&quot;&gt;</span>
+<span class="x">            &lt;p&gt;sidebar left&lt;/p&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">        &lt;div class=&quot;content span6 border-left&quot;&gt;</span>
+<span class="x">            &lt;div class=&quot;border-bottom share-form&quot;&gt;</span>
+<span class="x">                </span><span class="cp">&lt;?php</span> 
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">();</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">url</span><span class="p">(</span><span class="s1">&#39;application/default&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;share&#39;</span><span class="p">,</span> <span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;add&#39;</span><span class="p">)));</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;share-form&#39;</span><span class="p">);</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">,</span> <span class="s1">&#39;post&#39;</span><span class="p">);</span>
+
+                <span class="c1">//open form</span>
+                <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">openTag</span><span class="p">(</span><span class="nv">$form</span><span class="p">);</span>
+                <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formRow</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;share&#39;</span><span class="p">));</span>
+                <span class="k">echo</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
+                <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formRow</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">));</span>
+                <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">closeTag</span><span class="p">();</span>
+                <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                &lt;br clear:both; /&gt;</span>
+<span class="x">            &lt;/div&gt;</span>
+<span class="x">            &lt;div id=&quot;post-list&quot;&gt;</span>
+<span class="x">                </span><span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">posts</span> <span class="k">as</span> <span class="nv">$post</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                    </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">partial</span><span class="p">(</span><span class="s1">&#39;index/partials/post.phtml&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;post&#39;</span> <span class="o">=&gt;</span> <span class="nv">$post</span><span class="p">));</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                </span><span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">            &lt;/div&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">        &lt;div class=&quot;span2&quot;&gt;</span>
+<span class="x">            &lt;p&gt;sidebar right&lt;/p&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+</pre></div>
+
+
+<p>Each post will be rendered by partial. This is because the view will be cleaner and easier to read this way. Additionally it's because of <strong>DRY</strong>. We will reuse this partial later for JavaScript. This partial looks like</p>
+<div class="codehilite"><pre><span class="x">&lt;div class=&quot;post&quot; id=&quot;post_</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">[</span><span class="s1">&#39;share_id&#39;</span><span class="p">]</span><span class="cp">?&gt;</span><span class="x">&quot; &gt;</span>
+<span class="x">    &lt;div class=&quot;border-bottom&quot;&gt;</span>
+<span class="x">        &lt;div&gt;</span>
+<span class="x">            &lt;p&gt;</span>
+<span class="x">                &lt;span class=&quot;gravatar&quot;&gt;</span>
+<span class="x">                    </span><span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">[</span><span class="s1">&#39;gravatar&#39;</span><span class="p">]))</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                        </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">gravatar</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">],</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;img_size&#39;</span> <span class="o">=&gt;</span> <span class="mi">40</span><span class="p">));</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                    </span><span class="cp">&lt;?php</span> <span class="k">else</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                        </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">[</span><span class="s1">&#39;gravatar&#39;</span><span class="p">];</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                    </span><span class="cp">&lt;?php</span> <span class="k">endif</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                &lt;/span&gt;</span>
+<span class="x">                &lt;span class=&quot;post-author&quot;&gt;</span>
+<span class="x">                    </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">];</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                &lt;/span&gt;</span>
+<span class="x">            &lt;/p&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">        &lt;p class=&quot;post-text&quot;&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">];</span> <span class="cp">?&gt;</span><span class="x">&lt;/p&gt;</span>
+<span class="x">        &lt;div class=&quot;post-footer&quot;&gt;</span>
+<span class="x">            &lt;span class=&quot;post-like&quot;&gt;</span>
+<span class="x">                &lt;a class=&quot;post-like-button&quot;&gt;Like!&lt;/a&gt;</span>
+<span class="x">                &lt;span class=&quot;post-like-likes&quot;&gt;&lt;/span&gt;</span>
+<span class="x">                &lt;span class=&quot;post-likes-count&quot;&gt;</span><span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">[</span><span class="s1">&#39;likes&#39;</span><span class="p">])</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="x">(</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">[</span><span class="s1">&#39;likes&#39;</span><span class="p">];</span> <span class="cp">?&gt;</span><span class="x">)</span><span class="cp">&lt;?php</span> <span class="k">endif</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x">&lt;/span&gt;</span>
+<span class="x">            &lt;/span&gt;</span>
+<span class="x">             &amp;middot; </span>
+<span class="x">            &lt;span class=&quot;post-date&quot;&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">[</span><span class="s1">&#39;added&#39;</span><span class="p">];</span> <span class="cp">?&gt;</span><span class="x">&lt;/span&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+</pre></div>
+
+
+<p>As you can see we will be showing a gravatar, author and share text</p>
+<p>If you will add one record to shares table you should already see a new share. But still we cannot create new shares from our Social Network.</p>
+<h3>It's time for some JavaScript action</h3>
+<p>Now let's make some action with backbone. Let's create new file <code>share.js</code> and put it inside <code>public/javascript</code> folder. Let's also add this file to included JavaScript list. It can be done by placing on the beginning of <code>module/Application/view/index/index.phtml</code> a line</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">headScript</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">appendFile</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">basePath</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;js/share.js&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>This will do what we need (again for the simplicity there will be only one file, normally you would divide this app into more files and during the deployment merge them correctly or use something like Require.js). Also be sure to use this time (in opposition to layout) <code>appendFile</code> function to be sure that this script will be loaded <strong>after</strong> Backbone.js.</p>
+<p>Let's start editing <code>share.js</code> file and put some JS into an action. Firstly let's create new module and main application object with namespaces for it's parts.</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">share</span><span class="p">,</span> <span class="nx">global</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">$</span><span class="p">,</span> <span class="nx">user</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">){</span>
+    <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+    <span class="c1">//application - manages input and send messages to collection</span>
+    <span class="kd">var</span> <span class="nx">AppView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">)</span>
+    <span class="p">});</span>
+    <span class="nx">AppView</span><span class="p">.</span><span class="nx">models</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">AppView</span><span class="p">.</span><span class="nx">collections</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">AppView</span><span class="p">.</span><span class="nx">views</span> <span class="o">=</span> <span class="p">{};</span>
+
+    <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">new</span> <span class="nx">AppView</span><span class="p">();</span>
+    <span class="p">});</span>
+<span class="p">})({},</span> <span class="k">this</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">$</span><span class="p">,</span> <span class="nx">user</span><span class="p">);</span>
+</pre></div>
+
+
+<p>Our main application object is an Backbone view! This way we'll be able to 'glue' to already existing DOM and add some events for already existing elements. To make it glued to the already existing DOM Backbone requires to put <code>el: domElement</code> inside the view (it's also possible to specify this element while constructing objects).</p>
+<p>Additionally there were created 3 namespaces to organize our code a little (models, collections, views).</p>
+<p>When you use Backbone you divide your code between <strong>Views, Models and Collections</strong> Model's responsible for logic and storing data. Collection is just a container of many models. View at the end is responsible for rendering HTML.</p>
+<p>Firstly let's create a model for a single share entry.</p>
+<div class="codehilite"><pre><span class="nx">AppView</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">ShareModel</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>And a view</p>
+<div class="codehilite"><pre><span class="nx">AppView</span><span class="p">.</span><span class="nx">views</span><span class="p">.</span><span class="nx">ShareView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">model</span><span class="o">:</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">ShareModel</span><span class="p">,</span>
+    <span class="nx">tagName</span><span class="o">:</span> <span class="s1">&#39;div&#39;</span><span class="p">,</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#post-template&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">()),</span>
+    <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;post&#39;</span><span class="p">,</span>
+    <span class="nx">attributes</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;post_&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;share_id&#39;</span><span class="p">),</span>
+        <span class="p">};</span>
+    <span class="p">},</span>
+    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">attr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">,</span> <span class="s1">&#39;destroy&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">remove</span><span class="p">);</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">attrs</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">clone</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">attributes</span><span class="p">);</span>
+        <span class="c1">//print readable date</span>
+        <span class="nx">attrs</span><span class="p">.</span><span class="nx">added</span> <span class="o">=</span> <span class="nx">attrs</span><span class="p">.</span><span class="nx">added</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span>
+                <span class="nx">$</span><span class="p">.</span><span class="nx">parseHTML</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">attrs</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="p">.</span><span class="nx">innerHTML</span>
+            <span class="p">);</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">hideLikes</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">likesList</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+    <span class="p">},</span>
+
+    <span class="nx">remove</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>There's a bunch of code, so let's stop a little.</p>
+<p>It's really common that each view in Backbone has it's own model. By putting inside of view definition</p>
+<div class="codehilite"><pre><span class="c1">//...</span>
+<span class="nx">model</span><span class="o">:</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">ShareModel</span>
+</pre></div>
+
+
+<p>we define that the default model for such a view is <code>AppView.models.ShareModel</code></p>
+<p>Next thing is <code>tagName</code>, this just tells backbone to use <code>div</code> as a main tag for element (each view has it's own 'container'). Let's skip few lines and firstly look into class constructor. In Backbone constructor is an <code>initialize</code> method.</p>
+<div class="codehilite"><pre><span class="c1">//...</span>
+<span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">attr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">,</span> <span class="s1">&#39;destroy&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">remove</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+<span class="p">},</span>
+</pre></div>
+
+
+<p>This will make us life easier. Each time there's any change inside of the model, the view will be informed. So if for e.g. Edit functionality will be implemented and model will be altered, then the view will be automatically updated.
+Right now also in case when model is destroyed, view with a share will be removed from DOM. Because of the <code>this.render()</code> function code each time new share view will be created immediately it will go into the DOM.</p>
+<p>Now let's analyze render and template function. Backbone.js uses by default underscore templating mechanism. You can create templates in at least two ways</p>
+<ul>
+<li>Create template server side. This template will go inside the HTML page and will be obtained from JavaScript.</li>
+<li>Create template inside your JS file with a view.</li>
+</ul>
+<p>Which method to use, differs from situation. For me important is <strong>DRY</strong>. The worst thing is making repetitions of templates and creating two, one for server side rendering, second for dynamically created content. This way you will end altering twice your templates in case of any change. So here I've decided to reuse my partial for each share.</p>
+<p>Somewhere at the end of <code>module/Application/view/index/index.phtml</code> put this code</p>
+<div class="codehilite"><pre><span class="x">&lt;script type=&quot;text/template&quot; id=&quot;post-template&quot;&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">partial</span><span class="p">(</span><span class="s1">&#39;index/partials/post.phtml&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;post&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">templateVars</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;share_id&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;author&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;text&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;added&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;likes&#39;</span><span class="p">,</span>
+        <span class="p">))</span> <span class="o">+</span> <span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;gravatar&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&lt;img src=&quot;&lt;%- gravatar %&gt;&quot; /&gt;&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">);</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">&lt;/script&gt;</span>
+<span class="x">&lt;script type=&quot;text/javascript&quot;&gt;</span>
+<span class="x">var user = {</span>
+<span class="x">    email: </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">zfcUserIdentity</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getEmail</span><span class="p">());</span> <span class="cp">?&gt;</span><span class="x">,</span>
+<span class="x">    id:    </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">zfcUserIdentity</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">());</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">}</span>
+<span class="x">&lt;/script&gt;</span>
+</pre></div>
+
+
+<p>This way a template for Backbone will be created and it fully reuses previously defined template for a single share! Also here, we've passed some info for JavaScript about the currently logged user.</p>
+<p>If you look closely you will see <code>$this-&gt;templateVars(..)</code> call. This is a custom helper for helping us with Underscore templates.
+Normally underscore requires templates like</p>
+<div class="codehilite"><pre><span class="o">&lt;%-</span> <span class="nx">variable_name</span> <span class="o">%&gt;</span>
+</pre></div>
+
+
+<p>Because our partial waits for model like</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;text&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;here goes some text&#39;</span><span class="p">,</span>
+    <span class="c1">//...</span>
+<span class="p">);</span>
+</pre></div>
+
+
+<p>Let's cheat it a little and pass him an array like</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&lt;%- field %&gt;&#39;</span>
+<span class="p">);</span>
+</pre></div>
+
+
+<p>Let's create then <strong>TemplateVars</strong> helper by putting class inside of the <code>module/Application/src/Application/View/Helper/TemplateVars</code></p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="c1">//module/Application/src/Application/View/Helper/TemplateVars</span>
+<span class="k">namespace</span> <span class="nx">Application\View\Helper</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Zend\Http\Request</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Zend\View\Helper\AbstractHelper</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">TemplateVars</span> <span class="k">extends</span> <span class="nx">AbstractHelper</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * Changes variables array into backbone&#39;s template vars syntax</span>
+<span class="sd">     *</span>
+<span class="sd">     * @param array $variables Template variables names</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return array Array of template vars</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__invoke</span><span class="p">(</span><span class="k">array</span> <span class="nv">$variables</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$output</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$variables</span> <span class="k">as</span> <span class="nv">$var</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$output</span><span class="p">[</span><span class="nv">$var</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;&lt;%%- %s %%&gt;&#39;</span><span class="p">,</span> <span class="nv">$var</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nv">$output</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Additionally it's required to register it for view, put this code inside <code>module.config.php</code></p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="c1">//...</span>
+<span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+    <span class="c1">//....</span>
+    <span class="s1">&#39;view_helpers&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;invokables&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;templateVars&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Application\View\Helper\TemplateVars&#39;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+<span class="p">);</span>
+</pre></div>
+
+
+<p>Now we can come back to our Backbone view. Remember</p>
+<div class="codehilite"><pre><span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#post-template&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">())</span>
+</pre></div>
+
+
+<p>This way our view will obtain a template for each share. Having our template it's possible now to render each new share!</p>
+<p>Here comes one of the Backbone.js flaws. It requires a lot of boilerplate. Backbone views doesn't know how to render themselves. It's necessary to create a render function. As it was shown before, render function looked like:</p>
+<div class="codehilite"><pre><span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">attrs</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">clone</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">attributes</span><span class="p">);</span>
+    <span class="c1">//print readable date</span>
+    <span class="nx">attrs</span><span class="p">.</span><span class="nx">added</span> <span class="o">=</span> <span class="nx">attrs</span><span class="p">.</span><span class="nx">added</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span>
+            <span class="nx">$</span><span class="p">.</span><span class="nx">parseHTML</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">attrs</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="p">.</span><span class="nx">innerHTML</span>
+        <span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">},</span>
+</pre></div>
+
+
+<p>Rendering almost always goes this way
+ * Take the model
+ * Pass it to the template
+ * Set is as the main element content (<code>this.$el.html(...)</code>)</p>
+<p>Additionally two tricks were done here. One is to change the raw <code>Date</code> into some more readable one. It's done by calling <code>toLocaleString()</code>. Still it would be bad to loose the raw date object because it might be necessary to check later the date of post, that's why it was done not on original model attributes but on it's copy.</p>
+<p>Second trick is that we take innerHTML of rendered template. If it wouldn't be done here then our structure would be different than the prerenderred posts. It would look like:</p>
+<div class="codehilite"><pre><span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;post&quot;</span> <span class="na">id=</span><span class="s">&quot;post_&lt;some_id&gt;&quot;</span><span class="nt">&gt;</span>
+        //....
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+
+<p>Calling innerHTML will take only contents of <code>&lt;div class="post"&gt;&lt;/div&gt;</code></p>
+<p>To store inside the DOM also share id of newly created share <strong>className</strong> and <strong>attributes</strong> were defined. Attributes are a function because they're dynamically created. In other way you would finish with the same id in every view created now or later (because attribute would be created JavaScript parse time).</p>
+<p>In Backbone it's also quite common to define a list of views. This is an additional View object which handles whole list of single views. This kind of 'View Lists' are mostly bound to collections instead of model. In our case we will create <strong>ShareViewList</strong> view which will hold whole list of shares.</p>
+<div class="codehilite"><pre><span class="c1">//represents view of whole wall</span>
+<span class="nx">AppView</span><span class="p">.</span><span class="nx">views</span><span class="p">.</span><span class="nx">ShareViewList</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">el</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#post-list&#39;</span><span class="p">),</span>
+    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">add</span><span class="p">);</span>
+
+        <span class="c1">//initialize already existing views in DOM</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">models</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+            <span class="k">new</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">views</span><span class="p">.</span><span class="nx">ShareView</span><span class="p">({</span><span class="nx">model</span><span class="o">:</span> <span class="nx">element</span><span class="p">,</span> <span class="nx">el</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#post_&#39;</span> <span class="o">+</span> <span class="nx">element</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;share_id&#39;</span><span class="p">))});</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="nx">add</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">views</span><span class="p">.</span><span class="nx">ShareView</span><span class="p">({</span><span class="nx">model</span><span class="o">:</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">share_id</span><span class="p">});</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">prepend</span><span class="p">(</span><span class="nx">view</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>Let's stop on important things here. One thing is that we listen to Collection <strong>add</strong> event here. Every time something is added to a collection it will create new ShareView and this way new HTML will be created. 
+Second thing is that during creating an instance of this class collection will be searched for already created shares (for loop). Thanks to it, all already created shares will have it's View inside of JS (and all events which ShareView defines attached).</p>
+<p>Let's move now to ShareCollection which looks as follows</p>
+<div class="codehilite"><pre><span class="c1">//represents whole wall of posts</span>
+<span class="nx">AppView</span><span class="p">.</span><span class="nx">collections</span><span class="p">.</span><span class="nx">ShareCollection</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">model</span><span class="o">:</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">ShareModel</span><span class="p">,</span>
+    <span class="nx">comparator</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">added</span> <span class="o">&gt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">added</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#post-list &gt; .post&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">el</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">$likesEl</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.post-likes-count&#39;</span><span class="p">);</span>
+            <span class="nx">list</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">self</span><span class="p">.</span><span class="nx">model</span><span class="p">({</span>
+                <span class="nx">share_id</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/post_/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                <span class="nx">author</span><span class="o">:</span>   <span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.post-author&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(),</span>
+                <span class="nx">text</span><span class="o">:</span>     <span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.post-text&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(),</span>
+                <span class="nx">added</span><span class="o">:</span>    <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.post-date&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">()),</span>
+                <span class="nx">gravatar</span><span class="o">:</span> <span class="nx">get_gravatar</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.post-author&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">().</span><span class="nx">trim</span><span class="p">(),</span> <span class="mi">40</span><span class="p">),</span>
+                <span class="nx">likes</span><span class="o">:</span>    <span class="nx">$likesEl</span><span class="p">.</span><span class="nx">text</span><span class="p">()</span> <span class="o">!==</span> <span class="s1">&#39;&#39;</span> <span class="o">?</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">$likesEl</span><span class="p">.</span><span class="nx">text</span><span class="p">().</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[^0-9]+/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="o">:</span> <span class="mi">0</span>
+            <span class="p">}))</span>
+        <span class="p">});</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">list</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>This collection when it's created will try to look inside the DOM for already created shares (which are later used inside the ShareViewList to create single views). This way you will have data that is already inside of your HTML (to be honest I think this code should go inside the ShareViewList to encapsulate it completely there, but I didn't have enough time to refactor it).</p>
+<p>There's an information for Backbone that this collection will use <code>model: AppView.models.ShareModel</code>. This way you know what kind of model to expect.</p>
+<p>I've also used here get_gravatar function (put it at the beginning of our module or in separate file) found <a href="http://www.deluxeblogtips.com/2010/04/get-gravatar-using-only-javascript.html">here</a>.</p>
+<h3>Some server side PHP</h3>
+<p>Ok, so basically we have some code to create new Views representing each share, but still they do not do anything. Let's create some code responsible for adding new shares.</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">namespace</span> <span class="nx">Application\Controller</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Zend\Mvc\Controller\AbstractActionController</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Zend\View\Model\ViewModel</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Application\Form</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Application\Model</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">ShareController</span> <span class="k">extends</span> <span class="nx">AbstractActionController</span>
+<span class="p">{</span>
+
+    <span class="k">protected</span> <span class="nv">$acceptCriteria</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;Zend\View\Model\JsonModel&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">);</span>
+
+    <span class="k">protected</span> <span class="nv">$shareTable</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">addAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$viewModel</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">acceptableViewModelSelector</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">acceptCriteria</span><span class="p">);</span>
+        <span class="nv">$shareTable</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getShareTable</span><span class="p">();</span>
+
+        <span class="k">return</span> <span class="nv">$viewModel</span><span class="o">-&gt;</span><span class="na">setVariables</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+                <span class="s1">&#39;share&#39;</span> <span class="o">=&gt;</span> <span class="nv">$shareTable</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+                    <span class="s1">&#39;user_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">zfcUserAuthentication</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getIdentity</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">(),</span>
+                    <span class="s1">&#39;author_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">zfcUserAuthentication</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getIdentity</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">(),</span>
+                    <span class="s1">&#39;author&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">zfcUserAuthentication</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getIdentity</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getEmail</span><span class="p">(),</span>
+                    <span class="s1">&#39;text&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">fromPost</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">))</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">deleteAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$viewModel</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">acceptableViewModelSelector</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">acceptCriteria</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nv">$viewModel</span><span class="o">-&gt;</span><span class="na">setVariables</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+                <span class="s1">&#39;deleted&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getShareTable</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span>
+                    <span class="k">array</span><span class="p">(</span><span class="s1">&#39;share_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">fromPost</span><span class="p">(</span><span class="s1">&#39;share_id&#39;</span><span class="p">))</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getShareTable</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">shareTable</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$sm</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getServiceLocator</span><span class="p">();</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">shareTable</span> <span class="o">=</span> <span class="nv">$sm</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;Application\Model\ShareTable&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">shareTable</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Important part is <code>addAction</code> function. It just gets data sent by post and pass them to <code>ShareTable</code> model.
+I've also used here context which are available in <em>ZF2</em>. Why? To be able to post something either using JavaScript or normal <strong>POST</strong> request. Thanks to it, again, I won't have to repeat myself.</p>
+<p>It's important also to register our new controller inside of the module.config.php file by adding new invokable.</p>
+<p>Look for <code>controllers</code> key and modify it</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;controllers&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;invokables&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;Application\Controller\Index&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Application\Controller\IndexController&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Application\Controller\Share&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Application\Controller\ShareController&#39;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+<span class="p">);</span>
+</pre></div>
+
+
+<h3>Events, events, events</h3>
+<p>It's time to make our share form working. To achieve it, we have to catch some user events. Let's come back to our <strong>AppView</strong> class. We'll extend it by adding some code inside.</p>
+<div class="codehilite"><pre><span class="c1">//application - manages input and send messages to collection</span>
+<span class="kd">var</span> <span class="nx">AppView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+    <span class="nx">el</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">),</span>
+    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">input</span>      <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;textarea[name=&#39;share&#39;]&quot;</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">form</span>       <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;form[name=&#39;share&#39;]&quot;</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">collection</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">collections</span><span class="p">.</span><span class="nx">ShareCollection</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">shareViewList</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">views</span><span class="p">.</span><span class="nx">ShareViewList</span><span class="p">({</span><span class="nx">collection</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">});</span>
+    <span class="p">},</span>
+    <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;keypress #share-form&quot;</span><span class="o">:</span> <span class="s2">&quot;createOnEnter&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;submit #share-form&quot;</span><span class="o">:</span> <span class="s2">&quot;createOnClick&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+
+    <span class="nx">createOnClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="nx">createOnEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//if keypress other than enter no action</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">!==</span> <span class="mi">13</span> <span class="o">||</span> <span class="o">!</span><span class="nx">event</span><span class="p">.</span><span class="nx">shiftKey</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+        <span class="c1">//disable submit</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">val</span><span class="p">().</span><span class="nx">trim</span><span class="p">())</span> <span class="k">return</span><span class="p">;</span>
+        <span class="c1">//ajax action to add element</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">input</span>
+            <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="p">,</span> <span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">blur</span><span class="p">();</span>
+        <span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">form</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">),</span> <span class="p">{</span>
+                <span class="s1">&#39;text&#39;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">val</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span>
+            <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">ShareModel</span><span class="p">({</span>
+                    <span class="nx">share_id</span><span class="o">:</span> <span class="nx">response</span><span class="p">.</span><span class="nx">share</span><span class="p">,</span>
+                    <span class="nx">text</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">val</span><span class="p">().</span><span class="nx">trim</span><span class="p">(),</span>
+                    <span class="nx">likes</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="nx">added</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(),</span>
+                    <span class="nx">author</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">email</span><span class="p">,</span>
+                    <span class="nx">gravatar</span><span class="o">:</span> <span class="nx">get_gravatar</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">email</span><span class="p">.</span><span class="nx">trim</span><span class="p">(),</span> <span class="mi">40</span><span class="p">),</span>
+                    <span class="nx">validate</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="p">}));</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;json&#39;</span>
+        <span class="p">)</span>
+        <span class="p">.</span><span class="nx">always</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="nx">self</span><span class="p">.</span><span class="nx">input</span>
+                <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>In Backbone we define events as follows</p>
+<div class="codehilite"><pre><span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;keypress #share-form&quot;</span><span class="o">:</span> <span class="s2">&quot;createOnEnter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;submit #share-form&quot;</span><span class="o">:</span> <span class="s2">&quot;createOnClick&quot;</span><span class="p">,</span>
+<span class="p">},</span>
+</pre></div>
+
+
+<p>How to read it? You can translate it for yourself: <em>Bind keypress event to a form with id share-form which is inside this.$el and call createOnEnter function defined inside this view.</em> Simple!</p>
+<p>Let's look a little more inside the create function. Here using jQuery <strong>post</strong> function data is sent to an URL defined as an action attribute inside share form. It's important to add after the response callback <code>json</code> datatype. This will make <strong>jQuery</strong> to set correct <strong>Accept</strong> header and <strong>ZF2</strong> will return json as an response.</p>
+<p>Backbone allows to do it differently using the <code>save()</code> method. I will show how it's possible using Likes functionality. This time let's stick to the jQuery as an example of different approach.</p>
+<p>Important part here is that we don't use explicitly View at all in <em>success</em> callback. It's enough to add a model to a collection and <em>View</em> will be created.</p>
+<p>Now you should be able to post something using the <strong>Share</strong> button or by pressing <strong>Shift+Enter</strong> buttons.</p>
+<h3>I like what you wrote</h3>
+<p>It would be nice to show that you liked something (sorry no dislikes). Let's implement it also. Firstly let's create schema for future likes</p>
+<div class="codehilite"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">likes</span><span class="o">`</span> <span class="p">(</span>
+  <span class="o">`</span><span class="n">like_id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">unsigned</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">share_id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">unsigned</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">user_id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">unsigned</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">user_name</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">like_id</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">UNIQUE</span> <span class="k">KEY</span> <span class="o">`</span><span class="n">share_id_user_id</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">share_id</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">user_id</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">KEY</span> <span class="o">`</span><span class="n">author_idx</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">user_id</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">KEY</span> <span class="o">`</span><span class="n">share_idx</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">share_id</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">CONSTRAINT</span> <span class="o">`</span><span class="n">share_idx</span><span class="o">`</span> <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">share_id</span><span class="o">`</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="o">`</span><span class="k">share</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">share_id</span><span class="o">`</span><span class="p">)</span> <span class="k">ON</span> <span class="k">DELETE</span> <span class="k">NO</span> <span class="n">ACTION</span> <span class="k">ON</span> <span class="k">UPDATE</span> <span class="k">NO</span> <span class="n">ACTION</span><span class="p">,</span>
+  <span class="k">CONSTRAINT</span> <span class="o">`</span><span class="n">user_idx</span><span class="o">`</span> <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">user_id</span><span class="o">`</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="o">`</span><span class="n">users</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">user_id</span><span class="o">`</span><span class="p">)</span> <span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span> <span class="k">ON</span> <span class="k">UPDATE</span> <span class="k">NO</span> <span class="n">ACTION</span>
+<span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">1</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Now let's create model, collection, single like view, and likes list. This time we won't be using server side templates, because <strong>Likes</strong> won't be created at all from a server and will be loaded on demand while hovering above <strong>Like</strong> button.</p>
+<div class="codehilite"><pre><span class="nx">AppView</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">LikesModel</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">idAttribute</span><span class="o">:</span> <span class="s1">&#39;like_id&#39;</span><span class="p">,</span>
+    <span class="nx">urlRoot</span><span class="o">:</span> <span class="s1">&#39;/application/like/&#39;</span>
+<span class="p">});</span>
+
+<span class="nx">AppView</span><span class="p">.</span><span class="nx">collections</span><span class="p">.</span><span class="nx">LikesCollection</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">model</span><span class="o">:</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">LikesModel</span><span class="p">,</span>
+
+    <span class="nx">url</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;application/likes/&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">share_id</span>
+    <span class="p">},</span>
+
+    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">models</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">share_id</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">share_id</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">url</span><span class="p">();</span>
+    <span class="p">},</span>
+
+    <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">data</span><span class="p">.</span><span class="nx">likes</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">like</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">//cast id to a string and look inside of a collection for specified model</span>
+        <span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findWhere</span><span class="p">({</span><span class="nx">user_id</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">});</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">model</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">LikesModel</span><span class="p">({</span>
+                <span class="nx">share_id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">share_id</span><span class="p">,</span>
+                <span class="nx">user_id</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+                <span class="nx">user_name</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">email</span>
+            <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>
+            <span class="nx">model</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>
+            <span class="nx">model</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">AppView</span><span class="p">.</span><span class="nx">views</span><span class="p">.</span><span class="nx">LikesViewList</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">collection</span><span class="o">:</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">collections</span><span class="p">.</span><span class="nx">LikesCollection</span><span class="p">,</span>
+    <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;post-likes-list&#39;</span><span class="p">,</span>
+    <span class="nx">tagName</span><span class="o">:</span> <span class="s1">&#39;span&#39;</span><span class="p">,</span>
+
+    <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;mouseenter a.post-like-button&#39;</span><span class="o">:</span> <span class="s1">&#39;fetch&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;mouseleave a.post-like-button&#39;</span><span class="o">:</span> <span class="s1">&#39;hideLikes&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;click a.post-like-button&#39;</span><span class="o">:</span> <span class="s1">&#39;like&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;click a.post-liked&#39;</span><span class="o">:</span> <span class="s1">&#39;dislike&#39;</span>
+    <span class="p">},</span>
+
+    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">//listen to any addition of new like</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">add</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">,</span> <span class="s1">&#39;reset&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">remove</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">,</span> <span class="s1">&#39;remove&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">remove</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">,</span> <span class="s1">&#39;destroy&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">remove</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$likesList</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.post-like-likes&#39;</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$likesCount</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.post-likes-count&#39;</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">add</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">views</span><span class="p">.</span><span class="nx">LikeView</span><span class="p">({</span><span class="nx">model</span><span class="o">:</span> <span class="nx">data</span><span class="p">});</span>
+        <span class="nx">view</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$likesList</span><span class="p">.</span><span class="nx">show</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="nx">view</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$likesCount</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">updateCounter</span><span class="p">();</span>
+    <span class="p">},</span>
+
+    <span class="nx">remove</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">updateCounter</span><span class="p">();</span>
+    <span class="p">},</span>
+
+    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$likesList</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">models</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">hideLikes</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span>  <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$likesList</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+    <span class="p">},</span>
+
+    <span class="nx">fetch</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">fetch</span><span class="p">({</span>
+            <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">$likesCount</span><span class="p">[</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">length</span> <span class="o">?</span> <span class="s1">&#39;hide&#39;</span> <span class="o">:</span> <span class="s1">&#39;show&#39;</span><span class="p">]();</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">updateCounter</span><span class="p">();</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">$likesList</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">},</span>
+
+    <span class="nx">like</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">like</span><span class="p">();</span>
+    <span class="p">},</span>
+
+    <span class="nx">updateCounter</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$likesCount</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">AppView</span><span class="p">.</span><span class="nx">views</span><span class="p">.</span><span class="nx">LikeView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">model</span><span class="o">:</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">LikesModel</span><span class="p">,</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span>
+        <span class="s1">&#39;&lt;div&gt;&lt;%- user_name %&gt;&lt;/div&gt;&#39;</span>
+    <span class="p">),</span>
+
+    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">//if a model is destroyed, then view should be also</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">,</span> <span class="s1">&#39;destroy&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">remove</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">attributes</span><span class="p">));</span>
+    <span class="p">},</span>
+
+    <span class="nx">remove</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">//remove el from DOM</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>Let's analyze this code a little.</p>
+<p>Each like is an single user info. </p>
+<div class="codehilite"><pre><span class="s1">&#39;&lt;div&gt;&lt;%- user_name %&gt;&lt;/div&gt;&#39;</span>
+</pre></div>
+
+
+<p>By adding to model</p>
+<div class="codehilite"><pre><span class="nx">AppView</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">LikesModel</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">idAttribute</span><span class="o">:</span> <span class="s1">&#39;like_id&#39;</span><span class="p">,</span>
+    <span class="nx">urlRoot</span><span class="o">:</span> <span class="s1">&#39;/application/like/&#39;</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p><strong>urlRoot</strong> backbone allows now to use save function. When this function will be called an <strong>AJAX POST</strong> request will be made to this URL. All data set to the model will also be sent to the server. <strong>Really important</strong> thing is that the data will be sent as a json inside of a <strong>POST body</strong>, not as a parameters! You will have to read body of request and parse it.</p>
+<p>To update/delete already existing <em>Like</em> Backbone needs to know which <em>Like</em> exactly it shoudl update. For that it needs a resource identifier (in our case it will be primary key for id)</p>
+<p>Depending if the like model is already inside collection of not we want to like a message or unlike it. Backbone gives possibility to query collection using <code>findWhere</code> method.</p>
+<div class="codehilite"><pre><span class="nx">like</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findWhere</span><span class="p">({</span><span class="nx">user_id</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">});</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">model</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">LikesModel</span><span class="p">({</span>
+            <span class="nx">share_id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">share_id</span><span class="p">,</span>
+            <span class="nx">user_id</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+            <span class="nx">user_name</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">email</span>
+        <span class="p">});</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>
+        <span class="nx">model</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>
+        <span class="nx">model</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>In <code>LikesCollection</code> there's a dynamic URL specified based on <code>share_id</code>. There's similar trick done (like previously with attributes) with definition of <code>url</code> attribute</p>
+<div class="codehilite"><pre><span class="nx">url</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s1">&#39;application/likes/&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">share_id</span>
+<span class="p">},</span>
+</pre></div>
+
+
+<p>Again like last time, if url would be a string, then value would be set before creating an instance (during the parse time). This would lead to have exactly the same <code>share_id</code> across all instances, which is not what we expect.</p>
+<p>To make likes working, you have to also update initialize method of  <code>ShareView</code> class</p>
+<div class="codehilite"><pre><span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">attr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">,</span> <span class="s1">&#39;destroy&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">remove</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">likesList</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">views</span><span class="p">.</span><span class="nx">LikesViewList</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.post-like&#39;</span><span class="p">),</span>
+        <span class="c1">//initialize collection but with no models for now</span>
+        <span class="nx">collection</span><span class="o">:</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">.</span><span class="nx">collections</span><span class="p">.</span><span class="nx">LikesCollection</span><span class="p">([],</span> <span class="p">{</span>
+            <span class="nx">share_id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;share_id&#39;</span><span class="p">)</span>
+        <span class="p">})</span>
+    <span class="p">});</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">likesList</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+<span class="p">},</span>
+</pre></div>
+
+
+<h3>Routing</h3>
+<p>For now it won't still work, because we didn't put any code on the server side to create/remove a like. Firstly let's configure our module further by adding new routes and invokable. Modify <code>modules/Application/config/module.config.php</code></p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+    <span class="c1">//...</span>
+    <span class="s1">&#39;routes&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="c1">//...</span>
+        <span class="s1">&#39;application&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+            <span class="c1">//...</span>
+            <span class="s1">&#39;child_routes&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+                <span class="nx">likes</span><span class="s1">&#39; =&gt; array(</span>
+<span class="s1">                    &#39;</span><span class="nx">type</span><span class="s1">&#39; =&gt; &#39;</span><span class="nx">Segment</span><span class="s1">&#39;,</span>
+<span class="s1">                    &#39;</span><span class="nx">options</span><span class="s1">&#39; =&gt; array(</span>
+<span class="s1">                        &#39;</span><span class="nx">route</span><span class="s1">&#39; =&gt; &#39;</span><span class="o">/</span><span class="nx">likes</span><span class="o">/:</span><span class="nx">shareId</span><span class="s1">&#39;,</span>
+<span class="s1">                        &#39;</span><span class="nx">constraints</span><span class="s1">&#39; =&gt; array(</span>
+<span class="s1">                            &#39;</span><span class="nx">shareId</span><span class="s1">&#39; =&gt; &#39;</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;,</span>
+<span class="s1">                        ),</span>
+<span class="s1">                        &#39;</span><span class="nx">defaults</span><span class="s1">&#39; =&gt; array(</span>
+<span class="s1">                            &#39;</span><span class="nx">__NAMESPACE__</span><span class="s1">&#39; =&gt; &#39;</span><span class="nx">Application\Controller</span><span class="s1">&#39;,</span>
+<span class="s1">                            &#39;</span><span class="nx">controller</span><span class="s1">&#39;    =&gt; &#39;</span><span class="nx">Like</span><span class="s1">&#39;,</span>
+<span class="s1">                            &#39;</span><span class="nx">action</span><span class="s1">&#39;        =&gt; &#39;</span><span class="nx">index</span><span class="s1">&#39;,</span>
+<span class="s1">                        ),</span>
+<span class="s1">                    ),</span>
+<span class="s1">                ),</span>
+<span class="s1">                &#39;</span><span class="nx">like</span><span class="s1">&#39; =&gt; array(</span>
+<span class="s1">                    &#39;</span><span class="nx">type</span><span class="s1">&#39; =&gt; &#39;</span><span class="nx">Segment</span><span class="s1">&#39;,</span>
+<span class="s1">                    &#39;</span><span class="nx">options</span><span class="s1">&#39; =&gt; array(</span>
+<span class="s1">                        &#39;</span><span class="nx">route</span><span class="s1">&#39; =&gt; &#39;</span><span class="o">/</span><span class="nx">like</span><span class="o">/</span><span class="p">[</span><span class="o">:</span><span class="nx">likeId</span><span class="p">]</span><span class="s1">&#39;,</span>
+<span class="s1">                        &#39;</span><span class="nx">constraints</span><span class="s1">&#39; =&gt; array(</span>
+<span class="s1">                            &#39;</span><span class="nx">likeId</span><span class="s1">&#39; =&gt; &#39;</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;,</span>
+<span class="s1">                        ),</span>
+<span class="s1">                        &#39;</span><span class="nx">defaults</span><span class="s1">&#39; =&gt; array(</span>
+<span class="s1">                            &#39;</span><span class="nx">__NAMESPACE__</span><span class="s1">&#39; =&gt; &#39;</span><span class="nx">Application\Controller</span><span class="s1">&#39;,</span>
+<span class="s1">                            &#39;</span><span class="nx">controller</span><span class="s1">&#39;    =&gt; &#39;</span><span class="nx">Like</span><span class="s1">&#39;,</span>
+<span class="s1">                            &#39;</span><span class="nx">action</span><span class="s1">&#39;        =&gt; &#39;</span><span class="nx">edit</span><span class="s1">&#39;,</span>
+<span class="s1">                        ),</span>
+<span class="s1">                    ),</span>
+<span class="s1">                ),</span>
+<span class="s1">                &#39;</span><span class="k">default</span><span class="s1">&#39; =&gt; array(</span>
+<span class="s1">                    //....</span>
+<span class="s1">                ),</span>
+<span class="s1">            ),</span>
+<span class="s1">        ),</span>
+<span class="s1">    ),</span>
+<span class="s1">    //...</span>
+<span class="s1">    &#39;</span><span class="nx">controllers</span><span class="s1">&#39; =&gt; array(</span>
+<span class="s1">        &#39;</span><span class="nx">invokables</span><span class="s1">&#39; =&gt; array(</span>
+<span class="s1">            &#39;</span><span class="nx">Application\Controller\Index</span><span class="s1">&#39; =&gt; &#39;</span><span class="nx">Application\Controller\IndexController</span><span class="s1">&#39;,</span>
+<span class="s1">            &#39;</span><span class="nx">Application\Controller\Share</span><span class="s1">&#39; =&gt; &#39;</span><span class="nx">Application\Controller\ShareController</span><span class="s1">&#39;,</span>
+<span class="s1">            &#39;</span><span class="nx">Application\Controller\Like</span><span class="s1">&#39; =&gt; &#39;</span><span class="nx">Application\Controller\LikeController</span><span class="err">&#39;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+<span class="p">);</span>
+</pre></div>
+
+
+<h3>Managing Likes</h3>
+<p>Let's create <code>LikeController</code>, so now storing new likes should be possible</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">Application\Controller</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Zend\Mvc\Controller\AbstractActionController</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Zend\View\Model\ViewModel</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Zend\Http\Request</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Zend\Json\Json</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Application\Form</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Application\Model</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">LikeController</span> <span class="k">extends</span> <span class="nx">AbstractActionController</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$likesTable</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$shareTable</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$acceptCriteria</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;Zend\View\Model\JsonModel&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">);</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getLikesTable</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">likesTable</span> <span class="o">!==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">likesTable</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nv">$sm</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getServiceLocator</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">likesTable</span> <span class="o">=</span> <span class="nv">$sm</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;Application\Model\LikesTable&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getShareTable</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">shareTable</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$sm</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getServiceLocator</span><span class="p">();</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">shareTable</span> <span class="o">=</span> <span class="nv">$sm</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;Application\Model\ShareTable&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">shareTable</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$viewModel</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">acceptableViewModelSelector</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">acceptCriteria</span><span class="p">);</span>
+        <span class="nv">$likesTable</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getLikesTable</span><span class="p">();</span>
+
+        <span class="nv">$viewModel</span><span class="o">-&gt;</span><span class="na">setVariables</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;likes&#39;</span> <span class="o">=&gt;</span> <span class="nv">$likesTable</span><span class="o">-&gt;</span><span class="na">getByShareId</span><span class="p">(</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">fromRoute</span><span class="p">(</span><span class="s1">&#39;shareId&#39;</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">);</span>
+        <span class="k">return</span> <span class="nv">$viewModel</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">editAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$viewModel</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">acceptableViewModelSelector</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">acceptCriteria</span><span class="p">);</span>
+        <span class="nv">$likesTable</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getLikesTable</span><span class="p">();</span>
+        <span class="nv">$shareTable</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getShareTable</span><span class="p">();</span>
+        <span class="nv">$like</span> <span class="o">=</span> <span class="nb">current</span><span class="p">(</span><span class="nv">$likesTable</span><span class="o">-&gt;</span><span class="na">findByLikeId</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">fromRoute</span><span class="p">(</span><span class="s1">&#39;likeId&#39;</span><span class="p">))</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">());</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Request</span><span class="o">::</span><span class="na">METHOD_DELETE</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="nv">$likesTable</span><span class="o">-&gt;</span><span class="na">deleteByLikeUserId</span><span class="p">(</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">fromRoute</span><span class="p">(</span><span class="s1">&#39;likeId&#39;</span><span class="p">),</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">zfcUserAuthentication</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getIdentity</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">(),</span>
+                <span class="nv">$like</span><span class="p">[</span><span class="s1">&#39;share_id&#39;</span><span class="p">],</span>
+                <span class="nv">$shareTable</span>
+            <span class="p">);</span>
+        <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">()</span> <span class="o">===</span> <span class="nx">Request</span><span class="o">::</span><span class="na">METHOD_POST</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$content</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getContent</span><span class="p">();</span>
+            <span class="nv">$likesTable</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nx">Json</span><span class="o">::</span><span class="na">decode</span><span class="p">(</span><span class="nv">$content</span><span class="p">,</span> <span class="nx">Json</span><span class="o">::</span><span class="na">TYPE_ARRAY</span><span class="p">),</span> <span class="nv">$shareTable</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nv">$viewModel</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>As you can see there's only one action for adding and removing a Like. This is because backbone sends AJAX request to the same URL defined in <code>urlRoot</code> attribute inside a model.</p>
+<p>Now you should be able to see likes list while hovering above them with cursor and add or remove them by clicking on like button.</p>
+<h2>TL;DR (or summarization)</h2>
+<p><strong>Backbone.js</strong> is a nice framework to organize your JavaScript code. It also nicely connects with <strong>Zend Framework 2</strong> thought it requires some work. But remember <strong>Backbone.js</strong> shouldn't be used in every project! You should only use it in case when you have a huge JS codebase. In other case it is a waste of transfer to add <strong>Backbone.js and Underscore</strong>.</p>
+<p>As a big minus of this Framework should be noted that there's a lot of boilerplate code necessary to write an application. It's also not sure where to put some pieces of code. Should the share handle likes, or should like be put inside of separate view? This can still lead to spaghetti code if you're not cautious.</p>
+<p>Then why did I use <strong>Backbone</strong>? True, that there are other frameworks for JavaScript like previously noted <strong>Angular</strong> or <strong>Ember</strong>, still I wanted to be able to generate some of the content strictly server side and send it to a browser. This is where <strong>Backbone</strong> is a win above Angular or Ember. If this fact is not important for you, then stick to <strong>Angular</strong>, where you will write less code and do more!</p><p>There are <a href="../backbonejs-and-zend-framework-2-facebook-like-wall.html#disqus_thread">comments</a>.</p>                </article>
+                            </aside><!-- /#featured -->
+                            <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+                                                
+
+                 
+                        <li><article class="hentry">    
+                <header>
+                    <h1><a href="../zend-framework2-performance.html" rel="bookmark"
+                           title="Permalink to Yet another Zend Framework 2 performance test">Yet another Zend Framework 2 performance test</a></h1>
+                </header>
+                
+                <div class="entry-content">
+                <footer class="post-info">
         <abbr class="published" title="2012-10-22T20:00:00">
                 pon 22 października 2012
         </abbr>
 
-        
-        <address class="vcard author">
-                By <a class="url fn" href=".././author/piotr-deszynski.html">Piotr Deszyński</a>
+                <address class="vcard author">
+                By <a class="url fn" href="../author/piotr-deszynski.html">Piotr Deszyński</a>
         </address>
-        
-<p>In <a href=".././category/misc.html">Misc</a>. </p>
-<p>tags: <a href=".././tag/php.html">PHP</a><a href=".././tag/frameworks.html">Frameworks</a><a href=".././tag/zend-framework-2.html">Zend Framework 2</a><a href=".././tag/symfony-2.html">Symfony 2</a><a href=".././tag/performance.html">Performance</a></p>
-
-
-</footer><!-- /.post-info --><p>We have full version of ZF2! There's even a Zend Framework 2.0.3 version. Full of optimism I've started reading about it and
-full of curiousity I've looked on performance charts. How big was my surprise when i've looked on charts seeing that ZF2 is 4 times slower
-than ZF1 <a href="http://www.enrise.com/2012/02/zend-framework-2-performance/">Enrise</a>. Said to myself, it's an old post and tests were done on an old
-version of ZF2, so probably it's not so bad at the end. Still I didn't think about doing that day any tests by myself.</p>
-<p>Few days ago I saw another great post by <a href="http://www.enrise.com/2012/02/zend-framework-2-performance/">trq</a>. He in opposition to previous test compared ZF2 with other
-decent frameworks (<strong>Symfony 2</strong> and <a href="http://proemframework.org">Proem</a>). Sadly this time also it didn't satisfy me with the results. For my luck test framework written by <em>trq</em> is
-available at <a href="https://github.com/trq/phpBenches">Github</a>. In the meantime I've found an module for ZF2 which caches classes (and as they write <em>"EDPSUPERLUMINAL - Caches the common Zend* classes used by your application into a single cache file, reducing reliance on the autoloader, and greatly improving the baseline performance of ZF2. By EVAN COURY"</em>) on official ZF2 modules page. Being unsure if in testes done by <em>trq</em> class caching was turned on, full of optimism I've decided to make tests by myself.</p>
-<h2>Machine spec</h2>
-<p>I've run tests on machine</p>
-<ul>
-<li>Core i7 Intel® Core™ i7-2630QM Processor (6M Cache, up to 2.90 GHz)</li>
-<li>16 GB DDR-3 RAM</li>
-<li>1TB (RAID 2x500GB 7200 RPM STRIPE) HDD</li>
-<li>Kubuntu 12.04</li>
-</ul>
-<h2>Environment</h2>
-<ul>
-<li>PHP 5.3.10-1ubuntu3.4 with Suhosin-Patch (cli) (built: Sep 12 2012 18:59:41)</li>
-<li>Apache/2.2.22 (Ubuntu)</li>
-<li>APC</li>
-<li>xhprof</li>
-</ul>
-<h2>First try - without a class cache</h2>
-<p>Basically my results didn't differ from one provided by <em>trq</em>
-<img alt="Requests per second" src="../static/images/2012/10/no_cache_zf2/request-per-second.png" title="Requests per sec" />
-<img alt="Response time" src="../static/images/2012/10/no_cache_zf2/response-time.png" title="Requests per sec" />
-<img alt="Number of function calls" src="../static/images/2012/10/no_cache_zf2/number-of-function-calls.png" title="Number of function calls" />
-<img alt="Number of files included" src="../static/images/2012/10/no_cache_zf2/number-of-files.png" title="Number of files included" />
-<img alt="Average load" src="../static/images/2012/10/no_cache_zf2/loadavg.png" title="Average load" />
-<img alt="Memory usage" src="../static/images/2012/10/no_cache_zf2/memory-usage.png" title="Memory usage" /></p>
-<p>As you can see <strong>ZF2 is far behind Symfony 2</strong>. Response time was 4 times slower. That's quite bad. Let's move on to second try.</p>
-<h2>Second try - with a class cache</h2>
-<p>Before making second try, I've added into <em>ZF2 Skeleton App</em> <strong>EdsSuperLuminal</strong> module and enabled it (this module is available at <a href="https://github.com/EvanDotPro/EdpSuperluminal">Github</a>)
-<img alt="Requests per second" src="../static/images/2012/10/with_cache_zf2/request-per-second.png" title="Requests per sec" />
-<img alt="Response time" src="../static/images/2012/10/with_cache_zf2/response-time.png" title="Requests per sec" />
-<img alt="Number of function calls" src="../static/images/2012/10/with_cache_zf2/number-of-function-calls.png" title="Number of function calls" />
-<img alt="Number of files included" src="../static/images/2012/10/with_cache_zf2/number-of-files.png" title="Number of files included" />
-<img alt="Average load" src="../static/images/2012/10/with_cache_zf2/loadavg.png" title="Average load" />
-<img alt="Memory usage" src="../static/images/2012/10/with_cache_zf2/memory-usage.png" title="Memory usage" /></p>
-<p>What a surprise... results didn't change too much!
-To be honest I got dissapointed. I was hoping for competition between ZF2 and Symfony 2 (or at least 50% performance boost) but looking at these graphs we
-can observe around 20% increase in number of requests handled. Still something, but comparing to <em>Symfony 2</em> It's quite a low value. Looking at the results further
-we could say that <em>ZF2</em> will be using quite less I/O operations (from 163 to 20 included files, it's quite a result), but still memory usage might be a little terryfying.</p>
-<h2>Should I care?</h2>
-<p>Depends. In  most of cases these results doesn't matter. Firstly this is "Hello World!" test. Such tests doesn't have too big meaning in real life applications,
-where bottleneck is mostly a database. Secondary, in most of the cases you don't need to squeeze 60 ms from your servers. In case of websites with huge traffic, sadly
-<em>ZF2</em> is not the best choice. In such a website 60ms difference might be huge performance impact. <em>Math.pow('Sadly', 2)</em>  because I'm looking for framework
-for a one of my company's big pages, cause it needs a lot of updates and rather I won't be able to use this framework. There performance really matters.</p>
-<h2>What next?</h2>
-<p>I have to wait. Hope that there will be some performance tunning with next minor releases of <em>ZF2</em>. Until then I might stick to <em>Symfony 2</em> or to some smaller framework available.
-If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 5.4) repository, or mine forked repository with code updated to support PHP 5.3  available at <a href="https://github.com/piteer1/phpBenches">Github</a></p><p>There are <a href=".././zend-framework2-performance.html#disqus_thread">comments</a>.</p>
-                </article>
-                
-                    
-<p class="paginator">
-    
-    Page 1 / 1
-    
-</p>
-
-                
-            </aside><!-- /#featured -->
-            
-        
-        
-        
-            </ol><!-- /#posts-list -->
-            
-            </section><!-- /#content -->
-        
-    
-
-
-        <section id="extras" class="body">
-        
-                <div class="blogroll">
+        <p>In <a href="../category/misc.html">Misc</a>. </p>
+<p>tags: <a href="../tag/php.html">PHP</a><a href="../tag/frameworks.html">Frameworks</a><a href="../tag/zend-framework-2.html">Zend Framework 2</a><a href="../tag/symfony-2.html">Symfony 2</a><a href="../tag/performance.html">Performance</a></p>
+</footer><!-- /.post-info -->                <p>We have full version of ZF2! There's even a Zend Framework 2.0.3 version. Full of optimism I've started reading about it and
+full of curiousity I've looked on performance charts. How big was my surprise when i've looked on charts seeing that ZF2 is ...</p>
+                <a class="readmore" href="../zend-framework2-performance.html">read more</a>
+                <p>There are <a href="../zend-framework2-performance.html#disqus_thread">comments</a>.</p>                </div><!-- /.entry-content -->
+            </article></li>
+                            </ol><!-- /#posts-list -->
+                            <p class="paginator">
+        Page 1 / 1
+    </p>
+                        </section><!-- /#content -->
+                    <section id="extras" class="body">
+                        <div class="blogroll">
                         <h2>blogroll</h2>
                         <ul>
-                        
-                            <li><a href="http://docs.notmyidea.org/alexis/pelican/">Pelican</a></li>
-                        
-                            <li><a href="http://python.org">Python.org</a></li>
-                        
-                            <li><a href="http://validator.w3.org/check?uri=http%3A%2F%2Fpiotrdeszynski.com%2F">HTML5 Validator</a></li>
-                        
-                        </ul>
+                                                    <li><a href="http://docs.notmyidea.org/alexis/pelican/">Pelican</a></li>
+                                                    <li><a href="http://python.org">Python.org</a></li>
+                                                    <li><a href="http://validator.w3.org/check?uri=http%3A%2F%2Fpiotrdeszynski.com%2F">HTML5 Validator</a></li>
+                                                </ul>
                 </div><!-- /.blogroll -->
-        
-        
-                <div class="social">
+                                <div class="social">
                         <h2>social</h2>
                         <ul>
                             <li><a href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
                             
-
-                        
-                            <li><a href="http://github.com/piteer1">github</a></li>
-                        
-                            <li><a href="http://www.linkedin.com/pub/piotr-deszy%C5%84ski/14/762/17">linkedin.com</a></li>
-                        
-                        </ul>
+                                                    <li><a href="http://github.com/piteer1">github</a></li>
+                                                    <li><a href="http://www.linkedin.com/pub/piotr-deszy%C5%84ski/14/762/17">linkedin.com</a></li>
+                                                </ul>
                 </div><!-- /.social -->
-        
-        </section><!-- /#extras -->
+                </section><!-- /#extras -->
 
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">
@@ -180,7 +1485,6 @@ If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 
 
                 <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
-
 
     <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -192,9 +1496,6 @@ If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
     </script>
-
-
-
 <script type="text/javascript">
     var disqus_shortname = 'yetanotherboringprogrammersblog';
     (function () {
@@ -204,6 +1505,5 @@ If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 
         (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
     }());
 </script>
-
 </body>
 </html>

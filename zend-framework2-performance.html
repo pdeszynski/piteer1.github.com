@@ -4,11 +4,8 @@
         <title>Yet another Zend Framework 2 performance test</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="./theme/css/main.css" type="text/css" />
-        
-        <link href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yet another boring programmer's blog Atom Feed" />
-        
-        
-
+                <link href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yet another boring programmer's blog Atom Feed" />
+                
         <!--[if IE]>
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
@@ -22,38 +19,25 @@
 </head>
 
 <body id="index" class="home">
-
 <a href="https://github.com/piteer1">
-
 <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" />
-
 </a>
-
         <header id="banner" class="body">
-                <h1><a href=".">Yet another boring programmer's blog </a></h1>
+                <h1><a href="./">Yet another boring programmer's blog </a></h1>
                 <nav><ul>
-                
-                
-                
-                
-                
-                    <li ><a href="./category/oop.html">OOP</a></li>
-                
-                    <li class="active"><a href="./category/misc.html">Misc</a></li>
-                
-                    <li ><a href="./category/about.html">About</a></li>
-                
-                </ul></nav>
+                                                                                                    <li ><a href="./category/oop.html">OOP</a></li>
+                                    <li class="active"><a href="./category/misc.html">Misc</a></li>
+                                    <li ><a href="./category/javascript.html">JavaScript</a></li>
+                                    <li ><a href="./category/about.html">About</a></li>
+                                </ul></nav>
         </header><!-- /#banner -->
-        
-<section id="content" class="body">
+        <section id="content" class="body">
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="zend-framework2-performance.html" rel="bookmark"
+        <a href="./zend-framework2-performance.html" rel="bookmark"
            title="Permalink to Yet another Zend Framework 2 performance test">Yet another Zend Framework 2 performance test</a></h1>
-      
-    </header>
+          </header>
 
     <div class="entry-content">
       <footer class="post-info">
@@ -61,17 +45,12 @@
                 pon 22 października 2012
         </abbr>
 
-        
-        <address class="vcard author">
+                <address class="vcard author">
                 By <a class="url fn" href="./author/piotr-deszynski.html">Piotr Deszyński</a>
         </address>
-        
-<p>In <a href="./category/misc.html">Misc</a>. </p>
+        <p>In <a href="./category/misc.html">Misc</a>. </p>
 <p>tags: <a href="./tag/php.html">PHP</a><a href="./tag/frameworks.html">Frameworks</a><a href="./tag/zend-framework-2.html">Zend Framework 2</a><a href="./tag/symfony-2.html">Symfony 2</a><a href="./tag/performance.html">Performance</a></p>
-
-
-</footer><!-- /.post-info -->
-      <p>We have full version of ZF2! There's even a Zend Framework 2.0.3 version. Full of optimism I've started reading about it and
+</footer><!-- /.post-info -->      <p>We have full version of ZF2! There's even a Zend Framework 2.0.3 version. Full of optimism I've started reading about it and
 full of curiousity I've looked on performance charts. How big was my surprise when i've looked on charts seeing that ZF2 is 4 times slower
 than ZF1 <a href="http://www.enrise.com/2012/02/zend-framework-2-performance/">Enrise</a>. Said to myself, it's an old post and tests were done on an old
 version of ZF2, so probably it's not so bad at the end. Still I didn't think about doing that day any tests by myself.</p>
@@ -95,21 +74,21 @@ available at <a href="https://github.com/trq/phpBenches">Github</a>. In the mean
 </ul>
 <h2>First try - without a class cache</h2>
 <p>Basically my results didn't differ from one provided by <em>trq</em>
-<img alt="Requests per second" src="static/images/2012/10/no_cache_zf2/request-per-second.png" title="Requests per sec" />
-<img alt="Response time" src="static/images/2012/10/no_cache_zf2/response-time.png" title="Requests per sec" />
-<img alt="Number of function calls" src="static/images/2012/10/no_cache_zf2/number-of-function-calls.png" title="Number of function calls" />
-<img alt="Number of files included" src="static/images/2012/10/no_cache_zf2/number-of-files.png" title="Number of files included" />
-<img alt="Average load" src="static/images/2012/10/no_cache_zf2/loadavg.png" title="Average load" />
-<img alt="Memory usage" src="static/images/2012/10/no_cache_zf2/memory-usage.png" title="Memory usage" /></p>
+<img alt="Requests per second" src="/images/2012/10/no_cache_zf2/request-per-second.png" title="Requests per sec" />
+<img alt="Response time" src="/images/2012/10/no_cache_zf2/response-time.png" title="Requests per sec" />
+<img alt="Number of function calls" src="/images/2012/10/no_cache_zf2/number-of-function-calls.png" title="Number of function calls" />
+<img alt="Number of files included" src="/images/2012/10/no_cache_zf2/number-of-files.png" title="Number of files included" />
+<img alt="Average load" src="/images/2012/10/no_cache_zf2/loadavg.png" title="Average load" />
+<img alt="Memory usage" src="/images/2012/10/no_cache_zf2/memory-usage.png" title="Memory usage" /></p>
 <p>As you can see <strong>ZF2 is far behind Symfony 2</strong>. Response time was 4 times slower. That's quite bad. Let's move on to second try.</p>
 <h2>Second try - with a class cache</h2>
 <p>Before making second try, I've added into <em>ZF2 Skeleton App</em> <strong>EdsSuperLuminal</strong> module and enabled it (this module is available at <a href="https://github.com/EvanDotPro/EdpSuperluminal">Github</a>)
-<img alt="Requests per second" src="static/images/2012/10/with_cache_zf2/request-per-second.png" title="Requests per sec" />
-<img alt="Response time" src="static/images/2012/10/with_cache_zf2/response-time.png" title="Requests per sec" />
-<img alt="Number of function calls" src="static/images/2012/10/with_cache_zf2/number-of-function-calls.png" title="Number of function calls" />
-<img alt="Number of files included" src="static/images/2012/10/with_cache_zf2/number-of-files.png" title="Number of files included" />
-<img alt="Average load" src="static/images/2012/10/with_cache_zf2/loadavg.png" title="Average load" />
-<img alt="Memory usage" src="static/images/2012/10/with_cache_zf2/memory-usage.png" title="Memory usage" /></p>
+<img alt="Requests per second" src="/images/2012/10/with_cache_zf2/request-per-second.png" title="Requests per sec" />
+<img alt="Response time" src="/images/2012/10/with_cache_zf2/response-time.png" title="Requests per sec" />
+<img alt="Number of function calls" src="/images/2012/10/with_cache_zf2/number-of-function-calls.png" title="Number of function calls" />
+<img alt="Number of files included" src="/images/2012/10/with_cache_zf2/number-of-files.png" title="Number of files included" />
+<img alt="Average load" src="/images/2012/10/with_cache_zf2/loadavg.png" title="Average load" />
+<img alt="Memory usage" src="/images/2012/10/with_cache_zf2/memory-usage.png" title="Memory usage" /></p>
 <p>What a surprise... results didn't change too much!
 To be honest I got dissapointed. I was hoping for competition between ZF2 and Symfony 2 (or at least 50% performance boost) but looking at these graphs we
 can observe around 20% increase in number of requests handled. Still something, but comparing to <em>Symfony 2</em> It's quite a low value. Looking at the results further
@@ -123,8 +102,7 @@ for a one of my company's big pages, cause it needs a lot of updates and rather 
 <p>I have to wait. Hope that there will be some performance tunning with next minor releases of <em>ZF2</em>. Until then I might stick to <em>Symfony 2</em> or to some smaller framework available.
 If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 5.4) repository, or mine forked repository with code updated to support PHP 5.3  available at <a href="https://github.com/piteer1/phpBenches">Github</a></p>
     </div><!-- /.entry-content -->
-    
-    <div class="comments">
+        <div class="comments">
       <h2>Comments !</h2>
       <div id="disqus_thread"></div>
       <script type="text/javascript">
@@ -137,41 +115,27 @@ If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 
       </script>
     </div>
     
-
   </article>
 </section>
-
         <section id="extras" class="body">
-        
-                <div class="blogroll">
+                        <div class="blogroll">
                         <h2>blogroll</h2>
                         <ul>
-                        
-                            <li><a href="http://docs.notmyidea.org/alexis/pelican/">Pelican</a></li>
-                        
-                            <li><a href="http://python.org">Python.org</a></li>
-                        
-                            <li><a href="http://validator.w3.org/check?uri=http%3A%2F%2Fpiotrdeszynski.com%2F">HTML5 Validator</a></li>
-                        
-                        </ul>
+                                                    <li><a href="http://docs.notmyidea.org/alexis/pelican/">Pelican</a></li>
+                                                    <li><a href="http://python.org">Python.org</a></li>
+                                                    <li><a href="http://validator.w3.org/check?uri=http%3A%2F%2Fpiotrdeszynski.com%2F">HTML5 Validator</a></li>
+                                                </ul>
                 </div><!-- /.blogroll -->
-        
-        
-                <div class="social">
+                                <div class="social">
                         <h2>social</h2>
                         <ul>
                             <li><a href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
                             
-
-                        
-                            <li><a href="http://github.com/piteer1">github</a></li>
-                        
-                            <li><a href="http://www.linkedin.com/pub/piotr-deszy%C5%84ski/14/762/17">linkedin.com</a></li>
-                        
-                        </ul>
+                                                    <li><a href="http://github.com/piteer1">github</a></li>
+                                                    <li><a href="http://www.linkedin.com/pub/piotr-deszy%C5%84ski/14/762/17">linkedin.com</a></li>
+                                                </ul>
                 </div><!-- /.social -->
-        
-        </section><!-- /#extras -->
+                </section><!-- /#extras -->
 
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">
@@ -180,7 +144,6 @@ If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 
 
                 <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
-
 
     <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -192,9 +155,6 @@ If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
     </script>
-
-
-
 <script type="text/javascript">
     var disqus_shortname = 'yetanotherboringprogrammersblog';
     (function () {
@@ -204,6 +164,5 @@ If you want want to try it by yourself you can clone <em>trq</em> (requires PHP 
         (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
     }());
 </script>
-
 </body>
 </html>

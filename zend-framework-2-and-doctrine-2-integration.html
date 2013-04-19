@@ -4,11 +4,8 @@
         <title>Zend Framework 2 and Doctrine 2 Integration</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="./theme/css/main.css" type="text/css" />
-        
-        <link href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yet another boring programmer's blog Atom Feed" />
-        
-        
-
+                <link href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yet another boring programmer's blog Atom Feed" />
+                
         <!--[if IE]>
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
@@ -22,38 +19,25 @@
 </head>
 
 <body id="index" class="home">
-
 <a href="https://github.com/piteer1">
-
 <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" />
-
 </a>
-
         <header id="banner" class="body">
-                <h1><a href=".">Yet another boring programmer's blog </a></h1>
+                <h1><a href="./">Yet another boring programmer's blog </a></h1>
                 <nav><ul>
-                
-                
-                
-                
-                
-                    <li ><a href="./category/oop.html">OOP</a></li>
-                
-                    <li class="active"><a href="./category/misc.html">Misc</a></li>
-                
-                    <li ><a href="./category/about.html">About</a></li>
-                
-                </ul></nav>
+                                                                                                    <li ><a href="./category/oop.html">OOP</a></li>
+                                    <li class="active"><a href="./category/misc.html">Misc</a></li>
+                                    <li ><a href="./category/javascript.html">JavaScript</a></li>
+                                    <li ><a href="./category/about.html">About</a></li>
+                                </ul></nav>
         </header><!-- /#banner -->
-        
-<section id="content" class="body">
+        <section id="content" class="body">
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="zend-framework-2-and-doctrine-2-integration.html" rel="bookmark"
+        <a href="./zend-framework-2-and-doctrine-2-integration.html" rel="bookmark"
            title="Permalink to Zend Framework 2 and Doctrine 2 Integration">Zend Framework 2 and Doctrine 2 Integration</a></h1>
-      
-    </header>
+          </header>
 
     <div class="entry-content">
       <footer class="post-info">
@@ -61,31 +45,26 @@
                 ndz 18 listopada 2012
         </abbr>
 
-        
-        <address class="vcard author">
+                <address class="vcard author">
                 By <a class="url fn" href="./author/piotr-deszynski.html">Piotr Deszyński</a>
         </address>
-        
-<p>In <a href="./category/misc.html">Misc</a>. </p>
+        <p>In <a href="./category/misc.html">Misc</a>. </p>
 
-
-
-</footer><!-- /.post-info -->
-      <p>Lately I was playing with ZF2 and Doctrine 2, trying to integrate them into one app. There's a nice <a href="http://www.jasongrimes.org/2012/01/using-doctrine-2-in-zend-framework-2/" title="Using Doctrine 2 in Zend Framework 2"><strong>tutorial</strong></a>. Here I will try to solve the most common problems which are happening during this integration.</p>
+</footer><!-- /.post-info -->      <p>Lately I was playing with ZF2 and Doctrine 2, trying to integrate them into one app. There's a nice <a href="http://www.jasongrimes.org/2012/01/using-doctrine-2-in-zend-framework-2/" title="Using Doctrine 2 in Zend Framework 2"><strong>tutorial</strong></a>. Here I will try to solve the most common problems which are happening during this integration.</p>
 <h2>Helper "em"</h2>
 <p>First of the problems that can occur is the following one:</p>
 <div class="codehilite"><pre><span class="p">[</span><span class="n">InvalidArgumentException</span><span class="p">]</span>       
-<span class="n">The</span> <span class="n">helper</span> &quot;<span class="n">em</span>&quot; <span class="n">is</span> <span class="n">not</span> <span class="n">defined</span><span class="p">.</span>
+<span class="n">The</span> <span class="n">helper</span> <span class="s">&quot;em&quot;</span> <span class="n">is</span> <span class="n">not</span> <span class="n">defined</span><span class="p">.</span>
 </pre></div>
 
 
 <p>If you'll have the same error it's most probably caused by using wrong command for ORM generation. By default in Doctrine you should use:</p>
-<div class="codehilite"><pre><span class="n">doctrine</span> <span class="n">orm</span><span class="p">:</span><span class="n">schema</span><span class="o">-</span><span class="n">tool</span><span class="p">:</span><span class="n">create</span>
+<div class="codehilite"><pre><span class="n">doctrine</span> <span class="n">orm</span><span class="o">:</span><span class="n">schema</span><span class="o">-</span><span class="n">tool</span><span class="o">:</span><span class="n">create</span>
 </pre></div>
 
 
 <p>But in case of <strong>ZF2</strong> this command won't work. You should call instead of it: </p>
-<div class="codehilite"><pre><span class="o">./</span><span class="n">vendor</span><span class="o">/</span><span class="n">doctrine</span><span class="o">/</span><span class="n">doctrine</span><span class="o">-</span><span class="n">module</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">doctrine</span><span class="o">-</span><span class="n">module</span> <span class="n">orm</span><span class="p">:</span><span class="n">schema</span><span class="o">-</span><span class="n">tool</span><span class="p">:</span><span class="n">create</span>
+<div class="codehilite"><pre><span class="p">.</span><span class="o">/</span><span class="n">vendor</span><span class="o">/</span><span class="n">doctrine</span><span class="o">/</span><span class="n">doctrine</span><span class="o">-</span><span class="n">module</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">doctrine</span><span class="o">-</span><span class="n">module</span> <span class="n">orm</span><span class="o">:</span><span class="n">schema</span><span class="o">-</span><span class="n">tool</span><span class="o">:</span><span class="n">create</span>
 </pre></div>
 
 
@@ -122,8 +101,7 @@
 
 <p>After that you should be able to work with Doctrine!</p>
     </div><!-- /.entry-content -->
-    
-    <div class="comments">
+        <div class="comments">
       <h2>Comments !</h2>
       <div id="disqus_thread"></div>
       <script type="text/javascript">
@@ -136,41 +114,27 @@
       </script>
     </div>
     
-
   </article>
 </section>
-
         <section id="extras" class="body">
-        
-                <div class="blogroll">
+                        <div class="blogroll">
                         <h2>blogroll</h2>
                         <ul>
-                        
-                            <li><a href="http://docs.notmyidea.org/alexis/pelican/">Pelican</a></li>
-                        
-                            <li><a href="http://python.org">Python.org</a></li>
-                        
-                            <li><a href="http://validator.w3.org/check?uri=http%3A%2F%2Fpiotrdeszynski.com%2F">HTML5 Validator</a></li>
-                        
-                        </ul>
+                                                    <li><a href="http://docs.notmyidea.org/alexis/pelican/">Pelican</a></li>
+                                                    <li><a href="http://python.org">Python.org</a></li>
+                                                    <li><a href="http://validator.w3.org/check?uri=http%3A%2F%2Fpiotrdeszynski.com%2F">HTML5 Validator</a></li>
+                                                </ul>
                 </div><!-- /.blogroll -->
-        
-        
-                <div class="social">
+                                <div class="social">
                         <h2>social</h2>
                         <ul>
                             <li><a href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
                             
-
-                        
-                            <li><a href="http://github.com/piteer1">github</a></li>
-                        
-                            <li><a href="http://www.linkedin.com/pub/piotr-deszy%C5%84ski/14/762/17">linkedin.com</a></li>
-                        
-                        </ul>
+                                                    <li><a href="http://github.com/piteer1">github</a></li>
+                                                    <li><a href="http://www.linkedin.com/pub/piotr-deszy%C5%84ski/14/762/17">linkedin.com</a></li>
+                                                </ul>
                 </div><!-- /.social -->
-        
-        </section><!-- /#extras -->
+                </section><!-- /#extras -->
 
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">
@@ -179,7 +143,6 @@
 
                 <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
-
 
     <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -191,9 +154,6 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
     </script>
-
-
-
 <script type="text/javascript">
     var disqus_shortname = 'yetanotherboringprogrammersblog';
     (function () {
@@ -203,6 +163,5 @@
         (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
     }());
 </script>
-
 </body>
 </html>
