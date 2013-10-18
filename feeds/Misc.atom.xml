@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="http://www.piotrdeszynski.com/" rel="alternate"></link><link href="http://www.piotrdeszynski.com/feeds/Misc.atom.xml" rel="self"></link><id>http://www.piotrdeszynski.com/</id><updated>2012-11-18T10:00:00+01:00</updated><entry><title>Zend Framework 2 and Doctrine 2 Integration</title><link href="http://www.piotrdeszynski.com/zend-framework-2-and-doctrine-2-integration.html" rel="alternate"></link><updated>2012-11-18T10:00:00+01:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2012-11-18:zend-framework-2-and-doctrine-2-integration.html</id><summary type="html">&lt;p&gt;Lately I was playing with ZF2 and Doctrine 2, trying to integrate them into one app. There's a nice &lt;a href="http://www.jasongrimes.org/2012/01/using-doctrine-2-in-zend-framework-2/" title="Using Doctrine 2 in Zend Framework 2"&gt;&lt;strong&gt;tutorial&lt;/strong&gt;&lt;/a&gt;. Here I will try to solve the most common problems which are happening during this integration.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="http://www.piotrdeszynski.com/" rel="alternate"></link><link href="http://www.piotrdeszynski.com/feeds/misc.atom.xml" rel="self"></link><id>http://www.piotrdeszynski.com/</id><updated>2012-11-18T10:00:00+01:00</updated><entry><title>Zend Framework 2 and Doctrine 2 Integration</title><link href="http://www.piotrdeszynski.com/zend-framework-2-and-doctrine-2-integration.html" rel="alternate"></link><updated>2012-11-18T10:00:00+01:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2012-11-18:zend-framework-2-and-doctrine-2-integration.html</id><summary type="html">&lt;p&gt;Lately I was playing with ZF2 and Doctrine 2, trying to integrate them into one app. There's a nice &lt;a href="http://www.jasongrimes.org/2012/01/using-doctrine-2-in-zend-framework-2/" title="Using Doctrine 2 in Zend Framework 2"&gt;&lt;strong&gt;tutorial&lt;/strong&gt;&lt;/a&gt;. Here I will try to solve the most common problems which are happening during this integration.&lt;/p&gt;
 &lt;h2&gt;Helper "em"&lt;/h2&gt;
 &lt;p&gt;First of the problems that can occur is the following one:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;InvalidArgumentException&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;       
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;InvalidArgumentException&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;       
 &lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;helper&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;em&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;not&lt;/span&gt; &lt;span class="n"&gt;defined&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;If you'll have the same error it's most probably caused by using wrong command for ORM generation. By default in Doctrine you should use:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;doctrine&lt;/span&gt; &lt;span class="n"&gt;orm&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;schema&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;tool&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;create&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;doctrine&lt;/span&gt; &lt;span class="n"&gt;orm&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;schema&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;tool&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;create&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;But in case of &lt;strong&gt;ZF2&lt;/strong&gt; this command won't work. You should call instead of it: &lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;vendor&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;doctrine&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;doctrine&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;module&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;doctrine&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;module&lt;/span&gt; &lt;span class="n"&gt;orm&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;schema&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;tool&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;create&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;vendor&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;doctrine&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;doctrine&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;module&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;doctrine&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;module&lt;/span&gt; &lt;span class="n"&gt;orm&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;schema&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;tool&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;create&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;No Metadata Classes to process.&lt;/h2&gt;
 &lt;p&gt;Check if for sure you have correct path in your &lt;strong&gt;module.config.php&lt;/strong&gt; setup for &lt;strong&gt;Annotation Driver&lt;/strong&gt;, it should look like:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nx"&gt;MyNamespace&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="c1"&gt;//...&lt;/span&gt;
 &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
@@ -44,7 +44,7 @@
 
 
 &lt;p&gt;Be sure not to forget the part with namespace!&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="x"&gt;namespace MyNamespace;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="x"&gt;namespace MyNamespace;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -52,7 +52,7 @@
 &lt;p&gt;Coming back to the previously stated problem, how to solve it? One of the possible approaches might be using &lt;strong&gt;Continuous Integration&lt;/strong&gt; for that, by creating for e.g. unstable, un-reviewed branch and setupping CI to make builds based on it. Even if this will work then still it's not optimal solution, because it forces you to push unstable code to repository. Additionally you have to schedule new build and wait for the results.&lt;/p&gt;
 &lt;p&gt;Much better approach would be having during the development a way to ensure that everybody have the same environment and as close as it's possible similar to production one. Answer for all and even more might be &lt;a href="http://vagrantup.com" title="Vagrant home page"&gt;&lt;strong&gt;Vagrant!&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Vagrant&lt;/strong&gt; uses &lt;strong&gt;VirtualBox&lt;/strong&gt; to build for you a virtual machine ready for work. The main advantage of it is it's simplicity to run it. As manual says to start a VM it's enough&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;vagrant box add lucid32 http://files.vagrantup.com/lucid32.box
+&lt;div class="highlight"&gt;&lt;pre&gt;vagrant box add lucid32 http://files.vagrantup.com/lucid32.box
 vagrant init lucid32
 vagrant up
 &lt;/pre&gt;&lt;/div&gt;
@@ -69,7 +69,7 @@ But this was just easiest example, this server does not do too much other that j
 &lt;p&gt;When you use &lt;strong&gt;Vagrant&lt;/strong&gt; you do not install this way any necessary libraries. Vagrant uses provisioning system for that. You can choose between &lt;a href="http://www.opscode.com/chef/"&gt;&lt;strong&gt;Chef&lt;/strong&gt;&lt;/a&gt; and &lt;a href="http://puppetlabs.com"&gt;&lt;strong&gt;Puppet&lt;/strong&gt;&lt;/a&gt;. You define in special file what kind of libraries and actions have to be made on a server to setup it according to your needs. I think it'll be easier while trying to explain it using an example.&lt;/p&gt;
 &lt;h2&gt;A long Puppet example&lt;/h2&gt;
 &lt;p&gt;Let's assume that we have web project in that's written PHP. For that we will need a web server and a PHP installation. For that let's choose &lt;em&gt;Nginx&lt;/em&gt; as a server and &lt;em&gt;php-fpm&lt;/em&gt;. All puppet files will be in project root (&lt;strong&gt;not&lt;/strong&gt; document root) in &lt;em&gt;private/puppet&lt;/em&gt; folder. All files for Puppet have to be put in correct place in directory structure which should look like that:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;manifests&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;manifests&lt;/span&gt;
     &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;here&lt;/span&gt; &lt;span class="n"&gt;goes&lt;/span&gt; &lt;span class="n"&gt;all&lt;/span&gt; &lt;span class="n"&gt;top&lt;/span&gt; &lt;span class="n"&gt;directory&lt;/span&gt; &lt;span class="n"&gt;manifests&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;production&lt;/span&gt; &lt;span class="n"&gt;setup&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt; &lt;span class="n"&gt;with&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pp&lt;/span&gt; &lt;span class="n"&gt;extension&lt;/span&gt; &lt;span class="n"&gt;here&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;modules&lt;/span&gt;
     &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;here&lt;/span&gt; &lt;span class="n"&gt;go&lt;/span&gt; &lt;span class="n"&gt;all&lt;/span&gt; &lt;span class="n"&gt;modules&lt;/span&gt; &lt;span class="n"&gt;which&lt;/span&gt; &lt;span class="n"&gt;can&lt;/span&gt; &lt;span class="n"&gt;represent&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;way&lt;/span&gt; &lt;span class="n"&gt;how&lt;/span&gt; &lt;span class="n"&gt;apache&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;initialized&lt;/span&gt;
@@ -84,7 +84,7 @@ But this was just easiest example, this server does not do too much other that j
 
 
 &lt;p&gt;Ok, so let's prepare firstly production environment. For that I will create such a directory structure:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;manifests&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;manifests&lt;/span&gt;
     &lt;span class="n"&gt;production&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pp&lt;/span&gt;
     &lt;span class="n"&gt;development&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pp&lt;/span&gt;
 &lt;span class="n"&gt;modules&lt;/span&gt;
@@ -96,7 +96,7 @@ But this was just easiest example, this server does not do too much other that j
 
 
 &lt;p&gt;And an initialization manifest&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;# private/puppet/manifests/production.pp&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# private/puppet/manifests/production.pp&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="na"&gt;production&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="na"&gt;init&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$page)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;exec&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;apt-get update&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; 
         &lt;span class="na"&gt;command&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;/usr/bin/apt-get update&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -114,12 +114,12 @@ But this was just easiest example, this server does not do too much other that j
 
 
 &lt;p&gt;Let's explain what's happening here.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;production&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;init&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;production&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;init&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This is Puppet class definition. I've called production-init, so as the name said it's responsible for whole production initialization. This class get's one $page parameter which is the page domain name. This is not normally necessary, but I wanted to be able to easily create other pages without making copy&amp;amp;paste of Puppet manifests. Let's go further:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;exec&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; 
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;exec&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; 
     &lt;span class="n"&gt;command&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -127,7 +127,7 @@ But this was just easiest example, this server does not do too much other that j
 
 &lt;p&gt;Exec task just executes command on server (our VM). This will just update repositories before starting any installations.  Important thing in exec is that commands have to have &lt;strong&gt;full path to executable&lt;/strong&gt;!&lt;/p&gt;
 &lt;p&gt;In most of the cases while running webserver on production environment you run it in different user (webadmin), so also let's create one not to have later some permission problems on a different machine, when on ours it'll be working ok (for e.g. with cache folder).&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#create a webadmin user&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#create a webadmin user&lt;/span&gt;
 &lt;span class="n"&gt;users&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;add_user&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;webadmin&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;uid&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
@@ -136,19 +136,19 @@ But this was just easiest example, this server does not do too much other that j
 
 &lt;p&gt;Here we called &lt;strong&gt;defined resource type&lt;/strong&gt;. If you have good eyesight you saw that previously class was used (production-init). Defined types and classes are similar, but they have one difference. Classes are singletons and any call will Puppet to raise an error.&lt;/p&gt;
 &lt;p&gt;'users::add_user' means: call add_user from users module. This implies that there is an add_user.pp file in a path:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;modules&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;users&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;manifests&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;modules&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;users&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;manifests&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Last parts are calls to &lt;em&gt;php-fpm&lt;/em&gt; and &lt;em&gt;nginx&lt;/em&gt; classes. You can see the difference how they're called. Why like that? It's because &lt;em&gt;php-fpm&lt;/em&gt; is a class without any parameters, so it's allowed to use shorter &lt;strong&gt;include&lt;/strong&gt; version.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;include&lt;/span&gt; &lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fpm&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="o"&gt;===&lt;/span&gt; &lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fpm&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;include&lt;/span&gt; &lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fpm&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="o"&gt;===&lt;/span&gt; &lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fpm&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;You have to remember that there is &lt;strong&gt;no possibility&lt;/strong&gt; to call a class with a param(s) with include!&lt;/p&gt;
 &lt;h2&gt;Resource add_user&lt;/h2&gt;
 &lt;p&gt;Definition of &lt;em&gt;add_user&lt;/em&gt; looks as follows:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#private/puppet/modules/users/manifests/user_add.pp&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#private/puppet/modules/users/manifests/user_add.pp&lt;/span&gt;
 &lt;span class="k"&gt;define&lt;/span&gt; &lt;span class="na"&gt;users&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="na"&gt;add_user&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="nv"&gt;$username&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;$title,&lt;/span&gt; &lt;span class="nv"&gt;$uid&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
 
     &lt;span class="k"&gt;user&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;$username:&lt;/span&gt;
@@ -193,7 +193,7 @@ But this was just easiest example, this server does not do too much other that j
 
 &lt;p&gt;This code creates an user and a group with the same name. Additionally checks if home this user has home folder, &lt;em&gt;.ssh&lt;/em&gt; fodler, and &lt;em&gt;authorized_keys&lt;/em&gt; file.&lt;/p&gt;
 &lt;p&gt;There are still few things that have to be explained.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="n"&gt;users&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;add_user&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;uid&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="n"&gt;users&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;add_user&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;uid&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -203,7 +203,7 @@ But this was just easiest example, this server does not do too much other that j
 &lt;li&gt;$uid which will be created user uid.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;In &lt;em&gt;Puppet&lt;/em&gt; there is a possibility to define requirements for each resources. The simplest example will be group creation&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="na"&gt;group&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;$username:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="na"&gt;group&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;$username:&lt;/span&gt;
     &lt;span class="na"&gt;gid&lt;/span&gt;     &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nv"&gt;$uid,&lt;/span&gt;
     &lt;span class="na"&gt;require&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;User&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$username]&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
@@ -212,14 +212,14 @@ But this was just easiest example, this server does not do too much other that j
 
 &lt;p&gt;Here group with $username name is created. But to create this grup it's required that previously user with the same name was also created. Thanks to it, if for some reason user was not created, then the creation of group will not be made at all, because of not satisfied dependencies.&lt;/p&gt;
 &lt;p&gt;Other important part is that Puppet is able to &lt;strong&gt;evaluate variables in a string&lt;/strong&gt;, this is done by putting variable in brackets with dollar sign in front (to be honest it is enough to put $var, but according to Puppet standards brackets should be also there):&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;require =&amp;gt; File[&amp;quot;/home/&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;/&amp;quot;]
+&lt;div class="highlight"&gt;&lt;pre&gt;require =&amp;gt; File[&amp;quot;/home/&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;/&amp;quot;]
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;I will skip rest of the code in add_user, it should be self explanatory.&lt;/p&gt;
 &lt;h2&gt;php-fpm installation&lt;/h2&gt;
 &lt;p&gt;Code for &lt;em&gt;php-fpm&lt;/em&gt; looks as follows:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="na"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="na"&gt;fpm&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="na"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="na"&gt;fpm&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;package&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;php5-fpm&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="na"&gt;ensure&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;present&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
         &lt;span class="na"&gt;require&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;Exec&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;apt-get update&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
@@ -253,12 +253,12 @@ But this was just easiest example, this server does not do too much other that j
 
 
 &lt;p&gt;Let's say what's happening here.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fpm&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fpm&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This is a &lt;em&gt;php-fpm&lt;/em&gt; class definition without any params. This class just install some of the PHP5 packages with &lt;strong&gt;PHP5 FPM&lt;/strong&gt; itself.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;package&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;php5&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fpm&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;package&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;php5&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fpm&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;ensure&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;present&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="n"&gt;require&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Exec&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
@@ -266,7 +266,7 @@ But this was just easiest example, this server does not do too much other that j
 
 
 &lt;p&gt;This installs &lt;em&gt;php5-fpm&lt;/em&gt;, only interesting part here it's that we want to ensure that we're installing the newest possible package in repositories. For that it's required that command &lt;strong&gt;apt-get update&lt;/strong&gt; finished successfully. &lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;package&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;php5-xcache&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;package&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;php5-xcache&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="na"&gt;ensure&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;present&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="na"&gt;require&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;Package&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;php5-fpm&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
     &lt;span class="k"&gt;notify&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;Service&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;php5-fpm&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
@@ -277,7 +277,7 @@ But this was just easiest example, this server does not do too much other that j
 &lt;p&gt;I will describe one more package as an example. The code above install &lt;em&gt;&lt;em&gt;php5 xcache&lt;/em&gt; extension. What's interesting here it's the notify part. It tells Puppet that, he has to notify &lt;/em&gt;php5 fpm* service that new package was installed and it has to load it (do not mistake it with creating necessary ini files - it doesn't do that, it only informs that it should make reload/restart). Puppet knows how to notify most common services out of the box (for e.g. if it needs to be restarted or reload will be enough).&lt;/p&gt;
 &lt;h2&gt;The last step - Nginx&lt;/h2&gt;
 &lt;p&gt;Nginx installation will be defined in three separate files. Let's start with first one - virtual host definition&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#private/puppet/modules/nginx/manifests/virtual-host.pp&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#private/puppet/modules/nginx/manifests/virtual-host.pp&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="na"&gt;nginx&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="na"&gt;virtual&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;host&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$page,&lt;/span&gt; &lt;span class="nv"&gt;$template&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;default&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;file&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/home/virtual/${page}&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="na"&gt;ensure&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;directory&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -319,12 +319,12 @@ But this was just easiest example, this server does not do too much other that j
 
 
 &lt;p&gt;As always let's start from the beginning to say a few words about this code.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;virtual&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;template&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{...}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;virtual&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;template&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{...}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This one defines class virtual host. This class has two params where on has a default value. In our case &lt;em&gt;$page&lt;/em&gt; param is a domain for which virtual host is created. The &lt;em&gt;$template&lt;/em&gt; variable defines which template to use for virtual host definition. How to call this class? It's done by such a call:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;nginx::virtual-host&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;nginx::virtual-host&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="na"&gt;page&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;www.example.com&amp;#39;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -336,7 +336,7 @@ But this was just easiest example, this server does not do too much other that j
 This question is good. For you define might be much better. I've used here class because during development of a project I use only one VM per domain. If you plan having multiple virtual hosts on one VM, then make it define!&lt;/p&gt;
 &lt;h2&gt;Templates&lt;/h2&gt;
 &lt;p&gt;The only other interesting part in previous definition is part with virtual host file.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;file&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;nginx-site-available&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;file&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;nginx-site-available&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="na"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/etc/nginx/sites-available/${page}&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="na"&gt;ensure&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;file&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="na"&gt;require&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;Package&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;nginx&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
@@ -348,7 +348,7 @@ This question is good. For you define might be much better. I've used here class
 
 
 &lt;p&gt;This is the first time I've used here a template. Here I've put a virtual host definition in such a file and it looks as follows&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;server &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;server &lt;span class="p"&gt;{&lt;/span&gt;
     listen &lt;span class="m"&gt;80&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     server_name &lt;span class="o"&gt;&amp;lt;%= @page %&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;# &amp;lt;- put here value of $page variable&lt;/span&gt;
     root &lt;span class="o"&gt;/&lt;/span&gt;home&lt;span class="o"&gt;/&lt;/span&gt;virtual&lt;span class="o"&gt;/&amp;lt;%= @page %&amp;gt;/&lt;/span&gt;public&lt;span class="p"&gt;;&lt;/span&gt;
@@ -368,14 +368,14 @@ This question is good. For you define might be much better. I've used here class
 
 
 &lt;p&gt;As you can see it's really simple definition, where &lt;strong&gt;Nginx&lt;/strong&gt; will route all the addresses into index.php file. The important part here is that, we declare variables in templates slightly different. You put them between:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;%=&lt;/span&gt; &lt;span class="vi"&gt;@variable&lt;/span&gt; &lt;span class="cp"&gt;%&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;%=&lt;/span&gt; &lt;span class="vi"&gt;@variable&lt;/span&gt; &lt;span class="cp"&gt;%&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The question that you can ask right now, is how we pass a value to a template? It's simple. &lt;strong&gt;All the variables in parent scope are available in a template!&lt;/strong&gt;. What does it mean in the end? If we have a variable named $variable in a class/define, then this variable has to have exactly the same name. To access this variable you would put in template &amp;lt;%= @variable %&amp;gt;&lt;/p&gt;
 &lt;h2&gt;Nginx itself (phew, it was long..)&lt;/h2&gt;
 &lt;p&gt;Let's go to Nginx installation itself. I've done it by this Puppet manifest:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#private/puppet/modules/nginx/manifests/init.pp&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#private/puppet/modules/nginx/manifests/init.pp&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="na"&gt;nginx&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$page,&lt;/span&gt; &lt;span class="nv"&gt;$template&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;default&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
 
     &lt;span class="k"&gt;package&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;nginx&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; 
@@ -414,7 +414,7 @@ This question is good. For you define might be much better. I've used here class
 &lt;h2&gt;What's next?&lt;/h2&gt;
 &lt;p&gt;Ok, so we defined all necessary manifests and templates, but we need to still define an entry point. At the beginning I've defined a &lt;strong&gt;production-init&lt;/strong&gt; class. To be honest all the contents of this class can be removed from it and just called one by one. I did it this way, because I have one more file &lt;strong&gt;development.pp&lt;/strong&gt; which calls this class. It's done this way because it allows me to use this manifest on production, but also I can make small alterations to environment for a dev (for example for a dev you might install additionally xdebug, change error_reporting to E_STRICT &amp;amp; E_ALL etc.)&lt;/p&gt;
 &lt;p&gt;So &lt;em&gt;development.pp&lt;/em&gt; file might be looking like:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#private/puppet/manifests/development.pp&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#private/puppet/manifests/development.pp&lt;/span&gt;
 &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;production-init&amp;quot;&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;production-init&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="na"&gt;page&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;example.com&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="c"&gt;&lt;/span&gt;
 
@@ -425,7 +425,7 @@ This question is good. For you define might be much better. I've used here class
 
 &lt;h3&gt;Setup Vagrantfile&lt;/h3&gt;
 &lt;p&gt;Now really last thing - we have to show Vagrant where our manifest file is and which one to use. When you'll open this &lt;em&gt;Vagrantfile&lt;/em&gt; in root of your project you should add:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;provision&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;puppet&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;module_path&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;private/puppet/modules&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;options&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;--verbose --debug&amp;quot;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;puppet&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;provision&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;puppet&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;module_path&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;private/puppet/modules&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;options&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;--verbose --debug&amp;quot;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;puppet&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
     &lt;span class="n"&gt;puppet&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;manifests_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;private/puppet/manifests&amp;quot;&lt;/span&gt;
     &lt;span class="n"&gt;puppet&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;manifest_file&lt;/span&gt;  &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;development.pp&amp;quot;&lt;/span&gt;
 &lt;span class="n"&gt;end&lt;/span&gt;
@@ -434,7 +434,7 @@ This question is good. For you define might be much better. I've used here class
 
 
 &lt;p&gt;Now you should be able to run&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;vagrant&lt;/span&gt; &lt;span class="n"&gt;reload&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;vagrant&lt;/span&gt; &lt;span class="n"&gt;reload&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -444,7 +444,7 @@ This question is good. For you define might be much better. I've used here class
 &lt;p&gt;After all work is done and development environment prepared, it can be easily shared between all devs using for example Git and adding all files.&lt;/p&gt;
 &lt;p&gt;There's one important thing before you'll start developing on this VM. I &lt;strong&gt;strongly suggest enabling NFS!&lt;/strong&gt; Shared folder build in VM is really slow. When I said really slow I meant &lt;strong&gt;it's hellish slow&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;To enable NFS firstly install it on host machine by doing&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;vagrant&lt;/span&gt; &lt;span class="n"&gt;ssh&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;vagrant&lt;/span&gt; &lt;span class="n"&gt;ssh&lt;/span&gt;
 
 &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;nfs&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;common&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -452,7 +452,7 @@ This question is good. For you define might be much better. I've used here class
 
 &lt;p&gt;On local machine it might be also required to install &lt;strong&gt;nfs-server&lt;/strong&gt; package.
 At the end just modify in Vagrantfile definition of shared folder by adding :nfs =&amp;gt; true at the end, so it'll be looking like&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;share_folder&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;app-root&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/home/virtual/example.com&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;nfs&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;true&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;share_folder&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;app-root&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/home/virtual/example.com&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;nfs&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;true&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -469,12 +469,12 @@ At the end just modify in Vagrantfile definition of shared folder by adding :nfs
 &lt;li&gt;It takes a lot of time to setup environment. &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;What's easier?&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="na"&gt;sudo&lt;/span&gt; &lt;span class="na"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="na"&gt;get&lt;/span&gt; &lt;span class="na"&gt;install&lt;/span&gt; &lt;span class="na"&gt;nginx&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="na"&gt;sudo&lt;/span&gt; &lt;span class="na"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="na"&gt;get&lt;/span&gt; &lt;span class="na"&gt;install&lt;/span&gt; &lt;span class="na"&gt;nginx&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;or&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="na"&gt;nginx&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="na"&gt;ensure&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;present&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="na"&gt;require&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;Exec&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;apt-get update&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="na"&gt;nginx&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="na"&gt;ensure&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;present&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="na"&gt;require&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;Exec&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;apt-get update&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]}&lt;/span&gt;
 &lt;span class="k"&gt;service&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;nginx&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="na"&gt;ensure&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;running&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="na"&gt;require&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;Package&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;nginx&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;

@@ -1,21 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>Yet another boring programmer's blog - Metrics</title>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="../theme/css/main.css" type="text/css" />
-                <link href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yet another boring programmer's blog Atom Feed" />
-                
+        <title>Yet another boring programmer's blog - Metrics</title>
+        <link rel="stylesheet" href="http://www.piotrdeszynski.com/theme/css/main.css" />
+        <link href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yet another boring programmer's blog Atom Feed" />
+
         <!--[if IE]>
-                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-        <!--[if lte IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="../css/ie.css"/>
-                <script src="../js/IE8.js" type="text/javascript"></script><![endif]-->
-
-        <!--[if lt IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="../css/ie6.css"/><![endif]-->
-
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 </head>
 
 <body id="index" class="home">
@@ -23,30 +16,28 @@
 <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" />
 </a>
         <header id="banner" class="body">
-                <h1><a href="../">Yet another boring programmer's blog </a></h1>
+                <h1><a href="http://www.piotrdeszynski.com/">Yet another boring programmer's blog </a></h1>
                 <nav><ul>
-                                                                                                    <li ><a href="../category/oop.html">OOP</a></li>
-                                    <li ><a href="../category/misc.html">Misc</a></li>
-                                    <li ><a href="../category/javascript.html">JavaScript</a></li>
-                                    <li ><a href="../category/about.html">About</a></li>
-                                </ul></nav>
+                    <li><a href="http://www.piotrdeszynski.com/category/oop.html">OOP</a></li>
+                    <li><a href="http://www.piotrdeszynski.com/category/misc.html">Misc</a></li>
+                    <li><a href="http://www.piotrdeszynski.com/category/javascript.html">JavaScript</a></li>
+                    <li><a href="http://www.piotrdeszynski.com/category/about.html">About</a></li>
+                </ul></nav>
         </header><!-- /#banner -->
-                
-            
 
-                            <aside id="featured" class="body">
+            <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="../object-oriented-metrics-introduction.html">Object Oriented Metrics - WTF?</a></h1> 
-                    <footer class="post-info">
+                    <h1 class="entry-title"><a href="http://www.piotrdeszynski.com/object-oriented-metrics-introduction.html">Object Oriented Metrics - WTF?</a></h1>
+<footer class="post-info">
         <abbr class="published" title="2012-10-18T22:00:00">
                 czw 18 października 2012
         </abbr>
 
-                <address class="vcard author">
-                By <a class="url fn" href="../author/piotr-deszynski.html">Piotr Deszyński</a>
+        <address class="vcard author">
+                By <a class="url fn" href="http://www.piotrdeszynski.com/author/piotr-deszynski.html">Piotr Deszyński</a>
         </address>
-        <p>In <a href="../category/oop.html">OOP</a>. </p>
-<p>tags: <a href="../tag/oop.html">OOP</a><a href="../tag/metrics.html">Metrics</a><a href="../tag/code-quality.html">Code Quality</a></p>
+<p>In <a href="http://www.piotrdeszynski.com/category/oop.html">OOP</a>. </p>
+<p>tags: <a href="http://www.piotrdeszynski.com/tag/oop.html">OOP</a><a href="http://www.piotrdeszynski.com/tag/metrics.html">Metrics</a><a href="http://www.piotrdeszynski.com/tag/code-quality.html">Code Quality</a></p>
 </footer><!-- /.post-info --><h1>WTF is that?</h1>
 <p>We'll start from an image. Did you see in past something like that?</p>
 <p><img alt="Overview pyramid" src="/images/2012/10/overview-pyramid.png" title="An example of overview pyramid" /></p>
@@ -90,7 +81,7 @@ For the rest metrics calculations are analogical.</p>
 <p>Based on these number you can think how to refactor your code, to be more maintanable and clearer.</p>
 <p>It's possible to generate such a diagram using for e.g. <strong>PHP_Depend</strong>, for Java you can use <strong>Cultivate, inFusion</strong> plugin for Eclipse.
 Below you will find example how to generate this diagram using PHP_Depend</p>
-<div class="codehilite"><pre>php pdepend.php --summary-xml<span class="o">=</span>output/metrics.log --overview-pyramid<span class="o">=</span>output/pyramid.svg PATH_TO_CODE
+<div class="highlight"><pre>php pdepend.php --summary-xml<span class="o">=</span>output/metrics.log --overview-pyramid<span class="o">=</span>output/pyramid.svg PATH_TO_CODE
 </pre></div>
 
 
@@ -128,32 +119,32 @@ one small problem.</li>
 <p>These ones are only examples, because there are many more. To know about other ones I
 suggest reading <strong>Object Oriented Metrics in Practics by Michele Lanza and Radu Marinescu</strong>. Knowing them will make you write good Object-Oriented code.</p>
 <p>Uff... that's the end for now. This post started to be too long. I will later continue disharmonies topic in separate article to say about them a little bit
-more - how to detect them, how to get rid of them.</p><p>There are <a href="../object-oriented-metrics-introduction.html#disqus_thread">comments</a>.</p>                </article>
-                                    <p class="paginator">
-        Page 1 / 1
-    </p>
-                            </aside><!-- /#featured -->
-                                                </ol><!-- /#posts-list -->
-                        </section><!-- /#content -->
-                    <section id="extras" class="body">
-                        <div class="blogroll">
+more - how to detect them, how to get rid of them.</p><p>There are <a href="http://www.piotrdeszynski.com/object-oriented-metrics-introduction.html#disqus_thread">comments</a>.</p>                </article>
+<p class="paginator">
+    Page 1 / 1
+</p>
+            </aside><!-- /#featured -->
+            </ol><!-- /#posts-list -->
+            </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
                         <h2>blogroll</h2>
                         <ul>
-                                                    <li><a href="http://docs.notmyidea.org/alexis/pelican/">Pelican</a></li>
-                                                    <li><a href="http://python.org">Python.org</a></li>
-                                                    <li><a href="http://validator.w3.org/check?uri=http%3A%2F%2Fpiotrdeszynski.com%2F">HTML5 Validator</a></li>
-                                                </ul>
+                            <li><a href="http://docs.notmyidea.org/alexis/pelican/">Pelican</a></li>
+                            <li><a href="http://python.org">Python.org</a></li>
+                            <li><a href="http://validator.w3.org/check?uri=http%3A%2F%2Fpiotrdeszynski.com%2F">HTML5 Validator</a></li>
+                        </ul>
                 </div><!-- /.blogroll -->
-                                <div class="social">
+                <div class="social">
                         <h2>social</h2>
                         <ul>
                             <li><a href="http://www.piotrdeszynski.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
-                            
-                                                    <li><a href="http://github.com/piteer1">github</a></li>
-                                                    <li><a href="http://www.linkedin.com/pub/piotr-deszy%C5%84ski/14/762/17">linkedin.com</a></li>
-                                                </ul>
+
+                            <li><a href="http://github.com/piteer1">github</a></li>
+                            <li><a href="http://www.linkedin.com/pub/piotr-deszy%C5%84ski/14/762/17">linkedin.com</a></li>
+                        </ul>
                 </div><!-- /.social -->
-                </section><!-- /#extras -->
+        </section><!-- /#extras -->
 
         <footer id="contentinfo" class="body">
                 <address id="about" class="vcard body">

@@ -5,3 +5,4 @@ output
 pelican.pid
 srv.pid
 pelican
+.DS_Store

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="http://www.piotrdeszynski.com/" rel="alternate"></link><link href="http://www.piotrdeszynski.com/feeds/JavaScript.atom.xml" rel="self"></link><id>http://www.piotrdeszynski.com/</id><updated>2013-04-07T20:00:00+02:00</updated><entry><title>Backbone.js and Zend Framework 2 Facebook like wall</title><link href="http://www.piotrdeszynski.com/backbonejs-and-zend-framework-2-facebook-like-wall.html" rel="alternate"></link><updated>2013-04-07T20:00:00+02:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2013-04-07:backbonejs-and-zend-framework-2-facebook-like-wall.html</id><summary type="html">&lt;h1&gt;I love spaghetti code!&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="http://www.piotrdeszynski.com/" rel="alternate"></link><link href="http://www.piotrdeszynski.com/feeds/javascript.atom.xml" rel="self"></link><id>http://www.piotrdeszynski.com/</id><updated>2013-04-07T20:00:00+02:00</updated><entry><title>Backbone.js and Zend Framework 2 Facebook like wall</title><link href="http://www.piotrdeszynski.com/backbonejs-and-zend-framework-2-facebook-like-wall.html" rel="alternate"></link><updated>2013-04-07T20:00:00+02:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2013-04-07:backbonejs-and-zend-framework-2-facebook-like-wall.html</id><summary type="html">&lt;h1&gt;I love spaghetti code!&lt;/h1&gt;
 &lt;p&gt;Yup, I really love it, cause I see it everyday looking into my old code or my teammates. The worst looking is always JavaScript code. Why? I would say it's because the JavaScript is the most powerful language. It allows you to express yourself in many ways and do almost everything. Because of that it's really important to find some good conventions.&lt;/p&gt;
 &lt;p&gt;For long time MVC pattern is used why not to use it also in JavaScript? It will help structuring the code. So we can start writing our MVC framework... but wait! There are already plenty of these!&lt;/p&gt;
 &lt;p&gt;The 3 most known MVC frameworks right now are (to be honest not exactly MVC but really close):&lt;/p&gt;
@@ -16,7 +16,7 @@
 &lt;p&gt;One of the important things was not writing any views twice. It's really often when you use JavaScript and PHP to write some views twice, once inside PHP as a returned response, secondary inside JS itself when some additional data is loaded through AJAX. It's really bad if you will catch yourself doing that. It leads to a lot of code duplication and need of change in many files when altering HTML structure. This can cause a lot of hard to find bugs, when pre-loaded page will work ok, but all dynamically loaded elements will cause you troubles. Let's say no to that!&lt;/p&gt;
 &lt;h3&gt;ZF2 Skeleton App&lt;/h3&gt;
 &lt;p&gt;As many &lt;strong&gt;ZF2&lt;/strong&gt; apps it will start with getting ZF2 Skeleton app from github. So firstly create a &lt;code&gt;backbonejs&lt;/code&gt; folder inside your webserver root and then create the app using composer.phar&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;curl -s https://getcomposer.org/installer | php --
+&lt;div class="highlight"&gt;&lt;pre&gt;curl -s https://getcomposer.org/installer | php --
 php composer.phar create-project --repository-url&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;http://packages.zendframework.com&amp;quot;&lt;/span&gt; zendframework/skeleton-application backbonejs
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -25,7 +25,7 @@ php composer.phar create-project --repository-url&lt;span class="o"&gt;=&lt;/spa
 &lt;p&gt;It's also necessary to setup webserver correctly to run &lt;strong&gt;ZF2&lt;/strong&gt;, for that please refer to &lt;a href="http://framework.zend.com/manual/2.1/en/user-guide/overview.html"&gt;instruction&lt;/a&gt; available on ZF2 documentation page.&lt;/p&gt;
 &lt;p&gt;I'm assuming that you were able to start the ZF2 application correctly and it's up and running.&lt;/p&gt;
 &lt;p&gt;Normally before you would be able to share something, you should firstly login. Because there's not much of work, let's make a login page. Not to reinvent the wheel and write it form the beginning we will use &lt;a href="https://github.com/ZF-Commons/ZfcUser"&gt;ZfcUser&lt;/a&gt;. To do it, just put inside &lt;code&gt;composer.json&lt;/code&gt; requirement for &lt;strong&gt;ZfcUser&lt;/strong&gt; module&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="nt"&gt;&amp;quot;some additional&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;keys&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nt"&gt;&amp;quot;require&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="nt"&gt;&amp;quot;php&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;gt;=5.3.3&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -39,7 +39,7 @@ php composer.phar create-project --repository-url&lt;span class="o"&gt;=&lt;/spa
 
 &lt;p&gt;and run php composer.phar install. It should install you ZfcUser module.
 Now let's enable this module. To do it, edit main configuration file for &lt;strong&gt;ZF2&lt;/strong&gt; and make the &lt;strong&gt;modules&lt;/strong&gt; array look like&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="c1"&gt;///config/application.config.php&lt;/span&gt;
 &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
     &lt;span class="c1"&gt;// This should be an array of module namespaces used in the application.&lt;/span&gt;
@@ -54,7 +54,7 @@ Now let's enable this module. To do it, edit main configuration file for &lt;str
 
 
 &lt;p&gt;&lt;strong&gt;ZfcUser&lt;/strong&gt; also requires module configuration. You should copy base configuration file &lt;code&gt;/vendor/zf-commons/zfc-user/config/zfc-user.global.php.dist&lt;/code&gt;, put it inside &lt;code&gt;/config/autoload/&lt;/code&gt; and rename it to &lt;code&gt;zfcuser.global.php&lt;/code&gt;. For the sake of this project we will enable also registration, because I would like to register myself nicely instead of writing into database my data. For that, just uncomment line inside &lt;code&gt;zfcuser.global.php&lt;/code&gt;&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="c1"&gt;//...&lt;/span&gt;
     &lt;span class="s1"&gt;&amp;#39;enable_registration&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
 &lt;span class="c1"&gt;//...&lt;/span&gt;
@@ -64,7 +64,7 @@ Now let's enable this module. To do it, edit main configuration file for &lt;str
 
 &lt;p&gt;Last step will be adding user schema into database to store somewhere bunch of users which will register. Create a database called &lt;code&gt;social&lt;/code&gt; and run queries on it from a &lt;code&gt;schema.mysql.sql&lt;/code&gt; file inside &lt;code&gt;vendor/zf-commons/zfc-user/data/&lt;/code&gt; folder.&lt;/p&gt;
 &lt;p&gt;Don't forget also to setup &lt;strong&gt;ZF2&lt;/strong&gt; to use correct database. It'll be done inside &lt;code&gt;/config/autoload/local.php&lt;/code&gt;. This file should not get inside the repository, not to store the credentials to database. Update this file to look similar to:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
     &lt;span class="s1"&gt;&amp;#39;db&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
         &lt;span class="s1"&gt;&amp;#39;username&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;lt;username&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -77,7 +77,7 @@ Now let's enable this module. To do it, edit main configuration file for &lt;str
 
 &lt;p&gt;You should have now working login page. Try to navigate into &lt;code&gt;http://&amp;lt;server_name&amp;gt;/user/login&lt;/code&gt;. You should see login form now. Wasn't that hard to make the login/register functionality.&lt;/p&gt;
 &lt;p&gt;But wait, it's not working yet as it should. It's fine with the login/registration but still I'm able to navigate to any page without a login in first. We will implement the functionality to disallow navigation through all application without firstly logging in. Inside the &lt;code&gt;/modules/Application/Module.php&lt;/code&gt; (for simplicity I will use this module which came from Skeleton App) in bootstrap function update the code so it will look as follows&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="c1"&gt;//...&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Module&lt;/span&gt; 
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -114,7 +114,7 @@ Now let's enable this module. To do it, edit main configuration file for &lt;str
 &lt;p&gt;Now every time you will try to go to any page other than login you will be immediately redirected to login page. And we have already a simple login implemented! Now try to login and enter the site.&lt;/p&gt;
 &lt;h2&gt;I see a wall?!&lt;/h2&gt;
 &lt;p&gt;Yes, but it's... empty (or rather you're seeing a ZF2 logo). Let's cleanup it a little. ZF2 already comes with &lt;a href="http://twitter.github.io/bootstrap/"&gt;Twitter Bootstrap&lt;/a&gt;, so let's us it. We will only alter layout a little. Please open &lt;code&gt;module/Application/view/layout.phtml&lt;/code&gt; file (yeah we'll be altering already existing Skeleton App).&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php echo $this-&amp;gt;doctype(); ?&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php echo $this-&amp;gt;doctype(); ?&amp;gt;&lt;/span&gt;
 &lt;span class="nt"&gt;&amp;lt;html&lt;/span&gt; &lt;span class="na"&gt;lang=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;en&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
     &lt;span class="nt"&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
         &lt;span class="nt"&gt;&amp;lt;meta&lt;/span&gt; &lt;span class="na"&gt;charset=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
@@ -176,7 +176,7 @@ Now let's enable this module. To do it, edit main configuration file for &lt;str
 
 
 &lt;p&gt;Here are some important notes. You saw where the scripts went? Almost at the end of body.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt; &lt;span class="c"&gt;&amp;lt;!-- Scripts --&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt; &lt;span class="c"&gt;&amp;lt;!-- Scripts --&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;&amp;lt;?php echo $this-&amp;gt;headScript()&lt;/span&gt;
 &lt;span class="cp"&gt;                -&amp;gt;prependFile($this-&amp;gt;basePath() . &amp;#39;/js/backbone.js&amp;#39;)&lt;/span&gt;
 &lt;span class="cp"&gt;                -&amp;gt;prependFile($this-&amp;gt;basePath() . &amp;#39;/js/underscore.js&amp;#39;)&lt;/span&gt;
@@ -190,7 +190,7 @@ Now let's enable this module. To do it, edit main configuration file for &lt;str
 
 &lt;p&gt;Why you ask? When your social network will be growing you will start adding more and more JavaScript. There are many methods of optimization, but one of the simplest one will be moving your scripts at the end of HTML. This will make browser parse the scripts after showing the rest of the page to an user. There's one minus though - until scripts are loaded user cannot interact with your app. This problem can be solved but I won't be doing it here.
 It's important to have them added in the same order. First thing that should be loaded is jQuery. This is one of the dependencies required for &lt;strong&gt;Backbone.js&lt;/strong&gt;. Other one is &lt;strong&gt;Underscore.js&lt;/strong&gt;. This JavaScript has to be also inside the DOM before &lt;strong&gt;Backbone&lt;/strong&gt; (we use here &lt;code&gt;prependFile&lt;/code&gt; function). Last included JavaScript is &lt;strong&gt;Backbone.js&lt;/strong&gt; itself.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;ul&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;nav&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;ul&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;nav&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;&amp;lt;?php if ($this-&amp;gt;zfcUserIdentity()): ?&amp;gt;&lt;/span&gt;
     &lt;span class="nt"&gt;&amp;lt;li&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;active&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;lt;?php echo $this-&amp;gt;url(&amp;#39;home&amp;#39;) ?&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php echo $this-&amp;gt;translate(&amp;#39;Home&amp;#39;) ?&amp;gt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
     &lt;span class="nt"&gt;&amp;lt;li&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;active&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;lt;?php echo $this-&amp;gt;url(&amp;#39;zfcuser&amp;#39;) ?&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php echo $this-&amp;gt;translate(&amp;#39;Me&amp;#39;) ?&amp;gt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
@@ -203,7 +203,7 @@ It's important to have them added in the same order. First thing that should be 
 
 
 &lt;p&gt;ZfcUser gives you out of the box functionality to check whether user is logged or not. You can do it by calling&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;zfcUserIdentity&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;span class="cp"&gt;?&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -211,7 +211,7 @@ It's important to have them added in the same order. First thing that should be 
 
 &lt;p&gt;in a view file. Right now our social network is really simple and allows only to show wall or user info (this is also provided by &lt;strong&gt;ZfcUser&lt;/strong&gt;) and eventually log out.&lt;/p&gt;
 &lt;p&gt;Let's also add a little bit of CSS styles for later usage (they're really simple not to make the first steps too complex, style the application as you would like).&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;/* public/css/style.css */&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;/* public/css/style.css */&lt;/span&gt;
 &lt;span class="nc"&gt;.border-bottom&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="k"&gt;border-bottom&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;1px&lt;/span&gt; &lt;span class="k"&gt;solid&lt;/span&gt; &lt;span class="m"&gt;#ccc&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
   &lt;span class="k"&gt;margin-bottom&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;5px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -273,7 +273,7 @@ It's important to have them added in the same order. First thing that should be 
 &lt;p&gt;Ok, so we can assume that layout is done. Now you should see simple menu with 3 tabs on the top, but still no posts.&lt;/p&gt;
 &lt;h3&gt;My share form&lt;/h3&gt;
 &lt;p&gt;What kind of social network would be without a share form? We need one. Let's do it then.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="c1"&gt;//module/Application/src/Application/Form/ShareForm.php&lt;/span&gt;
 &lt;span class="o"&gt;&amp;lt;?&lt;/span&gt;&lt;span class="nx"&gt;php&lt;/span&gt;
 &lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nx"&gt;Application\Form&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -315,7 +315,7 @@ It's important to have them added in the same order. First thing that should be 
 
 &lt;p&gt;This will create a simple form with a textarea and a submit button. We will use later &lt;strong&gt;id&lt;/strong&gt; attribute to attach events to this form. Also not that the form will be without any &lt;strong&gt;Filter&lt;/strong&gt; nor validation. In a production application validation should be added (ZF2 Forms support it really nicely).&lt;/p&gt;
 &lt;p&gt;Next step will be putting this form inside view for our wall (till now only layout exists). Create a view inside of &lt;code&gt;module/Application/src/view/application/index&lt;/code&gt; and name it &lt;code&gt;index.phtml&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="x"&gt;&amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="x"&gt;&amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;&lt;/span&gt;
 &lt;span class="x"&gt;    &amp;lt;div class=&amp;quot;row&amp;quot;&amp;gt;&lt;/span&gt;
 &lt;span class="x"&gt;        &amp;lt;div class=&amp;quot;span1&amp;quot;&amp;gt;&lt;/span&gt;
 &lt;span class="x"&gt;            &amp;lt;p&amp;gt;sidebar left&amp;lt;/p&amp;gt;&lt;/span&gt;
@@ -347,7 +347,7 @@ It's important to have them added in the same order. First thing that should be 
 
 
 &lt;p&gt;In the code above you will see a 3 column layout for the wall page (later you will want probably to put there some additional navbar). For now left and right sidebars will be empty.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
  &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;form&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;setAttribute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;action&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;application/default&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;controller&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;share&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;action&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;add&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
  &lt;span class="cp"&gt;?&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -356,7 +356,7 @@ It's important to have them added in the same order. First thing that should be 
 &lt;p&gt;Also already an url for a form was added (for now not working) where your new shares will be put. This will generate a form with textarea and a button under it, but the form is still not inside the view. Later we will pass it to the view from controller with all shares. If you enter the index page there will be and error so wait some more time.&lt;/p&gt;
 &lt;h3&gt;Models to get'em all&lt;/h3&gt;
 &lt;p&gt;To obtain shares of users model will be necessary. For simplicity there will be only one table, and you will be able to see for now (sadly) only your shares. Create schema inside your &lt;strong&gt;social&lt;/strong&gt; database.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="k"&gt;share&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="k"&gt;share&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
   &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;share_id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;unsigned&lt;/span&gt; &lt;span class="k"&gt;NOT&lt;/span&gt; &lt;span class="k"&gt;NULL&lt;/span&gt; &lt;span class="n"&gt;AUTO_INCREMENT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
   &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;unsigned&lt;/span&gt; &lt;span class="k"&gt;NOT&lt;/span&gt; &lt;span class="k"&gt;NULL&lt;/span&gt; &lt;span class="k"&gt;COMMENT&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;User id of an the posts should be visible&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
   &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;author_id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;unsigned&lt;/span&gt; &lt;span class="k"&gt;NOT&lt;/span&gt; &lt;span class="k"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -377,7 +377,7 @@ It's important to have them added in the same order. First thing that should be 
 
 
 &lt;p&gt;With each share there will be stored likes counter. It is necessary to already show how many likes one share will have without using counts for each post. Now let's create a &lt;strong&gt;ShareTable&lt;/strong&gt; which will be a &lt;strong&gt;TableGateway&lt;/strong&gt;&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nx"&gt;Application\Model&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
 &lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="nx"&gt;Zend\Db\TableGateway\TableGateway&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -431,7 +431,7 @@ It's important to have them added in the same order. First thing that should be 
 
 &lt;p&gt;Hope that the code is self explanatory this time.&lt;/p&gt;
 &lt;p&gt;Because the same model can be used later in different places inside our module, the best way will be registering it as a factory. This will allow you to use the same instance of ShareTable across the system. Let's register it as a factory, cause it's dependent on TableGateway, which is dependent on &lt;code&gt;Zend\Db\Adapter\Adapter&lt;/code&gt;. Open &lt;code&gt;module/Application/Module.php&lt;/code&gt; and make &lt;code&gt;getServiceConfig()&lt;/code&gt; function to look as follows&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="c1"&gt;//module/Application/Module.php&lt;/span&gt;
 
 &lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nx"&gt;Application&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -470,7 +470,7 @@ It's important to have them added in the same order. First thing that should be 
 &lt;p&gt;So we have now 2 services &lt;code&gt;Application\Model\ShareTable&lt;/code&gt; and &lt;code&gt;ShareTableGateway&lt;/code&gt;. Also a nice idea would be registering prototype row for &lt;code&gt;ShareTableGateway&lt;/code&gt; but we'll omit that for now.&lt;/p&gt;
 &lt;h3&gt;Controller for gluing all the pieces together&lt;/h3&gt;
 &lt;p&gt;Now it's time for our controller to glue everything and start viewing some shares (if there are any).&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="c1"&gt;//module/Application/src/Application/Controller/IndexController.php&lt;/span&gt;
 
 &lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nx"&gt;Application\Controller&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -514,7 +514,7 @@ It's important to have them added in the same order. First thing that should be 
 
 &lt;p&gt;Function &lt;code&gt;indexAction&lt;/code&gt; will render our wall with all shares that are specified for currently logged user. Note that here we use &lt;strong&gt;Inversion of Control&lt;/strong&gt; for our share table.&lt;/p&gt;
 &lt;p&gt;The last step will be altering our view by adding some code responsible for viewing each share. Modify the &lt;code&gt;module/Application/view/index/index.phtml&lt;/code&gt; file so it will now look like&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="x"&gt;&amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="x"&gt;&amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;&lt;/span&gt;
 &lt;span class="x"&gt;    &amp;lt;div class=&amp;quot;row&amp;quot;&amp;gt;&lt;/span&gt;
 &lt;span class="x"&gt;        &amp;lt;div class=&amp;quot;span1&amp;quot;&amp;gt;&lt;/span&gt;
 &lt;span class="x"&gt;            &amp;lt;p&amp;gt;sidebar left&amp;lt;/p&amp;gt;&lt;/span&gt;
@@ -551,7 +551,7 @@ It's important to have them added in the same order. First thing that should be 
 
 
 &lt;p&gt;Each post will be rendered by partial. This is because the view will be cleaner and easier to read this way. Additionally it's because of &lt;strong&gt;DRY&lt;/strong&gt;. We will reuse this partial later for JavaScript. This partial looks like&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="x"&gt;&amp;lt;div class=&amp;quot;post&amp;quot; id=&amp;quot;post_&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt; &lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;post&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;share_id&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="cp"&gt;?&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&amp;quot; &amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="x"&gt;&amp;lt;div class=&amp;quot;post&amp;quot; id=&amp;quot;post_&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt; &lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;post&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;share_id&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="cp"&gt;?&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&amp;quot; &amp;gt;&lt;/span&gt;
 &lt;span class="x"&gt;    &amp;lt;div class=&amp;quot;border-bottom&amp;quot;&amp;gt;&lt;/span&gt;
 &lt;span class="x"&gt;        &amp;lt;div&amp;gt;&lt;/span&gt;
 &lt;span class="x"&gt;            &amp;lt;p&amp;gt;&lt;/span&gt;
@@ -586,13 +586,13 @@ It's important to have them added in the same order. First thing that should be 
 &lt;p&gt;If you will add one record to shares table you should already see a new share. But still we cannot create new shares from our Social Network.&lt;/p&gt;
 &lt;h3&gt;It's time for some JavaScript action&lt;/h3&gt;
 &lt;p&gt;Now let's make some action with backbone. Let's create new file &lt;code&gt;share.js&lt;/code&gt; and put it inside &lt;code&gt;public/javascript&lt;/code&gt; folder. Let's also add this file to included JavaScript list. It can be done by placing on the beginning of &lt;code&gt;module/Application/view/index/index.phtml&lt;/code&gt; a line&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt; &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;headScript&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;appendFile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;basePath&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;js/share.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="cp"&gt;?&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt; &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;headScript&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;appendFile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;basePath&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;js/share.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="cp"&gt;?&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This will do what we need (again for the simplicity there will be only one file, normally you would divide this app into more files and during the deployment merge them correctly or use something like Require.js). Also be sure to use this time (in opposition to layout) &lt;code&gt;appendFile&lt;/code&gt; function to be sure that this script will be loaded &lt;strong&gt;after&lt;/strong&gt; Backbone.js.&lt;/p&gt;
 &lt;p&gt;Let's start editing &lt;code&gt;share.js&lt;/code&gt; file and put some JS into an action. Firstly let's create new module and main application object with namespaces for it's parts.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;share&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;global&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;user&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;undefined&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;share&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;global&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;user&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;undefined&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="s1"&gt;&amp;#39;use strict&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="c1"&gt;//application - manages input and send messages to collection&lt;/span&gt;
     &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;AppView&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;View&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
@@ -601,6 +601,7 @@ It's important to have them added in the same order. First thing that should be 
     &lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{};&lt;/span&gt;
     &lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;collections&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{};&lt;/span&gt;
     &lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;views&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{};&lt;/span&gt;
+
 
     &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
@@ -613,13 +614,13 @@ It's important to have them added in the same order. First thing that should be 
 &lt;p&gt;Additionally there were created 3 namespaces to organize our code a little (models, collections, views).&lt;/p&gt;
 &lt;p&gt;When you use Backbone you divide your code between &lt;strong&gt;Views, Models and Collections&lt;/strong&gt; Model's responsible for logic and storing data. Collection is just a container of many models. View at the end is responsible for rendering HTML.&lt;/p&gt;
 &lt;p&gt;Firstly let's create a model for a single share entry.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ShareModel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ShareModel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
 &lt;span class="p"&gt;});&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;And a view&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;views&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ShareView&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;View&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;views&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ShareView&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;View&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
     &lt;span class="nx"&gt;model&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ShareModel&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nx"&gt;tagName&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;div&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nx"&gt;template&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;template&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;#post-template&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;html&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt;
@@ -646,6 +647,8 @@ It's important to have them added in the same order. First thing that should be 
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="p"&gt;},&lt;/span&gt;
 
+
+
     &lt;span class="nx"&gt;hideLikes&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;likesList&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;remove&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
     &lt;span class="p"&gt;},&lt;/span&gt;
@@ -660,14 +663,14 @@ It's important to have them added in the same order. First thing that should be 
 
 &lt;p&gt;There's a bunch of code, so let's stop a little.&lt;/p&gt;
 &lt;p&gt;It's really common that each view in Backbone has it's own model. By putting inside of view definition&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//...&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//...&lt;/span&gt;
 &lt;span class="nx"&gt;model&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ShareModel&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;we define that the default model for such a view is &lt;code&gt;AppView.models.ShareModel&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Next thing is &lt;code&gt;tagName&lt;/code&gt;, this just tells backbone to use &lt;code&gt;div&lt;/code&gt; as a main tag for element (each view has it's own 'container'). Let's skip few lines and firstly look into class constructor. In Backbone constructor is an &lt;code&gt;initialize&lt;/code&gt; method.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//...&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//...&lt;/span&gt;
 &lt;span class="nx"&gt;initialize&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;attr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;listenTo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;model&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;change&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;render&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;listenTo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;model&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;destroy&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;remove&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -686,7 +689,7 @@ Right now also in case when model is destroyed, view with a share will be remove
 &lt;/ul&gt;
 &lt;p&gt;Which method to use, differs from situation. For me important is &lt;strong&gt;DRY&lt;/strong&gt;. The worst thing is making repetitions of templates and creating two, one for server side rendering, second for dynamically created content. This way you will end altering twice your templates in case of any change. So here I've decided to reuse my partial for each share.&lt;/p&gt;
 &lt;p&gt;Somewhere at the end of &lt;code&gt;module/Application/view/index/index.phtml&lt;/code&gt; put this code&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="x"&gt;&amp;lt;script type=&amp;quot;text/template&amp;quot; id=&amp;quot;post-template&amp;quot;&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="x"&gt;&amp;lt;script type=&amp;quot;text/template&amp;quot; id=&amp;quot;post-template&amp;quot;&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt; &lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;partial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;index/partials/post.phtml&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
     &lt;span class="s1"&gt;&amp;#39;post&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;templateVars&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
         &lt;span class="s1"&gt;&amp;#39;share_id&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -712,12 +715,12 @@ Right now also in case when model is destroyed, view with a share will be remove
 &lt;p&gt;This way a template for Backbone will be created and it fully reuses previously defined template for a single share! Also here, we've passed some info for JavaScript about the currently logged user.&lt;/p&gt;
 &lt;p&gt;If you look closely you will see &lt;code&gt;$this-&amp;gt;templateVars(..)&lt;/code&gt; call. This is a custom helper for helping us with Underscore templates.
 Normally underscore requires templates like&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;lt;%-&lt;/span&gt; &lt;span class="nx"&gt;variable_name&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;lt;%-&lt;/span&gt; &lt;span class="nx"&gt;variable_name&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Because our partial waits for model like&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
     &lt;span class="s1"&gt;&amp;#39;text&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;here goes some text&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="c1"&gt;//...&lt;/span&gt;
@@ -726,7 +729,7 @@ Normally underscore requires templates like&lt;/p&gt;
 
 
 &lt;p&gt;Let's cheat it a little and pass him an array like&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
     &lt;span class="s1"&gt;&amp;#39;field&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;lt;%- field %&amp;gt;&amp;#39;&lt;/span&gt;
 &lt;span class="p"&gt;);&lt;/span&gt;
@@ -734,7 +737,7 @@ Normally underscore requires templates like&lt;/p&gt;
 
 
 &lt;p&gt;Let's create then &lt;strong&gt;TemplateVars&lt;/strong&gt; helper by putting class inside of the &lt;code&gt;module/Application/src/Application/View/Helper/TemplateVars&lt;/code&gt;&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="c1"&gt;//module/Application/src/Application/View/Helper/TemplateVars&lt;/span&gt;
 &lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nx"&gt;Application\View\Helper&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
@@ -764,7 +767,7 @@ Normally underscore requires templates like&lt;/p&gt;
 
 
 &lt;p&gt;Additionally it's required to register it for view, put this code inside &lt;code&gt;module.config.php&lt;/code&gt;&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="c1"&gt;//...&lt;/span&gt;
 &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
     &lt;span class="c1"&gt;//....&lt;/span&gt;
@@ -778,13 +781,13 @@ Normally underscore requires templates like&lt;/p&gt;
 
 
 &lt;p&gt;Now we can come back to our Backbone view. Remember&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nx"&gt;template&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;template&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;#post-template&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;html&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;template&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;template&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;#post-template&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;html&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This way our view will obtain a template for each share. Having our template it's possible now to render each new share!&lt;/p&gt;
 &lt;p&gt;Here comes one of the Backbone.js flaws. It requires a lot of boilerplate. Backbone views doesn't know how to render themselves. It's necessary to create a render function. As it was shown before, render function looked like:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nx"&gt;render&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;render&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;attrs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;clone&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;model&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;attributes&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="c1"&gt;//print readable date&lt;/span&gt;
     &lt;span class="nx"&gt;attrs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;added&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;attrs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;added&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;toLocaleString&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
@@ -803,7 +806,7 @@ Normally underscore requires templates like&lt;/p&gt;
  * Set is as the main element content (&lt;code&gt;this.$el.html(...)&lt;/code&gt;)&lt;/p&gt;
 &lt;p&gt;Additionally two tricks were done here. One is to change the raw &lt;code&gt;Date&lt;/code&gt; into some more readable one. It's done by calling &lt;code&gt;toLocaleString()&lt;/code&gt;. Still it would be bad to loose the raw date object because it might be necessary to check later the date of post, that's why it was done not on original model attributes but on it's copy.&lt;/p&gt;
 &lt;p&gt;Second trick is that we take innerHTML of rendered template. If it wouldn't be done here then our structure would be different than the prerenderred posts. It would look like:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;div&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;div&amp;gt;&lt;/span&gt;
     &lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;post&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;post_&amp;lt;some_id&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
         //....
     &lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
@@ -814,7 +817,7 @@ Normally underscore requires templates like&lt;/p&gt;
 &lt;p&gt;Calling innerHTML will take only contents of &lt;code&gt;&amp;lt;div class="post"&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;To store inside the DOM also share id of newly created share &lt;strong&gt;className&lt;/strong&gt; and &lt;strong&gt;attributes&lt;/strong&gt; were defined. Attributes are a function because they're dynamically created. In other way you would finish with the same id in every view created now or later (because attribute would be created JavaScript parse time).&lt;/p&gt;
 &lt;p&gt;In Backbone it's also quite common to define a list of views. This is an additional View object which handles whole list of single views. This kind of 'View Lists' are mostly bound to collections instead of model. In our case we will create &lt;strong&gt;ShareViewList&lt;/strong&gt; view which will hold whole list of shares.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//represents view of whole wall&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//represents view of whole wall&lt;/span&gt;
 &lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;views&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ShareViewList&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;View&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
     &lt;span class="nx"&gt;el&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;#post-list&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
     &lt;span class="nx"&gt;initialize&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -838,7 +841,7 @@ Normally underscore requires templates like&lt;/p&gt;
 &lt;p&gt;Let's stop on important things here. One thing is that we listen to Collection &lt;strong&gt;add&lt;/strong&gt; event here. Every time something is added to a collection it will create new ShareView and this way new HTML will be created. 
 Second thing is that during creating an instance of this class collection will be searched for already created shares (for loop). Thanks to it, all already created shares will have it's View inside of JS (and all events which ShareView defines attached).&lt;/p&gt;
 &lt;p&gt;Let's move now to ShareCollection which looks as follows&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//represents whole wall of posts&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//represents whole wall of posts&lt;/span&gt;
 &lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;collections&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ShareCollection&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Collection&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
     &lt;span class="nx"&gt;model&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ShareModel&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nx"&gt;comparator&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -868,7 +871,7 @@ Second thing is that during creating an instance of this class collection will b
 &lt;p&gt;I've also used here get_gravatar function (put it at the beginning of our module or in separate file) found &lt;a href="http://www.deluxeblogtips.com/2010/04/get-gravatar-using-only-javascript.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;h3&gt;Some server side PHP&lt;/h3&gt;
 &lt;p&gt;Ok, so basically we have some code to create new Views representing each share, but still they do not do anything. Let's create some code responsible for adding new shares.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nx"&gt;Application\Controller&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
 &lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="nx"&gt;Zend\Mvc\Controller\AbstractActionController&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -933,7 +936,7 @@ Second thing is that during creating an instance of this class collection will b
 I've also used here context which are available in &lt;em&gt;ZF2&lt;/em&gt;. Why? To be able to post something either using JavaScript or normal &lt;strong&gt;POST&lt;/strong&gt; request. Thanks to it, again, I won't have to repeat myself.&lt;/p&gt;
 &lt;p&gt;It's important also to register our new controller inside of the module.config.php file by adding new invokable.&lt;/p&gt;
 &lt;p&gt;Look for &lt;code&gt;controllers&lt;/code&gt; key and modify it&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
     &lt;span class="s1"&gt;&amp;#39;controllers&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
         &lt;span class="s1"&gt;&amp;#39;invokables&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
@@ -947,7 +950,7 @@ I've also used here context which are available in &lt;em&gt;ZF2&lt;/em&gt;. Why
 
 &lt;h3&gt;Events, events, events&lt;/h3&gt;
 &lt;p&gt;It's time to make our share form working. To achieve it, we have to catch some user events. Let's come back to our &lt;strong&gt;AppView&lt;/strong&gt; class. We'll extend it by adding some code inside.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//application - manages input and send messages to collection&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//application - manages input and send messages to collection&lt;/span&gt;
 &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;AppView&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;View&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
 
     &lt;span class="nx"&gt;el&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;#container&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
@@ -1007,7 +1010,7 @@ I've also used here context which are available in &lt;em&gt;ZF2&lt;/em&gt;. Why
 
 
 &lt;p&gt;In Backbone we define events as follows&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nx"&gt;events&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;events&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="s2"&gt;&amp;quot;keypress #share-form&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;createOnEnter&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="s2"&gt;&amp;quot;submit #share-form&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;createOnClick&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
 &lt;span class="p"&gt;},&lt;/span&gt;
@@ -1021,7 +1024,7 @@ I've also used here context which are available in &lt;em&gt;ZF2&lt;/em&gt;. Why
 &lt;p&gt;Now you should be able to post something using the &lt;strong&gt;Share&lt;/strong&gt; button or by pressing &lt;strong&gt;Shift+Enter&lt;/strong&gt; buttons.&lt;/p&gt;
 &lt;h3&gt;I like what you wrote&lt;/h3&gt;
 &lt;p&gt;It would be nice to show that you liked something (sorry no dislikes). Let's implement it also. Firstly let's create schema for future likes&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;likes&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;likes&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
   &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;like_id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;unsigned&lt;/span&gt; &lt;span class="k"&gt;NOT&lt;/span&gt; &lt;span class="k"&gt;NULL&lt;/span&gt; &lt;span class="n"&gt;AUTO_INCREMENT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
   &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;share_id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;unsigned&lt;/span&gt; &lt;span class="k"&gt;NOT&lt;/span&gt; &lt;span class="k"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
   &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;unsigned&lt;/span&gt; &lt;span class="k"&gt;NOT&lt;/span&gt; &lt;span class="k"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -1037,7 +1040,7 @@ I've also used here context which are available in &lt;em&gt;ZF2&lt;/em&gt;. Why
 
 
 &lt;p&gt;Now let's create model, collection, single like view, and likes list. This time we won't be using server side templates, because &lt;strong&gt;Likes&lt;/strong&gt; won't be created at all from a server and will be loaded on demand while hovering above &lt;strong&gt;Like&lt;/strong&gt; button.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;LikesModel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;LikesModel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
     &lt;span class="nx"&gt;idAttribute&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;like_id&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nx"&gt;urlRoot&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/application/like/&amp;#39;&lt;/span&gt;
 &lt;span class="p"&gt;});&lt;/span&gt;
@@ -1170,12 +1173,12 @@ I've also used here context which are available in &lt;em&gt;ZF2&lt;/em&gt;. Why
 
 &lt;p&gt;Let's analyze this code a little.&lt;/p&gt;
 &lt;p&gt;Each like is an single user info. &lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="s1"&gt;&amp;#39;&amp;lt;div&amp;gt;&amp;lt;%- user_name %&amp;gt;&amp;lt;/div&amp;gt;&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="s1"&gt;&amp;#39;&amp;lt;div&amp;gt;&amp;lt;%- user_name %&amp;gt;&amp;lt;/div&amp;gt;&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;By adding to model&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;LikesModel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;LikesModel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Backbone&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;extend&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
     &lt;span class="nx"&gt;idAttribute&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;like_id&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nx"&gt;urlRoot&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/application/like/&amp;#39;&lt;/span&gt;
 &lt;span class="p"&gt;});&lt;/span&gt;
@@ -1185,7 +1188,7 @@ I've also used here context which are available in &lt;em&gt;ZF2&lt;/em&gt;. Why
 &lt;p&gt;&lt;strong&gt;urlRoot&lt;/strong&gt; backbone allows now to use save function. When this function will be called an &lt;strong&gt;AJAX POST&lt;/strong&gt; request will be made to this URL. All data set to the model will also be sent to the server. &lt;strong&gt;Really important&lt;/strong&gt; thing is that the data will be sent as a json inside of a &lt;strong&gt;POST body&lt;/strong&gt;, not as a parameters! You will have to read body of request and parse it.&lt;/p&gt;
 &lt;p&gt;To update/delete already existing &lt;em&gt;Like&lt;/em&gt; Backbone needs to know which &lt;em&gt;Like&lt;/em&gt; exactly it shoudl update. For that it needs a resource identifier (in our case it will be primary key for id)&lt;/p&gt;
 &lt;p&gt;Depending if the like model is already inside collection of not we want to like a message or unlike it. Backbone gives possibility to query collection using &lt;code&gt;findWhere&lt;/code&gt; method.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nx"&gt;like&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;like&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;model&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;findWhere&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;user_id&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;user&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;id&lt;/span&gt;&lt;span class="p"&gt;});&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;model&lt;/span&gt; &lt;span class="o"&gt;===&lt;/span&gt; &lt;span class="kc"&gt;undefined&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;model&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;AppView&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;LikesModel&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
@@ -1204,7 +1207,7 @@ I've also used here context which are available in &lt;em&gt;ZF2&lt;/em&gt;. Why
 
 
 &lt;p&gt;In &lt;code&gt;LikesCollection&lt;/code&gt; there's a dynamic URL specified based on &lt;code&gt;share_id&lt;/code&gt;. There's similar trick done (like previously with attributes) with definition of &lt;code&gt;url&lt;/code&gt; attribute&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nx"&gt;url&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;url&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;application/likes/&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;share_id&lt;/span&gt;
 &lt;span class="p"&gt;},&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -1212,7 +1215,7 @@ I've also used here context which are available in &lt;em&gt;ZF2&lt;/em&gt;. Why
 
 &lt;p&gt;Again like last time, if url would be a string, then value would be set before creating an instance (during the parse time). This would lead to have exactly the same &lt;code&gt;share_id&lt;/code&gt; across all instances, which is not what we expect.&lt;/p&gt;
 &lt;p&gt;To make likes working, you have to also update initialize method of  &lt;code&gt;ShareView&lt;/code&gt; class&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nx"&gt;initialize&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;attr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;initialize&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;attr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;listenTo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;model&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;change&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;render&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;listenTo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;model&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;destroy&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;remove&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
@@ -1231,7 +1234,7 @@ I've also used here context which are available in &lt;em&gt;ZF2&lt;/em&gt;. Why
 
 &lt;h3&gt;Routing&lt;/h3&gt;
 &lt;p&gt;For now it won't still work, because we didn't put any code on the server side to create/remove a like. Firstly let's configure our module further by adding new routes and invokable. Modify &lt;code&gt;modules/Application/config/module.config.php&lt;/code&gt;&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
     &lt;span class="c1"&gt;//...&lt;/span&gt;
     &lt;span class="s1"&gt;&amp;#39;routes&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
@@ -1287,7 +1290,7 @@ I've also used here context which are available in &lt;em&gt;ZF2&lt;/em&gt;. Why
 
 &lt;h3&gt;Managing Likes&lt;/h3&gt;
 &lt;p&gt;Let's create &lt;code&gt;LikeController&lt;/code&gt;, so now storing new likes should be possible&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
 
 &lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nx"&gt;Application\Controller&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 

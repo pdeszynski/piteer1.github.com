@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="http://www.piotrdeszynski.com/" rel="alternate"></link><link href="http://www.piotrdeszynski.com/feeds/OOP.atom.xml" rel="self"></link><id>http://www.piotrdeszynski.com/</id><updated>2012-10-18T22:00:00+02:00</updated><entry><title>Object Oriented Metrics - WTF?</title><link href="http://www.piotrdeszynski.com/object-oriented-metrics-introduction.html" rel="alternate"></link><updated>2012-10-18T22:00:00+02:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2012-10-18:object-oriented-metrics-introduction.html</id><summary type="html">&lt;h1&gt;WTF is that?&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Yet another boring programmer's blog</title><link href="http://www.piotrdeszynski.com/" rel="alternate"></link><link href="http://www.piotrdeszynski.com/feeds/oop.atom.xml" rel="self"></link><id>http://www.piotrdeszynski.com/</id><updated>2012-10-18T22:00:00+02:00</updated><entry><title>Object Oriented Metrics - WTF?</title><link href="http://www.piotrdeszynski.com/object-oriented-metrics-introduction.html" rel="alternate"></link><updated>2012-10-18T22:00:00+02:00</updated><author><name>Piotr Deszyński</name></author><id>tag:www.piotrdeszynski.com,2012-10-18:object-oriented-metrics-introduction.html</id><summary type="html">&lt;h1&gt;WTF is that?&lt;/h1&gt;
 &lt;p&gt;We'll start from an image. Did you see in past something like that?&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Overview pyramid" src="/images/2012/10/overview-pyramid.png" title="An example of overview pyramid" /&gt;&lt;/p&gt;
 &lt;p&gt;This is called &lt;strong&gt;Overview Pyramid&lt;/strong&gt;. This is, I think, most commonly used visualization of &lt;strong&gt;Object oriented metrics&lt;/strong&gt;. What are they?
@@ -42,7 +42,7 @@ For the rest metrics calculations are analogical.&lt;/p&gt;
 &lt;p&gt;Based on these number you can think how to refactor your code, to be more maintanable and clearer.&lt;/p&gt;
 &lt;p&gt;It's possible to generate such a diagram using for e.g. &lt;strong&gt;PHP_Depend&lt;/strong&gt;, for Java you can use &lt;strong&gt;Cultivate, inFusion&lt;/strong&gt; plugin for Eclipse.
 Below you will find example how to generate this diagram using PHP_Depend&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;php pdepend.php --summary-xml&lt;span class="o"&gt;=&lt;/span&gt;output/metrics.log --overview-pyramid&lt;span class="o"&gt;=&lt;/span&gt;output/pyramid.svg PATH_TO_CODE
+&lt;div class="highlight"&gt;&lt;pre&gt;php pdepend.php --summary-xml&lt;span class="o"&gt;=&lt;/span&gt;output/metrics.log --overview-pyramid&lt;span class="o"&gt;=&lt;/span&gt;output/pyramid.svg PATH_TO_CODE
 &lt;/pre&gt;&lt;/div&gt;
 
 
