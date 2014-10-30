@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>DDD in FT</title>
+
+		<meta name="description" content="DDD in FT">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>A try to DDD</h1>
+					<h3>At FilesTube (codename TubeSter)</h3>
+					<p>
+						<small>Created by <a href="http://hakim.se">Piotr Deszyński</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>How do we (try) to do it?</h2>
+					<p>
+						<ul>
+							<li class="fragment">Layers</li>
+							<li class="fragment">Layers</li>
+							<li class="fragment">And some more layers</li>
+						</ul>
+					</p>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<p>
+						<ul>
+							<li class="fragment">Domain</li>
+							<li class="fragment">Application</li>
+							<li class="fragment">Infrastructure</li>
+						</ul>
+					</p>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<p>
+						<h2>Each subdomain has 3 directories. Let's take an affiliation example:</h2>
+						<ul>
+							<li>AffiliaionDomain - clean domain</li>
+							<li>AffiliationDomainBundle - framework integration</li>
+							<li>Affiliation - application use cases</li>
+							<li class="fragment">And sometimes WebBundle - output port</li>
+						</ul>
+					</p>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Domain layer</h2>
+					<p>
+						<ul>
+							<li class="fragment">Plain PHP classes for entities</li>
+							<li class="fragment">And for Domain Events</li>
+							<li class="fragment">And for Commands</li>
+							<li class="fragment">And for repositories?</li>
+							<li class="fragment">And for Domain Services (like: CreateAdSession)...</li>
+							<li class="fragment">Infrastucture dependency?</li>
+							<li class="fragment roll-in">Put an interface for it!</li>
+							<li class="fragment roll-in">Move the implementation into infrastructure layer</li>
+						</ul>
+					</p>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Where code does not belong to an entity put it to a service</h2>
+					<p>Sevices are very granular and do mostly only one thing</p>
+				</section>
+
+				<section>
+					<h2>How to example</h2>
+					<pre><code>
+					//src/FT/AffiliationDomain/AdSession/CreateAdSessionInterface.php
+					interface CreateAdSessionInterface {}
+					</code></pre>
+
+					<pre><code>
+					//src/FT/AffiliationDomainBundle/AdSession/RESTCreateAdSession.php
+					class RESTCreateAdSession implements CreateAdSessionInterface {}
+					</code></pre>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Naming conventions</h2>
+					<ul>
+						<li class="fragment">Entity (you know how to name it)</li>
+						<li class="fragment">Service - CreateSomething or ChangeSomething</li>
+						<li class="fragment">Event - SomethingChanged</li>
+						<li class="fragment">Command - ChangeSomething</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Hide implementation detail for clients</h2>
+					<pre><code>
+//services.yml
+
+#Real implementation detailed here, but it's private
+affiliation_domain.rest_create_ad_session:
+    class: %affiliation_domain.rest_create_ad_session.class%
+    public: false
+    arguments:
+        - @http_client
+        - %affiliation_uri%
+
+#public service
+affiliation_domain.create_ad_session:
+    alias: affiliation_domain.rest_create_ad_session
+					</code></pre>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Here comes Doctrine</h2>
+					<ul>
+						<li class="fragment">Entities with adnotations</li>
+						<li class="fragment roll-in">It's a no go :(</li>
+						<li class="fragment roll-in">You start to think with Tables</li>
+						<li class="fragment roll-in">Mapping in Infrastructure layer</li>
+					</ul>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Problems</h2>
+					<ul>
+						<li class="fragment">Multiple bounded contexts</li>
+						<li class="fragment">Need of many Entity Managers</li>
+					</ul>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Application Layer</h2>
+					<ul>
+						<li class="fragment">Collection of Use Case Services</li>
+						<li class="fragment">Also quite granular</li>
+						<li class="fragment">One Use Case - One service</li>
+						<li class="fragment roll-in">Not the best approach thought....</li>
+					</ul>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Infrastructure - where the all shit goes</h2>
+					<ul>
+						<li class="fragment">Dependent on implementations</li>
+						<li class="fragment">Dependent on external libraries (bad)</li>
+						<li class="fragment">Use of Symfony conventions</li>
+					</ul>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Further project directions</h2>
+					<ul>
+						<li class="fragment roll-in">CQRS!</li>
+					</ul>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Requirements</h2>
+					<ul>
+						<li class="fragment roll-in">Command</li>
+						<li class="fragment roll-in">Application service (command handler)</li>
+						<li class="fragment roll-in">Event</li>
+						<li class="fragment roll-in">Event handler - That's the infrastructure dependent "thing"</li>
+					</ul>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Problems?</h2>
+					<ul>
+						<li class="fragment roll-in">Try to get last insert ID from command :)</li>
+					</ul>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h1>THE END</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
