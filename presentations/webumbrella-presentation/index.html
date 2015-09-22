@@ -19,6 +19,7 @@
 		<link rel="stylesheet" href="css/icons.css" />
 		<link rel="stylesheet" href="css/animate.css" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,700|Montserrat:700" />
+		<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css" />
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -98,6 +99,16 @@
 
 			.reveal .slides section .fragment.highlight-red.visible {
 				color: #f75f65;
+			}
+
+			img.cleanup {
+				border: 0 !important;
+				box-shadow: 0 0 0 !important;
+				background-color: inherit !important;
+			}
+
+			.green-pastel {
+				color: #55B860;
 			}
 		</style>
 	</head>
@@ -245,7 +256,7 @@
 					<h2>Scale of the problem</h2>
 					<p style="padding:0 10px 0 10px;">
 						<div style="display: block;">
-							<div style="float:left;margin-left: 20px;" class="fragment fadeIn" >
+							<div style="float:left;margin-left: 60px;" class="fragment fadeIn" >
 								<svg width="150" height="150" style="float:left;">
 									<use xlink:href="#bug-extension" style="fill: #f75f65;"/>
 								</svg>
@@ -255,7 +266,7 @@
 									extensions
 								</span>
 							</div>
-							<div style="float:right;margin-right: 20px;" class="fragment fadeIn">
+							<div style="float:right;margin-right: 60px;" class="fragment fadeIn">
 								<svg width="150" height="150" style="float:left;">
 									<use xlink:href="#bug-binaries" style="fill: #478DC3;"/>
 								</svg>
@@ -268,13 +279,19 @@
 						</div>
 						<br style="clear: both;" />
 					</p>
-					<p class="fragment"><strong>These numbers grow everyday</strong></p>
+					<p class="fragment hightlight fadeIn"><strong>These numbers grow everyday</strong></p>
+					<div class="fragment" style="background-color: #E89E41;margin: 10px;padding:10px;border-radius: 5px;">
+						<div style="border: 1px solid white;">
+							<span class="icon-buguser" style="font-size: 80px; font-weight: 550;vertical-align:middle;"></span>
+							<span>Most of users <strong>are not aware</strong> of their computer's infection</span>
+						</div>
+					</div>
 				</section>
 
 				<section data-background="#1E1B2B">
 					<h2>Affected platforms</h2>
 					<p>
-						There is a malware on <strong style="color: #55B860;">every</strong> popular <strong style="color: #55B860;"> OS and browser</strong>
+						There is a malware on <strong class="green-pastel">every</strong> popular <strong style="color: #55B860;"> OS and browser</strong>
 						<img src="img/platforms.png" style="border:0; box-shadow:0 0 0; background: inherit;" />
 					</p>
 				</section>
@@ -289,6 +306,37 @@
 							<li class="fragment"><strong><span class="icon-lossuser"></span> Loss of users</strong></li>
 							<li class="fragment"><strong><span class="icon-lossincome"></span> Loss of income</strong></li>
 						</ul>
+					</p>
+				</section>
+
+				<section data-state="notebook-state-stop">
+					<h2>Let's go for an example:</h2>
+					<h3>stealing bought traffic</h3>
+				</section>
+
+				<section>
+					<h3>Firstly we're buying some external traffic for a landing page</h3>
+				</section>
+
+				<section class="darken">
+					<h2>What do we expect?</h2>
+					<p class="fragment" style="vertical-align:middle;">
+						User sees our new, shiny landing page
+						<img src="./img/notebook.png" style="width: 300px;" class="cleanup"/>
+					</p>
+					<ul>
+						<li class="fragment green-pastel">We increase number of users on our page</li>
+						<li class="fragment green-pastel">We get higher revenue</li>
+						<li class="fragment green-pastel">Users buy what they came for</li>
+						<li class="fragment green-pastel">Everybody's happy <i class="fa fa-smile-o"></i></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>What we get?</h2>
+					<p class="fragment" style="vertical-align:middle;">
+						20-30% of users see something different
+						<img src="./img/notebook3.png" style="width: 300px;" class="cleanup"/>
 					</p>
 				</section>
 
