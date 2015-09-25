@@ -149,9 +149,8 @@
 								S68.8,31.5,70.5,31.5z"/>
 						</g>
 					</g>
-					<g id="bug" transform="translate(5, 5)">
-						<circle cx="75" cy="75" r="80" fill="#D3585D"/>
-						<path style="fill: white;" d="M104.4,90.4l-9.3-4.8c0.2-1.5,0.4-3.1,0.4-4.7l3.1-0.4c0.6-0.1,1.2-0.3,1.7-0.8l4.9-4.5c1.2-1.1,1.3-3,0.2-4.2
+					<g id="bug">
+						<path d="M104.4,90.4l-9.3-4.8c0.2-1.5,0.4-3.1,0.4-4.7l3.1-0.4c0.6-0.1,1.2-0.3,1.7-0.8l4.9-4.5c1.2-1.1,1.3-3,0.2-4.2
 							c-1.1-1.2-3-1.3-4.2-0.2l-4.2,3.8l-2,0.2c-1.5-7.8-6-14.3-12-17.5c1.2-10.1,9.1-11.6,10-11.7c1.6-0.2,2.8-1.7,2.6-3.3
 							c-0.2-1.6-1.7-2.8-3.3-2.6c-4.6,0.6-13.1,4.6-15,15.7c-0.9-0.1-1.8-0.2-2.7-0.2c-1,0-1.9,0.1-2.9,0.2c-1.9-11.1-10.4-15.1-15-15.7
 							c-1.6-0.2-3.1,1-3.3,2.6c-0.2,1.6,0.9,3.1,2.6,3.4c0.9,0.1,8.9,1.6,10,11.8C60,60.7,55.5,67.2,54,75l-2.2-0.3l-4.2-3.8
@@ -165,9 +164,38 @@
 							C65.4,99.2,59.5,90.8,59.5,80.7z M76,100.1V77.7c4.5-0.2,8.7-1.5,12.6-3.7c0.6,2.1,0.9,4.4,0.9,6.7C89.5,90.8,83.5,99.2,76,100.1z"
 							/>
 					</g>
+					<g id="bug-circle" transform="translate(5, 5)">
+						<circle cx="75" cy="75" r="80" fill="#D3585D"/>
+						<use xlink:href="#bug" fill="white"/>
+					</g>
 					<g id="bug-extension-circle" transform="translate(10, 10)">
 						<circle cx="90" cy="90" r="100"/>
 						<use xlink:href="#bug-extension" fill="white" transform="translate(30, 10)"/>
+					</g>
+					<g id="detour" transform="translate(40, 40)">
+						<circle cx="75" cy="75" r="110" />
+						<g fill="white">
+							<path d="M138.5,0h-127C5.2,0,0,5.2,0,11.5v127c0,6.3,5.2,11.5,11.5,11.5h127c6.3,0,11.5-5.2,11.5-11.5v-127
+								C150,5.2,144.8,0,138.5,0z M144,138.5c0,3-2.5,5.5-5.5,5.5h-127c-3,0-5.5-2.5-5.5-5.5v-127C6,8.5,8.5,6,11.5,6h127
+								c3,0,5.5,2.5,5.5,5.5V138.5z"/>
+							<path d="M111,99.6H95.4V83c0-10.7-8.7-19.4-19.4-19.4H39c-1.3,0-2.4,1.1-2.4,2.4v17c0,1.3,1.1,2.4,2.4,2.4h29.8
+								c2.1,0,3.8,1.7,3.8,3.8v10.5H57c-1,0-1.8,0.6-2.2,1.5c-0.4,0.9-0.2,1.9,0.5,2.6l27,27c0.5,0.5,1.1,0.7,1.7,0.7s1.2-0.2,1.7-0.7
+								l27-27c0.7-0.7,0.9-1.7,0.5-2.6S112,99.6,111,99.6z M84,125.6l-21.3-21.3H75c1.3,0,2.4-1.1,2.4-2.4V89.2c0-4.7-3.8-8.5-8.5-8.5
+								H41.4V68.4H76c8.1,0,14.6,6.6,14.6,14.6v19c0,1.3,1.1,2.4,2.4,2.4h12.3L84,125.6z"/>
+							<path d="M25.2,19.5H21c-0.8,0-1.5,0.7-1.5,1.5v27c0,0.8,0.7,1.5,1.5,1.5h4.2c5.5,0,10-4.5,10-10v-10C35.2,24,30.7,19.5,25.2,19.5z
+								 M32.2,39.5c0,3.9-3.1,7-7,7h-2.7v-24h2.7c3.9,0,7,3.1,7,7V39.5z"/>
+							<path d="M40.1,49.5h12.7c0.8,0,1.5-0.7,1.5-1.5s-0.7-1.5-1.5-1.5H41.6V36h4.9c0.8,0,1.5-0.7,1.5-1.5S47.2,33,46.4,33h-4.9V22.5
+								h11.2c0.8,0,1.5-0.7,1.5-1.5s-0.7-1.5-1.5-1.5H40.1c-0.8,0-1.5,0.7-1.5,1.5v27C38.6,48.8,39.2,49.5,40.1,49.5z"/>
+							<path d="M59.1,22.5H64V48c0,0.8,0.7,1.5,1.5,1.5S67,48.8,67,48V22.5h4.9c0.8,0,1.5-0.7,1.5-1.5s-0.7-1.5-1.5-1.5H59.1
+								c-0.8,0-1.5,0.7-1.5,1.5S58.3,22.5,59.1,22.5z"/>
+							<path d="M84.5,49.5c4.3,0,7.9-3.5,7.9-7.9V27.4c0-4.3-3.5-7.9-7.9-7.9s-7.9,3.5-7.9,7.9v14.3C76.7,46,80.2,49.5,84.5,49.5z
+								 M79.7,27.4c0-2.7,2.2-4.9,4.9-4.9s4.9,2.2,4.9,4.9v14.3c0,2.7-2.2,4.9-4.9,4.9s-4.9-2.2-4.9-4.9V27.4z"/>
+							<path d="M103.6,49.5c4.3,0,7.9-3.5,7.9-7.9V21c0-0.8-0.7-1.5-1.5-1.5s-1.5,0.7-1.5,1.5v20.6c0,2.7-2.2,4.9-4.9,4.9
+								s-4.9-2.2-4.9-4.9V21c0-0.8-0.7-1.5-1.5-1.5s-1.5,0.7-1.5,1.5v20.6C95.7,46,99.3,49.5,103.6,49.5z"/>
+							<path d="M130.5,27.8c0-4.5-3.7-8.3-8.3-8.3h-6c-0.8,0-1.5,0.7-1.5,1.5v13.5c0,0,0,0,0,0V48c0,0.8,0.7,1.5,1.5,1.5s1.5-0.7,1.5-1.5
+								v-9.7L127.9,49c0.3,0.3,0.7,0.5,1.1,0.5c0.4,0,0.7-0.1,1-0.4c0.6-0.6,0.6-1.5,0.1-2.1l-10.3-11h2.5C126.8,36,130.5,32.3,130.5,27.8
+								z M117.8,33V22.5h4.5c2.9,0,5.3,2.4,5.3,5.3s-2.4,5.3-5.3,5.3H117.8z"/>
+						</g>
 					</g>
 				</defs>
 			</svg>
@@ -295,14 +323,14 @@
 					<p style="font-weight: bold;">
 						Mike is an unaware user. Mike was exposed to <span class="red">multiple injection threats</span>.
 					</p>
-					<p style="font-weight: bold;margin-bottom:50px;">
+					<p style="font-weight: bold;">
 						Also <span class="green-pastel">Mike is a part of the traffic</span> you bought.
 					</p>
 
 					<div class="animation-container">
 						<div class="bounceInLeft wow" style="float:left;width: 33%;margin-top:50px;">
 							<svg viewBox="0 0 160 160" width="100" height="100" style="margin-left:70%;">
-								<use xlink:href="#bug" transform="rotate(90, 80, 80)"/>
+								<use xlink:href="#bug-circle" transform="rotate(90, 80, 80)"/>
 							</svg>
 						</div>
 						<div style="float:left; width: 33%;">
@@ -313,13 +341,13 @@
 						<div style="float:left;width: 100px;">
 							<div class="bounceInDown wow" style="margin-top: -50px;">
 								<svg viewBox="0 0 160 160" width="100" height="100">
-									<use xlink:href="#bug" transform="rotate(-135, 80, 80)"/>
+									<use xlink:href="#bug-circle" transform="rotate(-135, 80, 80)"/>
 								</svg>
 							</div>
 
 							<div class="bounceInUp wow" style="margin-top: 100px;">
 								<svg viewBox="0 0 160 160" width="100" height="100">
-									<use xlink:href="#bug" transform="rotate(-45, 80, 80)"/>
+									<use xlink:href="#bug-circle" transform="rotate(-45, 80, 80)"/>
 								</svg>
 							</div>
 						</div>
@@ -329,13 +357,13 @@
 				<section data-background="#1E1B2B" data-transition="none">
 					<h2><span class="red">Mike</span> was directed on your landing page.</h2>
 					<p style="font-weight: bold;">
-						Mike doesn't know that<span class="red">his PC is injected</span> with malware.
+						Mike doesn't know that <span class="red">his PC is injected</span> with a malware.
 					</p>
 
 					<div class="animation-container">
 						<div class="fadeOut wow" style="float:left;width: 33%;margin-top:50px;">
 							<svg viewBox="0 0 160 160" width="100" height="100" style="margin-left:70%;">
-								<use xlink:href="#bug" transform="rotate(90, 80, 80)"/>
+								<use xlink:href="#bug-circle" transform="rotate(90, 80, 80)"/>
 							</svg>
 						</div>
 						<div id="mikeMovesFromBugs" class="wow" style="float:left; width: 33%;">
@@ -351,13 +379,13 @@
 						<div style="float:left;width: 100px;">
 							<div class="fadeOut wow" style="margin-top: -50px;">
 								<svg viewBox="0 0 160 160" width="100" height="100">
-									<use xlink:href="#bug" transform="rotate(-135, 80, 80)"/>
+									<use xlink:href="#bug-circle" transform="rotate(-135, 80, 80)"/>
 								</svg>
 							</div>
 
 							<div class="fadeOut wow" style="margin-top: 100px;">
 								<svg viewBox="0 0 160 160" width="100" height="100">
-									<use xlink:href="#bug" transform="rotate(-45, 80, 80)"/>
+									<use xlink:href="#bug-circle" transform="rotate(-45, 80, 80)"/>
 								</svg>
 							</div>
 						</div>
@@ -368,6 +396,70 @@
 							</svg>
 						</div>
 					</div>
+				</section>
+
+				<section data-background="#1E1B2B" data-transition="none">
+				    <h2>Injected scripts redirect Mike to untrusted websites,</h2>
+				    <p style="font-weight: bold;">
+				        or install more harmfull software. Mike same as
+				        <span class="red">same as 30% of bought traffic never reaches desired website</span>.
+				    </p>
+				    <div class="animation-container">
+				        <svg viewBox="0 0 200 200" width="200" height="200" style="position:relative; float: left; left: -100px;">
+				            <use xlink:href="#buggy-mike"/>
+				        </svg>
+
+						<svg width="50" height="50" viewBox="0 0 100 100" class="bugMoving wow" style="float: left;position: relative;top: 80px; left: -50px; -webkit-animation-delay: 1s; animation-delay: 1s;">
+							<use xlink:href="#bug" fill="#9997A1" transform="translate(-25 -25) rotate(65, 80, 80)" />
+						</svg>
+						<svg width="50" height="50" viewBox="0 0 100 100" class="bugMoving wow" style="float: left;position: relative;top: 100px; left: -40px; -webkit-animation-delay: 1.3s; animation-delay: 1.3s;">
+							<use xlink:href="#bug" fill="#9997A1" transform="translate(-25 -25) rotate(125, 80, 80)" />
+						</svg>
+						<svg width="50" height="50" viewBox="0 0 100 100" class="bugMoving wow" style="float: left;position: relative;top: 80px; left: -30px; -webkit-animation-delay: 1.6s; animation-delay: 1.6s;">
+							<use xlink:href="#bug" fill="#9997A1" transform="translate(-25 -25) rotate(65, 80, 80)" />
+						</svg>
+						<svg width="50" height="50" viewBox="0 0 100 100" class="bugMoving wow" style="float: left;position: relative;top: 100px; left: -20px; -webkit-animation-delay: 1.9s; animation-delay: 1.9s;">
+							<use xlink:href="#bug" fill="#9997A1" transform="translate(-25 -25) rotate(125, 80, 80)" />
+						</svg>
+						<svg width="50" height="50" viewBox="0 0 100 100" class="bugMoving wow" style="float: left;position: relative;top: 80px; left: -10px; -webkit-animation-delay: 2.2s; animation-delay: 2.2s;">
+							<use xlink:href="#bug" fill="#9997A1" transform="translate(-25 -25) rotate(65, 80, 80)" />
+						</svg>
+						<svg width="50" height="50" viewBox="0 0 100 100" class="bugMoving wow" style="float: left;position: relative;top: 100px; left: 0px; -webkit-animation-delay: 2.5s; animation-delay: 2.5s;">
+							<use xlink:href="#bug" fill="#9997A1" transform="translate(-25 -25) rotate(125, 80, 80)" />
+						</svg>
+						<svg width="210" height="210" viewBox="0 0 240 240" style="float: left;opacity: 1;" id="detourByBugs" class="wow">
+							<use xlink:href="#detour" fill="#E89E41" />
+						</svg>
+						<div style="float: left; position: absolute; left: 400px;" class="wow bounceOutDown">
+				            <img src="./img/landing.png" style="float:left;width:300px; height: 300px;display: inline-block;" class="cleanup"/>
+				            <svg width="250" height="250" style="float:left; position: absolute;top: 100px; left: 200px;">
+				                <use xlink:href="#bug-extension-circle" style="fill: #f75f65;"/>
+				            </svg>
+				        </div>
+						<br style="clear: both;" />
+						<div style="position:relative; left: 120px;">
+							<div>
+								<svg width="50" height="50" viewBox="0 0 100 100" class="bugMoving wow" style="opacity: 0;position:relative;left: 20px; -webkit-animation-delay: 4s; animation-delay: 4s;">
+									<use xlink:href="#bug" fill="#9997A1" transform="translate(-25 -25) rotate(215, 80, 80)" />
+								</svg>
+							</div>
+							<div>
+								<svg width="50" height="50" viewBox="0 0 100 100" class="bugMoving wow" style="opacity: 0;position:relative;left: -20px; -webkit-animation-delay: 4.3s; animation-delay: 4.3s;">
+									<use xlink:href="#bug" fill="#9997A1" transform="translate(-25 -25) rotate(145, 80, 80)" />
+								</svg>
+							</div>
+							<div>
+								<svg width="50" height="50" viewBox="0 0 100 100" class="bugMoving wow" style="opacity: 0;position:relative;left: 20px; -webkit-animation-delay: 4.6s; animation-delay: 4.6s;">
+									<use xlink:href="#bug" fill="#9997A1" transform="translate(-25 -25) rotate(215, 80, 80)" />
+								</svg>
+							</div>
+							<div>
+								<svg width="50" height="50" viewBox="0 0 100 100" class="bugMoving wow" style="opacity: 0;position:relative;left: -20px; -webkit-animation-delay: 4.9s; animation-delay: 4.9s;">
+									<use xlink:href="#bug" fill="#9997A1" transform="translate(-25 -25) rotate(145, 80, 80)" />
+								</svg>
+							</div>
+						</div>
+				    </div>
 				</section>
 
 				<section>

@@ -65,7 +65,8 @@ img.cleanup {
 div.animation-container {
   position: absolute;
   top: 350px;
-  width: 100%; }
+  width: 100%;
+  height: 500px; }
 
 @-webkit-keyframes mikeMovesFromBugs {
   0% {
@@ -171,6 +172,110 @@ div.animation-container {
   to {
     opacity: 1; } }
 
+@-webkit-keyframes fade-in-bounce {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); }
+  80% {
+    opacity: 1;
+    width: 210px;
+    height: 210px;
+    -webkit-transform: scale3d(1.3, 1.3, 1.3);
+    transform: scale3d(1.3, 1.3, 1.3); }
+  90% {
+    opacity: 1;
+    width: 210px;
+    height: 210px;
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1); }
+  100% {
+    opacity: 1;
+    width: 210px;
+    height: 210px;
+    -webkit-transform: scale3d(1.2, 1.2, 1.2);
+    transform: scale3d(1.2, 1.2, 1.2); } }
+
+@-moz-keyframes fade-in-bounce {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); }
+  80% {
+    opacity: 1;
+    width: 210px;
+    height: 210px;
+    -webkit-transform: scale3d(1.3, 1.3, 1.3);
+    transform: scale3d(1.3, 1.3, 1.3); }
+  90% {
+    opacity: 1;
+    width: 210px;
+    height: 210px;
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1); }
+  100% {
+    opacity: 1;
+    width: 210px;
+    height: 210px;
+    -webkit-transform: scale3d(1.2, 1.2, 1.2);
+    transform: scale3d(1.2, 1.2, 1.2); } }
+
+@-ms-keyframes fade-in-bounce {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); }
+  80% {
+    opacity: 1;
+    width: 210px;
+    height: 210px;
+    -webkit-transform: scale3d(1.3, 1.3, 1.3);
+    transform: scale3d(1.3, 1.3, 1.3); }
+  90% {
+    opacity: 1;
+    width: 210px;
+    height: 210px;
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1); }
+  100% {
+    opacity: 1;
+    width: 210px;
+    height: 210px;
+    -webkit-transform: scale3d(1.2, 1.2, 1.2);
+    transform: scale3d(1.2, 1.2, 1.2); } }
+
+@keyframes fade-in-bounce {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); }
+  80% {
+    opacity: 1;
+    width: 210px;
+    height: 210px;
+    -webkit-transform: scale3d(1.3, 1.3, 1.3);
+    transform: scale3d(1.3, 1.3, 1.3); }
+  90% {
+    opacity: 1;
+    width: 210px;
+    height: 210px;
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1); }
+  100% {
+    opacity: 1;
+    width: 210px;
+    height: 210px;
+    -webkit-transform: scale3d(1.2, 1.2, 1.2);
+    transform: scale3d(1.2, 1.2, 1.2); } }
+
 #mikeMovesFromBugs {
   -webkit-animation-name: mikeMovesFromBugs;
   animation-name: mikeMovesFromBugs; }
@@ -188,3 +293,17 @@ div.animation-container {
   animation-delay: 1s;
   -webkit-animation-name: fade-in;
   animation-name: fade-in; }
+
+.bugMoving {
+  -webkit-animation-name: fade-in;
+  animation-name: fade-in;
+  -webkit-animation-delay: 1s;
+  /* Chrome, Safari, Opera */
+  animation-delay: 1s; }
+
+#detourByBugs {
+  -webkit-animation-delay: 3s;
+  /* Chrome, Safari, Opera */
+  animation-delay: 3s;
+  -webkit-animation-name: fade-in-bounce;
+  animation-name: fade-in-bounce; }

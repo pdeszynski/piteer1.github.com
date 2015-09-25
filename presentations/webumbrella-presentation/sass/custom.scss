@@ -117,6 +117,7 @@ div.animation-container {
     position: absolute;
     top: 350px;
     width: 100%;
+    height: 500px;
 }
 
 @include keyframes(mikeMovesFromBugs) {
@@ -154,6 +155,35 @@ div.animation-container {
     }
 }
 
+@include keyframes(fade-in-bounce) {
+    0% {
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 1;
+        @include transform(scale3d(1, 1, 1))
+    }
+    80% {
+        opacity: 1;
+        width: 210px;
+        height: 210px;
+        @include transform(scale3d(1.3, 1.3, 1.3))
+    }
+    90% {
+        opacity: 1;
+        width: 210px;
+        height: 210px;
+        @include transform(scale3d(1.1, 1.1, 1.1))
+    }
+    100% {
+        opacity: 1;
+        width: 210px;
+        height: 210px;
+        @include transform(scale3d(1.2, 1.2, 1.2))
+    }
+}
+
 
 #mikeMovesFromBugs {
     @include animation-name(mikeMovesFromBugs);
@@ -167,4 +197,14 @@ div.animation-container {
 #mikeGetsBuggy {
     @include animation-delay(1s);
     @include animation-name(fade-in);
+}
+
+.bugMoving {
+    @include animation-name(fade-in);
+    @include animation-delay(1s);
+}
+
+#detourByBugs {
+    @include animation-delay(3s);
+    @include animation-name(fade-in-bounce);
 }
