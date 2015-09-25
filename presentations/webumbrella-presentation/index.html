@@ -20,6 +20,7 @@
 		<link rel="stylesheet" href="css/animate.css" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,700|Montserrat:700" />
 		<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="css/custom.css" />
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -37,80 +38,6 @@
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
 
-		<style>
-			.notebook,
-			.notebook-holder{
-				height: 553px;
-				position:absolute;
-			}
-
-			.notebook-holder{
-				overflow:hidden;
-				z-index:2;
-				width: 100%;
-			}
-			.notebook {
-				left:10%;
-			    width: 100%;
-			}
-			.notebook:nth-child(1){
-			    background:url(img/notebook.png) left;
-			}
-
-			.notebook:nth-child(2){
-			    background-image: url(img/notebook2.png);
-			}
-
-			.notebook:nth-child(3){
-			    background-image: url(img/notebook3.png);
-			}
-			.darken {
-				background-color: rgba(0, 0, 0, 0.6);
-				-webkit-border-radius: 10px;
-				-moz-border-radius: 10px;
-				border-radius: 10px;
-				-webkit-box-shadow: 7px 6px 23px -5px rgba(0,0,0,0.75);
-				-moz-box-shadow: 7px 6px 23px -5px rgba(0,0,0,0.75);
-				box-shadow: 7px 6px 23px -5px rgba(0,0,0,0.75);
-			}
-			ul.bullet {
-				list-style: none;
-			}
-			ul.bullet li {
-				line-height: 100px;
-			}
-			div.bullet {
-				width: 100px;
-				height: 100px;
-				border-radius: 50%;
-				font-size: 80px !important;
-				background-color: rgba(255, 255, 255, 0.1);
-				display: inline-block;
-			}
-
-			.bullet span {
-				line-height: 100px;
-				font-size: 75px;
-			}
-
-			.bullet span::before {
-				margin-left: 12px;
-			}
-
-			.reveal .slides section .fragment.highlight-red.visible {
-				color: #f75f65;
-			}
-
-			img.cleanup {
-				border: 0 !important;
-				box-shadow: 0 0 0 !important;
-				background-color: inherit !important;
-			}
-
-			.green-pastel {
-				color: #55B860;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -177,6 +104,70 @@
 							c0.6-0.6,0.6-1.5,0-2.1l-3.4-3.4l3.4-3.4c0.6-0.6,0.6-1.5,0-2.1s-1.5-0.6-2.1,0l-3.4,3.4l-3.4-3.4c-0.6-0.6-1.5-0.6-2.1,0
 							s-0.6,1.5,0,2.1l3.4,3.4l-3.4,3.4C122.4,25.5,122.4,26.5,122.9,27.1z"/>
 						<path d="M102,27.5h9c0.8,0,1.5-0.7,1.5-1.5s-0.7-1.5-1.5-1.5h-9c-0.8,0-1.5,0.7-1.5,1.5S101.2,27.5,102,27.5z"/>
+					</g>
+					<g id="happy-mike" transform="translate(20, 20)">
+						<circle cx="80" cy="80" r="100"/>
+						<g transform="translate(5, 5)">
+							<path style="fill: white;" d="M58.3,54.2c-0.4-0.7-1.4-0.9-2.1-0.5c-0.7,0.4-0.9,1.4-0.5,2.1C56,56.2,62,65.5,75,65.5c13,0,19-9.3,19.3-9.7
+								c0.4-0.7,0.2-1.6-0.5-2.1c-0.7-0.4-1.6-0.2-2.1,0.5c-0.1,0.1-5.4,8.3-16.7,8.3C63.7,62.5,58.5,54.5,58.3,54.2z"/>
+							<path style="fill: white;" d="M61.5,40.5c3.3,0,6-2.7,6-6s-2.7-6-6-6s-6,2.7-6,6S58.2,40.5,61.5,40.5z M61.5,31.5c1.7,0,3,1.3,3,3s-1.3,3-3,3s-3-1.3-3-3
+								S59.8,31.5,61.5,31.5z"/>
+							<path style="fill: white;" d="M88.5,40.5c3.3,0,6-2.7,6-6s-2.7-6-6-6s-6,2.7-6,6S85.2,40.5,88.5,40.5z M88.5,31.5c1.7,0,3,1.3,3,3s-1.3,3-3,3s-3-1.3-3-3
+								S86.8,31.5,88.5,31.5z"/>
+							<path style="fill: white;" d="M110.2,69c5.2-7.2,8.3-16,8.3-25.5C118.5,19.5,99,0,75,0C51,0,31.5,19.5,31.5,43.5c0,9.5,3.1,18.4,8.3,25.5
+								C26.1,82.4,18,102.8,18,124.5c0,16.6,29.4,25.5,57,25.5c27.4,0,57-9.7,57-25.5C132,102.8,123.9,82.4,110.2,69z M75,6
+								c20.7,0,37.5,16.8,37.5,37.5S95.7,81,75,81S37.5,64.2,37.5,43.5S54.3,6,75,6z M75,144c-27.6,0-51-8.9-51-19.5
+								c0-19.9,7.3-38.7,19.7-50.9C51.6,81.9,62.7,87,75,87c12.3,0,23.4-5.1,31.3-13.4c12.4,12.2,19.7,31,19.7,50.9
+								C126,133.5,103.7,144,75,144z"/>
+						</g>
+					</g>
+					<g id="buggy-mike" transform="translate(20, 20)">
+						<circle cx="80" cy="80" r="100" fill="#D3585D"/>
+						<g transform="translate(20, 5)" style="fill: white;" >
+							<path d="M147.9,113.7l-9.3-4.8c0.2-1.5,0.4-3.1,0.4-4.7l3.1-0.4c0.6-0.1,1.2-0.3,1.7-0.8l4.9-4.5c1.2-1.1,1.3-3,0.2-4.2
+								c-1.1-1.2-3-1.3-4.2-0.2l-4.2,3.8l-2,0.2c-1.5-7.8-6-14.3-12-17.5c1.2-10.1,9.1-11.6,10-11.7c1.6-0.2,2.8-1.7,2.6-3.3
+								c-0.2-1.6-1.7-2.8-3.3-2.6c-4.6,0.6-13.1,4.6-15,15.7c-0.9-0.1-1.8-0.2-2.7-0.2c-1,0-1.9,0.1-2.9,0.2c-1.9-11.1-10.4-15.1-15-15.7
+								c-1.6-0.2-3.1,1-3.3,2.6c-0.2,1.6,0.9,3.1,2.6,3.4c0.9,0.1,8.9,1.6,10,11.8c-1.9,1-3.7,2.4-5.2,4.1c-3.3-6-7.3-11.3-12-15.8
+								c5.2-7.2,8.3-16,8.3-25.5C100.5,19.5,81,0,57,0C33,0,13.5,19.5,13.5,43.5c0,9.5,3.1,18.4,8.3,25.5C8.1,82.4,0,102.8,0,124.5
+								C0,141.1,29.4,150,57,150c24.8,0,51.4-8,56.2-21.2c1.5,0.4,3.1,0.7,4.8,0.7c5.6,0,10.7-2.7,14.5-7.1l2.2,2l3.3,7.2
+								c0.5,1.1,1.6,1.7,2.7,1.7c0.4,0,0.9-0.1,1.3-0.3c1.5-0.7,2.2-2.5,1.5-4l-3.6-7.8c-0.2-0.3-0.4-0.7-0.7-0.9l-3.3-3.1
+								c0.4-0.8,0.8-1.7,1.2-2.6l8.1,4.2c0.4,0.2,0.9,0.3,1.4,0.3c1.1,0,2.1-0.6,2.7-1.6C149.9,116.3,149.4,114.4,147.9,113.7z M118,84.5
+								c5.6,0,10.5,4,13,9.9c-3.9,2.4-8.4,3.6-13,3.6c-4.7,0-9.1-1.2-13-3.6C107.6,88.5,112.4,84.5,118,84.5z M111.5,121.6
+								c-5-3.2-8.5-9.8-8.5-17.5c0-2.4,0.3-4.6,0.9-6.7c3.8,2.2,8.1,3.4,12.6,3.7v22.5c-1.2-0.1-2.3-0.5-3.3-1
+								C112.7,122,112.2,121.7,111.5,121.6z M57,6c20.7,0,37.5,16.8,37.5,37.5S77.7,81,57,81S19.5,64.2,19.5,43.5S36.3,6,57,6z M57,144
+								c-27.6,0-51-8.9-51-19.5c0-19.9,7.3-38.7,19.7-50.9C33.6,81.9,44.7,87,57,87c12.3,0,23.4-5.1,31.3-13.4c4.7,4.7,8.7,10.3,11.9,16.8
+								c-1.2,2.4-2.2,5-2.7,7.8L95.3,98l-4.2-3.8c-1.2-1.1-3.1-1-4.2,0.2c-1.1,1.2-1,3.1,0.2,4.2l4.9,4.5c0.5,0.4,1.1,0.7,1.7,0.8l3.3,0.4
+								c0,1.6,0.1,3.1,0.4,4.6l-9.5,4.9c-1.5,0.8-2,2.6-1.3,4c0.5,1,1.6,1.6,2.7,1.6c0.5,0,0.9-0.1,1.4-0.3l8.3-4.3
+								c0.3,0.9,0.7,1.7,1.1,2.5l-3.5,3.3c-0.3,0.3-0.5,0.6-0.7,0.9l-3.6,7.8c-0.7,1.5,0,3.3,1.5,4c0.4,0.2,0.8,0.3,1.3,0.3
+								c1.1,0,2.2-0.6,2.7-1.7l3.3-7.2l2.3-2.2c1.3,1.5,2.7,2.8,4.3,3.9C105.1,134.8,83.9,144,57,144z M119.5,123.4V101
+								c4.5-0.2,8.7-1.5,12.6-3.7c0.6,2.1,0.9,4.4,0.9,6.7C133,114.1,127.1,122.4,119.5,123.4z"/>
+							<path d="M37.7,63.2c-0.4,0.7-0.2,1.6,0.5,2.1c0.7,0.4,1.6,0.2,2.1-0.5c0.2-0.3,5.4-8.3,16.7-8.3s16.5,8,16.7,8.3
+								c0.3,0.5,0.8,0.7,1.3,0.7c0.3,0,0.5-0.1,0.8-0.2c0.7-0.4,0.9-1.4,0.5-2.1C76,62.8,70,53.5,57,53.5S38,62.8,37.7,63.2z"/>
+							<path d="M43.5,40.5c3.3,0,6-2.7,6-6s-2.7-6-6-6s-6,2.7-6,6S40.2,40.5,43.5,40.5z M43.5,31.5c1.7,0,3,1.3,3,3s-1.3,3-3,3s-3-1.3-3-3
+								S41.8,31.5,43.5,31.5z"/>
+							<path d="M70.5,40.5c3.3,0,6-2.7,6-6s-2.7-6-6-6s-6,2.7-6,6S67.2,40.5,70.5,40.5z M70.5,31.5c1.7,0,3,1.3,3,3s-1.3,3-3,3s-3-1.3-3-3
+								S68.8,31.5,70.5,31.5z"/>
+						</g>
+					</g>
+					<g id="bug" transform="translate(5, 5)">
+						<circle cx="75" cy="75" r="80" fill="#D3585D"/>
+						<path style="fill: white;" d="M104.4,90.4l-9.3-4.8c0.2-1.5,0.4-3.1,0.4-4.7l3.1-0.4c0.6-0.1,1.2-0.3,1.7-0.8l4.9-4.5c1.2-1.1,1.3-3,0.2-4.2
+							c-1.1-1.2-3-1.3-4.2-0.2l-4.2,3.8l-2,0.2c-1.5-7.8-6-14.3-12-17.5c1.2-10.1,9.1-11.6,10-11.7c1.6-0.2,2.8-1.7,2.6-3.3
+							c-0.2-1.6-1.7-2.8-3.3-2.6c-4.6,0.6-13.1,4.6-15,15.7c-0.9-0.1-1.8-0.2-2.7-0.2c-1,0-1.9,0.1-2.9,0.2c-1.9-11.1-10.4-15.1-15-15.7
+							c-1.6-0.2-3.1,1-3.3,2.6c-0.2,1.6,0.9,3.1,2.6,3.4c0.9,0.1,8.9,1.6,10,11.8C60,60.7,55.5,67.2,54,75l-2.2-0.3l-4.2-3.8
+							c-1.2-1.1-3.1-1-4.2,0.2c-1.1,1.2-1,3.1,0.2,4.2l4.9,4.5c0.5,0.4,1.1,0.7,1.7,0.8l3.3,0.4c0,1.6,0.1,3.1,0.4,4.6l-9.5,4.9
+							c-1.5,0.8-2,2.6-1.3,4c0.5,1,1.6,1.6,2.7,1.6c0.5,0,0.9-0.1,1.4-0.3l8.3-4.3c0.3,0.9,0.7,1.7,1.1,2.5L53,97.3
+							c-0.3,0.3-0.5,0.6-0.7,0.9l-3.6,7.8c-0.7,1.5,0,3.3,1.5,4c0.4,0.2,0.8,0.3,1.3,0.3c1.1,0,2.2-0.6,2.7-1.7l3.3-7.2l2.3-2.2
+							c3.8,4.4,8.9,7.2,14.6,7.2c5.6,0,10.7-2.7,14.5-7.1l2.2,2l3.3,7.2c0.5,1.1,1.6,1.7,2.7,1.7c0.4,0,0.9-0.1,1.3-0.3
+							c1.5-0.7,2.2-2.5,1.5-4l-3.6-7.8c-0.2-0.3-0.4-0.7-0.7-0.9l-3.3-3.1c0.4-0.8,0.8-1.7,1.2-2.6l8.1,4.2c0.4,0.2,0.9,0.3,1.4,0.3
+							c1.1,0,2.1-0.6,2.7-1.6C106.4,93,105.8,91.2,104.4,90.4z M74.5,61.2c5.6,0,10.5,4,13,9.9c-3.9,2.4-8.4,3.6-13,3.6
+							c-4.7,0-9.1-1.2-13-3.6C64,65.2,68.9,61.2,74.5,61.2z M59.5,80.7c0-2.4,0.3-4.6,0.9-6.7c3.8,2.2,8.1,3.4,12.6,3.7v22.5
+							C65.4,99.2,59.5,90.8,59.5,80.7z M76,100.1V77.7c4.5-0.2,8.7-1.5,12.6-3.7c0.6,2.1,0.9,4.4,0.9,6.7C89.5,90.8,83.5,99.2,76,100.1z"
+							/>
+					</g>
+					<g id="bug-extension-circle" transform="translate(10, 10)">
+						<circle cx="90" cy="90" r="100"/>
+						<use xlink:href="#bug-extension" fill="white" transform="translate(30, 10)"/>
 					</g>
 				</defs>
 			</svg>
@@ -299,6 +290,86 @@
 					<h3>stealing traffic</h3>
 				</section>
 
+				<section data-background="#1E1B2B" data-transition="none">
+					<h2>Meet <span class="green-pastel">Mike</span>.</h2>
+					<p style="font-weight: bold;">
+						Mike is an unaware user. Mike was exposed to <span class="red">multiple injection threats</span>.
+					</p>
+					<p style="font-weight: bold;margin-bottom:50px;">
+						Also <span class="green-pastel">Mike is a part of the traffic</span> you bought.
+					</p>
+
+					<div class="animation-container">
+						<div class="bounceInLeft wow" style="float:left;width: 33%;margin-top:50px;">
+							<svg viewBox="0 0 160 160" width="100" height="100" style="margin-left:70%;">
+								<use xlink:href="#bug" transform="rotate(90, 80, 80)"/>
+							</svg>
+						</div>
+						<div style="float:left; width: 33%;">
+							<svg viewBox="0 0 200 200" width="200" height="200" >
+								<use xlink:href="#happy-mike" fill="#55B860" style="fill: #55B860"/>
+							</svg>
+						</div>
+						<div style="float:left;width: 100px;">
+							<div class="bounceInDown wow" style="margin-top: -50px;">
+								<svg viewBox="0 0 160 160" width="100" height="100">
+									<use xlink:href="#bug" transform="rotate(-135, 80, 80)"/>
+								</svg>
+							</div>
+
+							<div class="bounceInUp wow" style="margin-top: 100px;">
+								<svg viewBox="0 0 160 160" width="100" height="100">
+									<use xlink:href="#bug" transform="rotate(-45, 80, 80)"/>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section data-background="#1E1B2B" data-transition="none">
+					<h2><span class="red">Mike</span> was directed on your landing page.</h2>
+					<p style="font-weight: bold;">
+						Mike doesn't know that<span class="red">his PC is injected</span> with malware.
+					</p>
+
+					<div class="animation-container">
+						<div class="fadeOut wow" style="float:left;width: 33%;margin-top:50px;">
+							<svg viewBox="0 0 160 160" width="100" height="100" style="margin-left:70%;">
+								<use xlink:href="#bug" transform="rotate(90, 80, 80)"/>
+							</svg>
+						</div>
+						<div id="mikeMovesFromBugs" class="wow" style="float:left; width: 33%;">
+							<div id="mikeGetsBuggy" class="wow" style="position: absolute;left:60px; top: 0;">
+								<svg viewBox="0 0 200 200" width="200" height="200" >
+									<use xlink:href="#buggy-mike"/>
+								</svg>
+							</div>
+							<svg viewBox="0 0 200 200" width="200" height="200"  style="opacity: 1;" id="mikeStillOk" class="wow">
+								<use xlink:href="#happy-mike"/>
+							</svg>
+						</div>
+						<div style="float:left;width: 100px;">
+							<div class="fadeOut wow" style="margin-top: -50px;">
+								<svg viewBox="0 0 160 160" width="100" height="100">
+									<use xlink:href="#bug" transform="rotate(-135, 80, 80)"/>
+								</svg>
+							</div>
+
+							<div class="fadeOut wow" style="margin-top: 100px;">
+								<svg viewBox="0 0 160 160" width="100" height="100">
+									<use xlink:href="#bug" transform="rotate(-45, 80, 80)"/>
+								</svg>
+							</div>
+						</div>
+						<div style="float: left; position: absolute; left: 400px;" class="wow bounceInUp">
+							<img src="./img/landing.png" style="float:left;width:300px; height: 300px;display: inline-block;" class="cleanup"/>
+							<svg width="250" height="250" style="float:left; position: absolute;top: 100px; left: 200px;">
+								<use xlink:href="#bug-extension-circle" style="fill: #f75f65;"/>
+							</svg>
+						</div>
+					</div>
+				</section>
+
 				<section>
 					<h3>Firstly user sees your ad somewhere </h3>
 				</section>
@@ -418,6 +489,7 @@
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
+		<script src="lib/bower_components/wow/dist/wow.js"></script>
 
 		<script>
 			// Full list of configuration options available at:
@@ -466,6 +538,38 @@
 		Reveal.addEventListener('notebook-state-stop', function () {
 			clearInterval(interval);
 		}, false);
+
+		Reveal.addEventListener( 'slidechanged', function( event ) {
+		    //event.previousSlide, event.currentSlide, event.indexh, event.indexv
+		    [].forEach.call(
+				event
+					.currentSlide
+					.querySelectorAll('.wow'),
+				function(element) {
+					element.classList.add('animated');
+				}
+			);
+
+			[].forEach.call(
+				event
+					.previousSlide
+					.querySelectorAll('.wow'),
+				function(element) {
+					element.classList.remove('animated')
+				}
+			);
+		} );
+
+		Reveal.addEventListener( 'ready', function( event ) {
+			[].forEach.call(
+				event
+					.currentSlide
+					.querySelectorAll('.wow'),
+				function(element) {
+					element.classList.add('animated');
+				}
+			);
+		} );
 
 		</script>
 
