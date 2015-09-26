@@ -40,6 +40,25 @@
     animation-delay: $delay;
 }
 
+.delay1s {
+    @include animation-delay(1s);
+}
+.delay2s {
+    @include animation-delay(2s);
+}
+.delay3s {
+    @include animation-delay(3s);
+}
+.delay4s {
+    @include animation-delay(4s);
+}
+.delay5s {
+    @include animation-delay(5s);
+}
+.delay6s {
+    @include animation-delay(6s);
+}
+
 .notebook,
 .notebook-holder{
     height: 553px;
@@ -111,6 +130,10 @@ img.cleanup {
 
 .green-pastel {
     color: #55B860;
+}
+
+.blue-pastel {
+    color: #478EC3;
 }
 
 div.animation-container {
@@ -207,4 +230,53 @@ div.animation-container {
 #detourByBugs {
     @include animation-delay(3s);
     @include animation-name(fade-in-bounce);
+}
+
+@include keyframes(buggyMikeMovesToAPage) {
+    from {
+        @include transform(translate3d(0, 0, 0));
+    }
+    to {
+        @include transform(translate3d(500px, 0, 0));
+    }
+}
+
+#buggyMikeMovesToAPage {
+    @include animation-delay(2s);
+    @include animation-name(buggyMikeMovesToAPage);
+}
+
+@include keyframes(legitSiteToShitty) {
+    from {
+        @include transform(translate3d(0, 0, 0));
+    }
+    to {
+        @include transform(translate3d(-500px, 0, 0));
+    }
+}
+
+#legitSiteToShitty {
+    @include transform(translate3d(0, 3000px, 0));
+    $animations: bounceInUp, legitSiteToShitty, fade-out;
+    $delays: 0s, 3s, 5s;
+    @include animation-delay($delays);
+    @include animation-name($animations);
+}
+
+@include keyframes(scaleLandingPageBugBigger) {
+    from {
+        @include transform(scale3d(1, 1, 1));
+    }
+    to {
+        @include transform((translate3d(0, 100px, 0) scale3d(1.5, 1.5, 1.5)));
+    }
+}
+
+.scaleLandingPageBug {
+    $animations: fade-in, scaleLandingPageBugBigger;
+    $delays: 1s, 2s;
+    width: 315px;
+    height: 315px;
+    @include animation-name($animations);
+    @include animation-delay($delays);
 }
