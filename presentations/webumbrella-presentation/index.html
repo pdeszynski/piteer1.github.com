@@ -143,8 +143,7 @@
 								C126,133.5,103.7,144,75,144z"/>
 						</g>
 					</g>
-					<g id="buggy-mike" transform="translate(20, 20)">
-						<circle cx="80" cy="80" r="100" fill="#D3585D"/>
+					<g id="buggy-mike-base">
 						<g transform="translate(20, 5)" style="fill: white;" >
 							<path d="M147.9,113.7l-9.3-4.8c0.2-1.5,0.4-3.1,0.4-4.7l3.1-0.4c0.6-0.1,1.2-0.3,1.7-0.8l4.9-4.5c1.2-1.1,1.3-3,0.2-4.2
 								c-1.1-1.2-3-1.3-4.2-0.2l-4.2,3.8l-2,0.2c-1.5-7.8-6-14.3-12-17.5c1.2-10.1,9.1-11.6,10-11.7c1.6-0.2,2.8-1.7,2.6-3.3
@@ -170,6 +169,14 @@
 							<path d="M70.5,40.5c3.3,0,6-2.7,6-6s-2.7-6-6-6s-6,2.7-6,6S67.2,40.5,70.5,40.5z M70.5,31.5c1.7,0,3,1.3,3,3s-1.3,3-3,3s-3-1.3-3-3
 								S68.8,31.5,70.5,31.5z"/>
 						</g>
+					</g>
+					<g id="buggy-mike" transform="translate(20, 20)">
+						<circle cx="80" cy="80" r="100" fill="#D3585D"/>
+						<use xlink:href="#buggy-mike-base" />
+					</g>
+					<g id="buggy-mike-not-so-buggy" transform="translate(20, 20)">
+						<circle cx="80" cy="80" r="100" fill="#E89E41"/>
+						<use xlink:href="#buggy-mike-base" />
 					</g>
 					<g id="bug">
 						<path d="M104.4,90.4l-9.3-4.8c0.2-1.5,0.4-3.1,0.4-4.7l3.1-0.4c0.6-0.1,1.2-0.3,1.7-0.8l4.9-4.5c1.2-1.1,1.3-3,0.2-4.2
@@ -218,6 +225,20 @@
 								v-9.7L127.9,49c0.3,0.3,0.7,0.5,1.1,0.5c0.4,0,0.7-0.1,1-0.4c0.6-0.6,0.6-1.5,0.1-2.1l-10.3-11h2.5C126.8,36,130.5,32.3,130.5,27.8
 								z M117.8,33V22.5h4.5c2.9,0,5.3,2.4,5.3,5.3s-2.4,5.3-5.3,5.3H117.8z"/>
 						</g>
+					</g>
+					<g id="umbrella">
+						<path fill="white" d="M150,56.6c-0.4-21.1-32.1-46.3-72-47.6V3c0-1.7-1.3-3-3-3c-1.7,0-3,1.3-3,3v6.1C31.9,10.3,0,35.8,0,57c0,1.7,1.3,3,3,3h70.5
+							v57.4c-0.9,0.5-1.5,1.5-1.5,2.6v18c0,6.6,5.4,12,12,12s12-5.4,12-12c0-1.7-1.3-3-3-3s-3,1.3-3,3c0,3.3-2.7,6-6,6s-6-2.7-6-6v-18
+							c0-1.1-0.6-2.1-1.5-2.6V60H147c0,0,0,0,0,0c1.7,0,3-1.3,3-3C150,56.9,150,56.7,150,56.6z M100.4,54H76.5V15c1.6,0,3.3,0.1,4.9,0.2
+							C91.5,20.7,99.5,38.2,100.4,54z M68.6,15.2c1.6-0.1,3.2-0.2,4.9-0.2v39H49.6C50.5,38.2,58.5,20.7,68.6,15.2z M62.7,15.8
+							c-9,8-15.3,23.8-16.1,38.2H22.7c1.7-14.5,15.7-30.5,34.2-37.2C58.8,16.4,60.7,16.1,62.7,15.8z M103.4,54
+							c-0.8-14.4-7.1-30.2-16.1-38.2c2,0.3,3.9,0.6,5.8,0.9c18.5,6.7,32.5,22.7,34.2,37.2H103.4z M42,21.1c-2.1,1.5-4.2,3.1-6.2,4.9
+							C26.6,34.2,20.7,44.5,19.7,54H6.3C8.4,42.7,21.8,28.8,42,21.1z M130.3,54c-1-9.5-6.9-19.8-16.1-28.1c-2-1.8-4-3.4-6.2-4.9
+							c20.1,7.8,33.6,21.6,35.7,32.9H130.3z"/>
+					</g>
+					<g id="umbrella-circle" transform="translate(10, 10)">
+						<circle cx="90" cy="90" r="100"/>
+						<use xlink:href="#umbrella"  transform="translate(15, 15)"/>
 					</g>
 				</defs>
 			</svg>
@@ -346,11 +367,11 @@
 						Mike is an unaware user. Mike was exposed to <span class="red">multiple injection threats</span>.
 					</p>
 					<p style="font-weight: bold;">
-						Also <span class="green-pastel">Mike is a part of the traffic</span> you bought.
+						<span class="green-pastel">Mike is also a part of a traffic</span> you bought.
 					</p>
 
 					<div class="animation-container">
-						<div class="bounceInLeft wow" style="float:left;width: 33%;margin-top:50px;">
+						<div class="bounceInLeft wow delay2s" style="float:left;width: 33%;margin-top:50px;">
 							<svg viewBox="0 0 160 160" width="100" height="100" style="margin-left:70%;">
 								<use xlink:href="#bug-circle" transform="rotate(90, 80, 80)"/>
 							</svg>
@@ -361,13 +382,13 @@
 							</svg>
 						</div>
 						<div style="float:left;width: 100px;">
-							<div class="bounceInDown wow" style="margin-top: -50px;">
+							<div class="bounceInDown wow delay2s" style="margin-top: -50px;">
 								<svg viewBox="0 0 160 160" width="100" height="100">
 									<use xlink:href="#bug-circle" transform="rotate(-135, 80, 80)"/>
 								</svg>
 							</div>
 
-							<div class="bounceInUp wow" style="margin-top: 100px;">
+							<div class="bounceInUp wow delay2s" style="margin-top: 100px;">
 								<svg viewBox="0 0 160 160" width="100" height="100">
 									<use xlink:href="#bug-circle" transform="rotate(-45, 80, 80)"/>
 								</svg>
@@ -655,6 +676,67 @@
 						</li>
 					</ul>
 
+				</section>
+
+				<section>
+					<h2>So let's come back to our Mike...</h2>
+				</section>
+
+				<section data-transition="slide-in none-out" data-background="#1E1B2B">
+					<h2><span class="red">Mike</span> is still infected with a malware.</h2>
+					<p>That didn't change from the last time we saw him</p>
+					<div class="animation-container">
+						<svg viewBox="0 0 200 200" width="200" height="200" style="position: absolute; top: 50px;">
+							<use xlink:href="#buggy-mike"/>
+						</svg>
+					</div>
+				</section>
+
+				<section data-transition="fade-" data-background="#1E1B2B">
+					<h2>What did change is that YOU are now <span class="green-pastel">smart and aware!</span></h2>
+					<div class="animation-container">
+						<svg viewBox="0 0 200 200" width="200" height="200" style="position: absolute; top: 50px;">
+							<use xlink:href="#buggy-mike"/>
+						</svg>
+					</div>
+				</section>
+
+				<section data-transition="fade" data-background="#1E1B2B">
+					<h2>You protected your business with <span class="green-pastel">Webumbrella</span></h2>
+					<p style="font-weight: bold;" class="fadeIn delay3s wow">So let's imagine now the same situation with Webumbrella
+						on your website
+					</p>
+					<div class="animation-container">
+						<svg viewBox="0 0 200 200" width="200" height="200" id="mikeMovesLeft" class="delay3s wow" style="position: absolute; top: 50px;">
+							<use xlink:href="#buggy-mike"/>
+						</svg>
+						<div class="bounceInUp delay3s wow" style="position: relative; left: 300px;">
+							<img src="./img/site_ok.png" style="width: 350px; height: 350px;" class="cleanup" />
+							<svg viewBox="0 0 200 200" width="200" height="200" style="position: relative; left: -100px; top: -100px;">
+								<use xlink:href="#umbrella-circle" fill="#55B860" />
+							</svg>
+						</div>
+					</div>
+				</section>
+
+				<section data-transition="fade-in slide-out" data-background="#1E1B2B">
+					<h2>So, <span class="yellow-pastel">Mike has still his PC infected with malware</span>.</h2>
+					<p style="font-weight: bold;">But this time we've got your back!</p>
+					<p class="fadeIn delay2s wow" style="font-weight: bold;">Every injection on your site is blocked before Mike even sees it</p>
+					<div class="animation-container">
+						<svg viewBox="0 0 200 200" width="200" height="200" style="position: absolute; top: 50px; left: 0;">
+							<use xlink:href="#buggy-mike-not-so-buggy"/>
+						</svg>
+						<div style="position: relative; left: 300px;">
+							<img src="./img/site_ok.png" style="width: 350px; height: 350px;" class="cleanup" />
+							<svg viewBox="0 0 160 160" width="100" height="100" style="position: relative; left: -150px;top: -140px;opacity: 0;" id="bugGetsSquashed" class="wow">
+								<use xlink:href="#bug-circle"/>
+							</svg>
+							<svg viewBox="0 0 200 200" width="200" height="200" class="bounceInUp delay4s wow" style="position: relative; left: -100px; top: -100px;">
+								<use xlink:href="#umbrella-circle" fill="#55B860" />
+							</svg>
+						</div>
+					</div>
 				</section>
 
 				<section style="text-align: left;">

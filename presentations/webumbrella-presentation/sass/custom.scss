@@ -136,6 +136,10 @@ img.cleanup {
     color: #478EC3;
 }
 
+.yellow-pastel {
+    color: #E89E41;
+}
+
 div.animation-container {
     position: absolute;
     top: 350px;
@@ -277,6 +281,26 @@ div.animation-container {
     $delays: 1s, 2s;
     width: 315px;
     height: 315px;
+    @include animation-name($animations);
+    @include animation-delay($delays);
+}
+
+@include keyframes(mikeMovesLeft) {
+    from {
+        @include transform(translate3d(0, 0, 0));
+    }
+    to {
+        @include transform(translate3d(-480px, 0, 0))
+    }
+}
+
+#mikeMovesLeft {
+    @include animation-name(mikeMovesLeft);
+}
+
+#bugGetsSquashed {
+    $animations: bounceIn, bounceOut;
+    $delays: 2s, 3.5s;
     @include animation-name($animations);
     @include animation-delay($delays);
 }

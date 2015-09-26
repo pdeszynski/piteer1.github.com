@@ -95,6 +95,9 @@ img.cleanup {
 .blue-pastel {
   color: #478EC3; }
 
+.yellow-pastel {
+  color: #E89E41; }
+
 div.animation-container {
   position: absolute;
   top: 350px;
@@ -461,3 +464,46 @@ div.animation-container {
   -webkit-animation-delay: 1s, 2s;
   /* Chrome, Safari, Opera */
   animation-delay: 1s, 2s; }
+
+@-webkit-keyframes mikeMovesLeft {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0); }
+  to {
+    -webkit-transform: translate3d(-480px, 0, 0);
+    transform: translate3d(-480px, 0, 0); } }
+
+@-moz-keyframes mikeMovesLeft {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0); }
+  to {
+    -webkit-transform: translate3d(-480px, 0, 0);
+    transform: translate3d(-480px, 0, 0); } }
+
+@-ms-keyframes mikeMovesLeft {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0); }
+  to {
+    -webkit-transform: translate3d(-480px, 0, 0);
+    transform: translate3d(-480px, 0, 0); } }
+
+@keyframes mikeMovesLeft {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0); }
+  to {
+    -webkit-transform: translate3d(-480px, 0, 0);
+    transform: translate3d(-480px, 0, 0); } }
+
+#mikeMovesLeft {
+  -webkit-animation-name: mikeMovesLeft;
+  animation-name: mikeMovesLeft; }
+
+#bugGetsSquashed {
+  -webkit-animation-name: bounceIn, bounceOut;
+  animation-name: bounceIn, bounceOut;
+  -webkit-animation-delay: 2s, 3.5s;
+  /* Chrome, Safari, Opera */
+  animation-delay: 2s, 3.5s; }
