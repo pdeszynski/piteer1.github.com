@@ -147,23 +147,6 @@ div.animation-container {
     height: 500px;
 }
 
-@include keyframes(mikeMovesFromBugs) {
-    0% {
-        @include transform(translate3d(0, 0, 0));
-        fill: #55B860;
-    }
-
-    75% {
-        @include transform(translate3d(-150%, 0, 0));
-        fill: #D3585D;
-    }
-
-    100% {
-        @include transform(translate3d(-150%, 0, 0));
-        fill: #D3585D;
-    }
-}
-
 @include keyframes(fade-out) {
     from {
         opacity: 1;
@@ -211,29 +194,46 @@ div.animation-container {
     }
 }
 
+@include keyframes(mikeMovesFromBugs) {
+    0% {
+        @include transform(translate3d(0, 0, 0));
+        fill: #55B860;
+    }
+
+    75% {
+        @include transform(translate3d(-150%, 0, 0));
+        fill: #D3585D;
+    }
+
+    100% {
+        @include transform(translate3d(-150%, 0, 0));
+        fill: #D3585D;
+    }
+}
+
 
 #mikeMovesFromBugs {
-    @include animation-name(mikeMovesFromBugs);
+    // @include animation-name(mikeMovesFromBugs);
 }
 
 #mikeStillOk {
     @include animation-delay(1s);
-    @include animation-name(fade-out);
+    // @include animation-name(fade-out);
 }
 
 #mikeGetsBuggy {
     @include animation-delay(1s);
-    @include animation-name(fade-in);
+    // @include animation-name(fade-in);
 }
 
 .bugMoving {
-    @include animation-name(fade-in);
+    // @include animation-name(fade-in);
     @include animation-delay(1s);
 }
 
 #detourByBugs {
-    @include animation-delay(3s);
-    @include animation-name(fade-in-bounce);
+    @include animation-delay(4s);
+    // @include animation-name(fade-in-bounce);
 }
 
 @include keyframes(buggyMikeMovesToAPage) {
@@ -247,7 +247,7 @@ div.animation-container {
 
 #buggyMikeMovesToAPage {
     @include animation-delay(2s);
-    @include animation-name(buggyMikeMovesToAPage);
+    // @include animation-name(buggyMikeMovesToAPage);
 }
 
 @include keyframes(legitSiteToShitty) {
@@ -261,10 +261,10 @@ div.animation-container {
 
 #legitSiteToShitty {
     @include transform(translate3d(0, 3000px, 0));
-    $animations: bounceInUp, legitSiteToShitty, fade-out;
+    // $animations: bounceInUp, legitSiteToShitty, fade-out;
     $delays: 0s, 3s, 5s;
     @include animation-delay($delays);
-    @include animation-name($animations);
+    // @include animation-name($animations);
 }
 
 @include keyframes(scaleLandingPageBugBigger) {
@@ -277,11 +277,9 @@ div.animation-container {
 }
 
 .scaleLandingPageBug {
-    $animations: fade-in, scaleLandingPageBugBigger;
     $delays: 1s, 2s;
     width: 315px;
     height: 315px;
-    @include animation-name($animations);
     @include animation-delay($delays);
 }
 
@@ -295,12 +293,11 @@ div.animation-container {
 }
 
 #mikeMovesLeft {
-    @include animation-name(mikeMovesLeft);
+    // @include animation-name(mikeMovesLeft);
 }
 
 #bugGetsSquashed {
-    $animations: bounceIn, bounceOut;
     $delays: 2s, 3.5s;
-    @include animation-name($animations);
+
     @include animation-delay($delays);
 }

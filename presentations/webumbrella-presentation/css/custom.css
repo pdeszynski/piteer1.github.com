@@ -104,62 +104,6 @@ div.animation-container {
   width: 100%;
   height: 500px; }
 
-@-webkit-keyframes mikeMovesFromBugs {
-  0% {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    fill: #55B860; }
-  75% {
-    -webkit-transform: translate3d(-150%, 0, 0);
-    transform: translate3d(-150%, 0, 0);
-    fill: #D3585D; }
-  100% {
-    -webkit-transform: translate3d(-150%, 0, 0);
-    transform: translate3d(-150%, 0, 0);
-    fill: #D3585D; } }
-
-@-moz-keyframes mikeMovesFromBugs {
-  0% {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    fill: #55B860; }
-  75% {
-    -webkit-transform: translate3d(-150%, 0, 0);
-    transform: translate3d(-150%, 0, 0);
-    fill: #D3585D; }
-  100% {
-    -webkit-transform: translate3d(-150%, 0, 0);
-    transform: translate3d(-150%, 0, 0);
-    fill: #D3585D; } }
-
-@-ms-keyframes mikeMovesFromBugs {
-  0% {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    fill: #55B860; }
-  75% {
-    -webkit-transform: translate3d(-150%, 0, 0);
-    transform: translate3d(-150%, 0, 0);
-    fill: #D3585D; }
-  100% {
-    -webkit-transform: translate3d(-150%, 0, 0);
-    transform: translate3d(-150%, 0, 0);
-    fill: #D3585D; } }
-
-@keyframes mikeMovesFromBugs {
-  0% {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    fill: #55B860; }
-  75% {
-    -webkit-transform: translate3d(-150%, 0, 0);
-    transform: translate3d(-150%, 0, 0);
-    fill: #D3585D; }
-  100% {
-    -webkit-transform: translate3d(-150%, 0, 0);
-    transform: translate3d(-150%, 0, 0);
-    fill: #D3585D; } }
-
 @-webkit-keyframes fade-out {
   from {
     opacity: 1; }
@@ -312,37 +256,81 @@ div.animation-container {
     -webkit-transform: scale3d(1.2, 1.2, 1.2);
     transform: scale3d(1.2, 1.2, 1.2); } }
 
-#mikeMovesFromBugs {
-  -webkit-animation-name: mikeMovesFromBugs;
-  animation-name: mikeMovesFromBugs; }
+@-webkit-keyframes mikeMovesFromBugs {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    fill: #55B860; }
+  75% {
+    -webkit-transform: translate3d(-150%, 0, 0);
+    transform: translate3d(-150%, 0, 0);
+    fill: #D3585D; }
+  100% {
+    -webkit-transform: translate3d(-150%, 0, 0);
+    transform: translate3d(-150%, 0, 0);
+    fill: #D3585D; } }
+
+@-moz-keyframes mikeMovesFromBugs {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    fill: #55B860; }
+  75% {
+    -webkit-transform: translate3d(-150%, 0, 0);
+    transform: translate3d(-150%, 0, 0);
+    fill: #D3585D; }
+  100% {
+    -webkit-transform: translate3d(-150%, 0, 0);
+    transform: translate3d(-150%, 0, 0);
+    fill: #D3585D; } }
+
+@-ms-keyframes mikeMovesFromBugs {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    fill: #55B860; }
+  75% {
+    -webkit-transform: translate3d(-150%, 0, 0);
+    transform: translate3d(-150%, 0, 0);
+    fill: #D3585D; }
+  100% {
+    -webkit-transform: translate3d(-150%, 0, 0);
+    transform: translate3d(-150%, 0, 0);
+    fill: #D3585D; } }
+
+@keyframes mikeMovesFromBugs {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    fill: #55B860; }
+  75% {
+    -webkit-transform: translate3d(-150%, 0, 0);
+    transform: translate3d(-150%, 0, 0);
+    fill: #D3585D; }
+  100% {
+    -webkit-transform: translate3d(-150%, 0, 0);
+    transform: translate3d(-150%, 0, 0);
+    fill: #D3585D; } }
 
 #mikeStillOk {
   -webkit-animation-delay: 1s;
   /* Chrome, Safari, Opera */
-  animation-delay: 1s;
-  -webkit-animation-name: fade-out;
-  animation-name: fade-out; }
+  animation-delay: 1s; }
 
 #mikeGetsBuggy {
   -webkit-animation-delay: 1s;
   /* Chrome, Safari, Opera */
-  animation-delay: 1s;
-  -webkit-animation-name: fade-in;
-  animation-name: fade-in; }
+  animation-delay: 1s; }
 
 .bugMoving {
-  -webkit-animation-name: fade-in;
-  animation-name: fade-in;
   -webkit-animation-delay: 1s;
   /* Chrome, Safari, Opera */
   animation-delay: 1s; }
 
 #detourByBugs {
-  -webkit-animation-delay: 3s;
+  -webkit-animation-delay: 4s;
   /* Chrome, Safari, Opera */
-  animation-delay: 3s;
-  -webkit-animation-name: fade-in-bounce;
-  animation-name: fade-in-bounce; }
+  animation-delay: 4s; }
 
 @-webkit-keyframes buggyMikeMovesToAPage {
   from {
@@ -379,9 +367,7 @@ div.animation-container {
 #buggyMikeMovesToAPage {
   -webkit-animation-delay: 2s;
   /* Chrome, Safari, Opera */
-  animation-delay: 2s;
-  -webkit-animation-name: buggyMikeMovesToAPage;
-  animation-name: buggyMikeMovesToAPage; }
+  animation-delay: 2s; }
 
 @-webkit-keyframes legitSiteToShitty {
   from {
@@ -420,9 +406,7 @@ div.animation-container {
   transform: translate3d(0, 3000px, 0);
   -webkit-animation-delay: 0s, 3s, 5s;
   /* Chrome, Safari, Opera */
-  animation-delay: 0s, 3s, 5s;
-  -webkit-animation-name: bounceInUp, legitSiteToShitty, fade-out;
-  animation-name: bounceInUp, legitSiteToShitty, fade-out; }
+  animation-delay: 0s, 3s, 5s; }
 
 @-webkit-keyframes scaleLandingPageBugBigger {
   from {
@@ -459,8 +443,6 @@ div.animation-container {
 .scaleLandingPageBug {
   width: 315px;
   height: 315px;
-  -webkit-animation-name: fade-in, scaleLandingPageBugBigger;
-  animation-name: fade-in, scaleLandingPageBugBigger;
   -webkit-animation-delay: 1s, 2s;
   /* Chrome, Safari, Opera */
   animation-delay: 1s, 2s; }
@@ -497,13 +479,7 @@ div.animation-container {
     -webkit-transform: translate3d(-480px, 0, 0);
     transform: translate3d(-480px, 0, 0); } }
 
-#mikeMovesLeft {
-  -webkit-animation-name: mikeMovesLeft;
-  animation-name: mikeMovesLeft; }
-
 #bugGetsSquashed {
-  -webkit-animation-name: bounceIn, bounceOut;
-  animation-name: bounceIn, bounceOut;
   -webkit-animation-delay: 2s, 3.5s;
   /* Chrome, Safari, Opera */
   animation-delay: 2s, 3.5s; }
