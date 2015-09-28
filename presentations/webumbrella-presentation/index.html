@@ -255,6 +255,10 @@
 					<p>
 						<small>Created by <a href="http://webumbrella.com">Webumbrella Team &copy;</a> / <a href="http://twitter.com/pdeszynski">@pdeszynski</a></small>
 					</p>
+					<aside class="notes">
+						Hello, My name's Piotr Deszyński. I'm a developer at Webumbrella project.
+						I would like to present you some insight about our project.
+				    </aside>
 				</section>
 
 				<section>
@@ -265,22 +269,43 @@
 					<p>
 						<strong>Every day 25-30% users are stolen from you?</strong>
 					</p>
+					<aside class="notes">
+						Ok, so let's get started. Firstly a fun fact: did you know that 25-30% of your users
+						are stolen from you? It's quite a huge amount I would say and may look unbelieveble.
+					</aside>
 				</section>
 
 				<!-- Example of nested vertical slides -->
-				<section data-background="#1E1C2B" style="text-align: left; background: url('./img/content-injection-imac.png') right no-repeat">
+				<section data-background="#1E1C2B" style="text-align: left;">
 					<h2>How is that possible?</h2>
-					<h4>The answer:</h4>
-					<h4>Client-side Injected Malware<br /> (CSIM)</h4>
+					<img class="fragment current-visible" src="./img/internet-user.jpg" style="float:right;position:absolute;left: 60%;top: 20%;"/>
+					<div id="internet-video" class="fragment current-visible" class="autoplay" style="float:right;position:absolute;left: 60%;top: 20%;"></div>
+					<h4 class="fragment">The answer:</h4>
+					<h4 class="fragment">Client-side Injected Malware<br /> (CSIM)</h4>
 					<ul>
-						<li>Annoying pop-ups</li>
-						<li>strange, intrusive advertisements</li>
-						<li>spyware scripts</li>
-						<li>all types of 'custom widgets'</li>
-						<li class="fragment fade-in highlight highlight-red">badly affects User Experience
-							<strong><span class="icon-lossuser"></span></strong>
+						<li class="fragment">Annoying pop-ups</li>
+						<li class="fragment">strange, intrusive advertisements</li>
+						<li class="fragment">spyware scripts</li>
+						<li class="fragment">all types of 'custom widgets'</li>
+						<li class="fragment fade">
+							<img src="./img/macbook-retina-big-fix.png" class="cleanup" style="position:absolute; left: 50%;top: 20%;" />
+							<span class="fragment highlight highlight-red">
+								badly affects User Experience
+								<strong><span class="icon-lossuser"></span></strong>
+							</span>
 						</li>
 					</ul>
+					<aside class="notes">
+						How's that possible? Our webites's Usability is great. We have really useful service etc.
+
+						The problem is that we tend to think that our users are really great in IT and the security is
+						their matter a concern. The truth is, it isn't and mostly it looks like this (movie)
+
+						So the answer for the question is: Client side injected malware. What do i mean by that?
+						(points)
+						...
+						All these badly affect User Experience and may even render your website completely unusable.
+				    </aside>
 				</section>
 
 				<section data-state="notebook-state-stop">
@@ -288,6 +313,9 @@
 					<p>
 
 					</p>
+					<aside class="notes">
+						But that's not all. There are a lot more problems that can happen within your page.
+					</aside>
 				</section>
 
 				<section data-background="#1E1C2B" data-state="notebook-state" style="text-align: left;">
@@ -299,8 +327,8 @@
 					<p>
 						It will do harm your website by
 						<ul>
-							<li><strong class="fragment highlight-red">stealing traffic</strong></li>
 							<li><strong class="fragment highlight-red">distracting your users</strong></li>
+							<li><strong class="fragment highlight-red">stealing traffic</strong></li>
 							<li><strong class="fragment highlight-red">violating their privacy</strong></li>
 							<li><strong class="fragment highlight-red">stealing private data</strong></li>
 						</ul>
@@ -310,6 +338,15 @@
 							<div class="notebook animated" style="opacity: 0"></div>
 						</span>
 					</p>
+					<aside class="notes">
+						Client side injected malware can even replace whole or a part of your website. In that
+						case they will distract your users from doing what they intended to.
+						But what's worse, sometimes such malware can replace parts of your page
+						without users being realized that something's not right. This way they can for example
+						replace links on your page stealing your traffic, or even your user's private data, like
+						their email, home address or even credit card data.
+						In that case they will blame no other than you for all these problems.
+					</aside>
 				</section>
 
 				<section data-state="notebook-state-stop" class="darken">
@@ -675,18 +712,26 @@
 							Performance optimization
 						</li>
 					</ul>
-
+					<aside class="notes">
+						Webumbrella detects all as we call it anomalies on your page which are
+						verified. This way they are blocked almost instantly.
+						Users are protected whole the time. No matter on which page on your website
+						they are.
+						All invalid elements are removed, all events unattached. This way
+						in users eyes your website is more performant, because it does not load
+						unnecessary HTML, images or huge scripts.
+					</aside>
 				</section>
 
 				<section>
-					<h2>So let's come back to our Mike...</h2>
+					<h2>So let's get back to Mike...</h2>
 				</section>
 
 				<section data-transition="slide-in none-out" data-background="#1E1B2B">
 					<h2><span class="red">Mike</span> is still infected with a malware.</h2>
 					<p>That didn't change from the last time we saw him</p>
 					<div class="animation-container">
-						<svg viewBox="0 0 200 200" width="200" height="200" style="position: absolute; top: 50px;">
+						<svg viewBox="0 0 200 200" width="200" height="200" style="position: relative; top: 50px;">
 							<use xlink:href="#buggy-mike"/>
 						</svg>
 					</div>
@@ -695,7 +740,7 @@
 				<section data-transition="fade-" data-background="#1E1B2B">
 					<h2>What did change is that YOU are now <span class="green-pastel">smart and aware!</span></h2>
 					<div class="animation-container">
-						<svg viewBox="0 0 200 200" width="200" height="200" style="position: absolute; top: 50px;">
+						<svg viewBox="0 0 200 200" width="200" height="200" style="position: relative; top: 50px;">
 							<use xlink:href="#buggy-mike"/>
 						</svg>
 					</div>
@@ -707,10 +752,10 @@
 						on your website
 					</p>
 					<div class="animation-container">
-						<svg viewBox="0 0 200 200" width="200" height="200" id="mikeMovesLeft" class="delay3s wow" style="position: absolute; top: 50px;">
+						<svg viewBox="0 0 200 200" width="200" height="200" id="mikeMovesLeft" class="delay3s wow" style="position: relative; top: 50px;">
 							<use xlink:href="#buggy-mike"/>
 						</svg>
-						<div class="bounceInUp delay3s wow" style="position: relative; left: 300px;">
+						<div class="bounceInUp delay3s wow" style="position: absolute; left: 300px; top: 0;">
 							<img src="./img/site_ok.png" style="width: 350px; height: 350px;" class="cleanup" />
 							<svg viewBox="0 0 200 200" width="200" height="200" style="position: relative; left: -100px; top: -100px;">
 								<use xlink:href="#umbrella-circle" fill="#55B860" />
@@ -724,15 +769,15 @@
 					<p style="font-weight: bold;">But this time we've got your back!</p>
 					<p class="fadeIn delay2s wow" style="font-weight: bold;">Every injection on your site is blocked before Mike even sees it</p>
 					<div class="animation-container">
-						<svg viewBox="0 0 200 200" width="200" height="200" style="position: absolute; top: 50px; left: 0;">
+						<svg viewBox="0 0 200 200" width="200" height="200" style="position: absolute; top: 50px; left: -100px;">
 							<use xlink:href="#buggy-mike-not-so-buggy"/>
 						</svg>
-						<div style="position: relative; left: 300px;">
-							<img src="./img/site_ok.png" style="width: 350px; height: 350px;position: relative; left: 55px;" class="cleanup" />
-							<svg viewBox="0 0 160 160" width="100" height="100" style="position: relative; left: -110px;top: -140px;opacity: 0;" id="bugGetsSquashed" class="wow">
+						<div style="position: absolute; left: 300px;">
+							<img src="./img/site_ok.png" style="width: 350px; height: 350px;position: relative; top: 0;left: -100px;" class="cleanup" />
+							<svg viewBox="0 0 160 160" width="100" height="100" style="position: relative; left: -250px;top: -140px;opacity: 0;" id="bugGetsSquashed" class="wow">
 								<use xlink:href="#bug-circle"/>
 							</svg>
-							<svg viewBox="0 0 200 200" width="200" height="200" class="bounceInUp delay4s wow" style="position: relative; left: -155px; top: -100px;">
+							<svg viewBox="0 0 200 200" width="200" height="200" class="bounceInUp delay4s wow" style="position: relative; left: 0px; top: -300px;">
 								<use xlink:href="#umbrella-circle" fill="#55B860" />
 							</svg>
 						</div>
@@ -795,12 +840,36 @@
 			}, 2000);
 		}, false);
 
+		var tag = document.createElement('script');
+		tag.src = "https://www.youtube.com/iframe_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+		var player;
+		function onYouTubeIframeAPIReady() {
+			player = new YT.Player('internet-video', {
+				height: '320',
+				width: '540',
+				videoId: 'r2YK00WvG54',
+				playerVars: {
+					controls: 0,
+					disablekb: 1,
+					showinfo: 0,
+					rel: 0,
+					fs: 1,
+				},
+				events: {
+				}
+			});
+			player.getPlaybackQuality('hd720');
+		}
+
+
 		Reveal.addEventListener('notebook-state-stop', function () {
 			clearInterval(interval);
 		}, false);
 
 		Reveal.addEventListener( 'slidechanged', function( event ) {
-		    //event.previousSlide, event.currentSlide, event.indexh, event.indexv
 		    [].forEach.call(
 				event
 					.currentSlide
