@@ -1,0 +1,303 @@
+@mixin translate3d($x, $y, $z) {
+    -webkit-transform: translate3d($x, $y, $z);
+    transform: translate3d($x, $y, $z);
+}
+
+@mixin transform($transformation) {
+    -webkit-transform: $transformation;
+    transform: $transformation;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animation-name($name) {
+    -webkit-animation-name: $name;
+    animation-name: $name;
+}
+
+@mixin transition($value) {
+    -webkit-transition: $value;
+    -moz-transition: $value;
+    -ms-transition: $value;
+    -o-transition: $value;
+}
+
+@mixin animation-delay($delay) {
+    -webkit-animation-delay: $delay; /* Chrome, Safari, Opera */
+    animation-delay: $delay;
+}
+
+.delay1s {
+    @include animation-delay(1s);
+}
+.delay2s {
+    @include animation-delay(2s);
+}
+.delay3s {
+    @include animation-delay(3s);
+}
+.delay4s {
+    @include animation-delay(4s);
+}
+.delay5s {
+    @include animation-delay(5s);
+}
+.delay6s {
+    @include animation-delay(6s);
+}
+
+.notebook,
+.notebook-holder{
+    height: 553px;
+    position:absolute;
+}
+
+.notebook-holder{
+    overflow:hidden;
+    z-index:2;
+    width: 100%;
+}
+.notebook {
+    left:10%;
+    width: 100%;
+}
+.notebook:nth-child(1){
+    background:url(../img/notebook.png) left;
+}
+
+.notebook:nth-child(2){
+    background-image: url(../img/notebook2.png);
+}
+
+.notebook:nth-child(3){
+    background-image: url(../img/notebook3.png);
+}
+.darken {
+    background-color: rgba(0, 0, 0, 0.6);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 7px 6px 23px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 6px 23px -5px rgba(0,0,0,0.75);
+    box-shadow: 7px 6px 23px -5px rgba(0,0,0,0.75);
+}
+ul.bullet {
+    list-style: none;
+}
+ul.bullet li {
+    line-height: 100px;
+}
+div.bullet {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    font-size: 80px !important;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: inline-block;
+}
+
+.bullet span {
+    line-height: 100px;
+    font-size: 75px;
+}
+
+.bullet span::before {
+    margin-left: 12px;
+}
+
+.reveal .slides section .fragment.highlight-red.visible, .red {
+    color: #f75f65;
+}
+
+img.cleanup {
+    border: 0 !important;
+    box-shadow: 0 0 0 !important;
+    background-color: inherit !important;
+}
+
+.green-pastel {
+    color: #55B860;
+}
+
+.blue-pastel {
+    color: #478EC3;
+}
+
+.yellow-pastel {
+    color: #E89E41;
+}
+
+div.animation-container {
+    position: absolute;
+    top: 350px;
+    width: 100%;
+    height: 500px;
+}
+
+@include keyframes(fade-out) {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@include keyframes(fade-in) {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@include keyframes(fade-in-bounce) {
+    0% {
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 1;
+        @include transform(scale3d(1, 1, 1))
+    }
+    80% {
+        opacity: 1;
+        width: 210px;
+        height: 210px;
+        @include transform(scale3d(1.3, 1.3, 1.3))
+    }
+    90% {
+        opacity: 1;
+        width: 210px;
+        height: 210px;
+        @include transform(scale3d(1.1, 1.1, 1.1))
+    }
+    100% {
+        opacity: 1;
+        width: 210px;
+        height: 210px;
+        @include transform(scale3d(1.2, 1.2, 1.2))
+    }
+}
+
+@include keyframes(mikeMovesFromBugs) {
+    0% {
+        @include transform(translate3d(0, 0, 0));
+        fill: #55B860;
+    }
+
+    75% {
+        @include transform(translate3d(-150%, 0, 0));
+        fill: #D3585D;
+    }
+
+    100% {
+        @include transform(translate3d(-150%, 0, 0));
+        fill: #D3585D;
+    }
+}
+
+
+#mikeMovesFromBugs {
+    // @include animation-name(mikeMovesFromBugs);
+}
+
+#mikeStillOk {
+    @include animation-delay(1s);
+    // @include animation-name(fade-out);
+}
+
+#mikeGetsBuggy {
+    @include animation-delay(1s);
+    // @include animation-name(fade-in);
+}
+
+.bugMoving {
+    // @include animation-name(fade-in);
+    @include animation-delay(1s);
+}
+
+#detourByBugs {
+    @include animation-delay(4s);
+    // @include animation-name(fade-in-bounce);
+}
+
+@include keyframes(buggyMikeMovesToAPage) {
+    from {
+        @include transform(translate3d(0, 0, 0));
+    }
+    to {
+        @include transform(translate3d(500px, 0, 0));
+    }
+}
+
+#buggyMikeMovesToAPage {
+    @include animation-delay(2s);
+    // @include animation-name(buggyMikeMovesToAPage);
+}
+
+@include keyframes(legitSiteToShitty) {
+    from {
+        @include transform(translate3d(0, 0, 0));
+    }
+    to {
+        @include transform(translate3d(-500px, 0, 0));
+    }
+}
+
+#legitSiteToShitty {
+    @include transform(translate3d(0, 3000px, 0));
+    // $animations: bounceInUp, legitSiteToShitty, fade-out;
+    $delays: 0s, 3s, 5s;
+    @include animation-delay($delays);
+    // @include animation-name($animations);
+}
+
+@include keyframes(scaleLandingPageBugBigger) {
+    from {
+        @include transform(scale3d(1, 1, 1));
+    }
+    to {
+        @include transform((translate3d(0, 100px, 0) scale3d(1.5, 1.5, 1.5)));
+    }
+}
+
+.scaleLandingPageBug {
+    $delays: 1s, 2s;
+    width: 315px;
+    height: 315px;
+    @include animation-delay($delays);
+}
+
+@include keyframes(mikeMovesLeft) {
+    from {
+        @include transform(translate3d(0, 0, 0));
+    }
+    to {
+        @include transform(translate3d(-480px, 0, 0))
+    }
+}
+
+#mikeMovesLeft {
+    // @include animation-name(mikeMovesLeft);
+}
+
+#bugGetsSquashed {
+    $delays: 2s, 3.5s;
+
+    @include animation-delay($delays);
+}

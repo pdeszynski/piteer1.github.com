@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Webumbrella</title>
+
+		<meta name="description" content="A webumbrella presentation">
+		<meta name="author" content="Piotr Deszyński">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/webumbrella.css" id="theme">
+		<link rel="stylesheet" href="css/icons.css" />
+		<link rel="stylesheet" href="css/animate.css" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,700|Montserrat:700" />
+		<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="css/custom.css" />
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<div style="display:none;">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 374.4 63">
+						<defs>
+							<g id="wulogo">
+								<path style="fill:#FFFFFF;" d="M53.6,29.6L42.4,62.5h-9.5l-6.1-17.9l-6.1,17.9h-9.5L0,29.6h9.5l6.4,19.9l6.4-19.9h8.9
+								l6.4,19.9l6.4-19.9H53.6z M85.9,44.4v4.9h-24c0.3,1.8,1.2,3.3,2.8,4.4s3.4,1.7,5.4,1.7c1.9,0,3.7-0.4,5.2-1.2
+								c1.9-1,4.3-0.4,5.8,1.2l2.2,2.3c-3.7,3.5-8.1,5.3-13.1,5.3s-9.1-1.5-12.4-4.6s-4.9-7.2-4.9-12.4c0-5.2,1.7-9.3,5-12.4 c3.3-3.1,7.3-4.6,11.8-4.6c4.5,0,8.4,1.4,11.5,4.1C84.3,35.9,85.9,39.6,85.9,44.4z
+								M76.6,42.7c-0.2-2-0.9-3.5-2.2-4.5 c-1.3-1.1-2.8-1.6-4.6-1.6s-3.5,0.6-5,1.7c-1.5,1.1-2.4,2.6-2.6,4.5H76.6z
+								M118.9,33.7c3,3.1,4.5,7.1,4.5,12c0,4.9-1.5,9-4.6,12.3 c-3.1,3.3-6.5,5-10.4,5c-3.9,0-7.1-1.6-9.7-4.8c0,2.4-1.9,4.3-4.3,4.3h-4.8V17.1h9.2v16.2c2.5-2.8,5.8-4.2,9.8-4.2
+								C112.4,29,115.9,30.6,118.9,33.7z M114.1,46.1c0-2.7-0.8-4.9-2.3-6.7c-1.6-1.8-3.4-2.7-5.6-2.7s-4,0.9-5.5,2.7 c-1.5,1.8-2.2,4-2.2,6.7s0.7,4.9,2.2,6.5c1.5,1.7,3.3,2.5,5.4,2.5c2.1,0,4-0.8,5.6-2.5C113.3,50.9,114.1,48.8,114.1,46.1z
+								M148.4,47.3c0,2.5-0.7,4.5-2,5.8c-1.3,1.3-2.9,2-4.8,2c-3.7,0-5.6-2.5-5.6-7.6V29.6h-9.2v19.9c0,4.4,1.2,7.8,3.7,10.1 s5.5,3.4,9.1,3.4c3.6,0,6.6-1.6,8.8-4.8c0,2.4,1.9,4.3,4.3,4.3h4.9V29.6h-9.2V47.3z M201.1,29c-2.2,0-4.3,0.6-6.5,1.7
+								s-3.8,2.7-5.1,4.7c-0.8-1.7-2.1-3.2-3.8-4.4c-1.4-1-3.1-1.7-4.9-1.9c-3.6-0.3-6.8,1.2-9.5,4.3c0-2.1-1.7-3.7-3.7-3.7h-5.4v32.9h9.2 V44.8c0-2.6,0.7-4.5,2-5.8c1.4-1.3,2.9-2,4.7-2s3.1,0.6,3.9,1.8c0.8,1.2,1.2,3.1,1.2,5.8v18h9.2V44.8c0-2.6,0.7-4.5,2-5.8
+								c1.3-1.3,2.9-2,4.8-2c3.7,0,5.6,2.5,5.6,7.6v18h9.2v-20c0-4.4-1.2-7.7-3.5-10C208.1,30.2,205,29,201.1,29z M247.7,33.7 c3,3.1,4.5,7.1,4.5,12c0,4.9-1.5,9-4.6,12.3c-3.1,3.3-6.5,5-10.4,5c-3.9,0-7.1-1.6-9.7-4.8c0,2.4-1.9,4.3-4.3,4.3h-4.8V17.1h9.2
+								v16.2c2.5-2.8,5.8-4.2,9.8-4.2C241.3,29,244.8,30.6,247.7,33.7z M243,46.1c0-2.7-0.8-4.9-2.3-6.7c-1.6-1.8-3.4-2.7-5.6-2.7 s-4,0.9-5.5,2.7c-1.5,1.8-2.2,4-2.2,6.7s0.7,4.9,2.2,6.5c1.5,1.7,3.3,2.5,5.4,2.5c2.1,0,4-0.8,5.6-2.5 C242.2,50.9,243,48.8,243,46.1z
+								M265.2,33.9c0-2.4-1.9-4.3-4.3-4.3H256v32.9h9.2V48.2c0-3.2,0.7-5.7,2-7.7c1.3-1.9,4.1-2.9,6.8-2.9
+								l1-8.6c-1.8,0-3.6,0.5-5.4,1.5S266.4,32.6,265.2,33.9z
+								M308.3,44.4v4.9h-24c0.3,1.8,1.2,3.3,2.8,4.4s3.4,1.7,5.4,1.7
+								c1.9,0,3.7-0.4,5.2-1.2c1.9-1,4.3-0.4,5.8,1.2l2.2,2.3c-3.7,3.5-8.1,5.3-13.1,5.3s-9.1-1.5-12.4-4.6s-4.9-7.2-4.9-12.4
+								c0-5.2,1.7-9.3,5-12.4c3.3-3.1,7.3-4.6,11.8-4.6c4.5,0,8.4,1.4,11.5,4.1C306.7,35.9,308.3,39.6,308.3,44.4z
+								M299,42.7
+								c-0.2-2-0.9-3.5-2.2-4.5c-1.3-1.1-2.8-1.6-4.6-1.6s-3.5,0.6-5,1.7c-1.5,1.1-2.4,2.6-2.6,4.5H299z
+								M323.8,55.4 c-1.5,0-2.7-1.2-2.7-2.8V20.6h-9.2v33.5c0,4.7,3.8,8.4,8.4,8.4h6.7l-1-7L323.8,55.4z
+								M340.3,55.4c-1.5,0-2.7-1.2-2.7-2.8V29h-9.2
+								v25c0,4.7,3.8,8.4,8.4,8.4h6.7l-1-7L340.3,55.4z
+								M374.4,41.5v21h-4.6c-2.2,0-4-1.8-4-4c-2.4,3-5.3,4.5-8.8,4.5c-3.5,0-6.4-1-8.8-3
+								c-2.4-2-3.5-4.7-3.5-8.1s1.2-5.9,3.7-7.6c2.4-1.7,5.8-2.5,10-2.5h6.9v-0.2c0-3.5-1.9-5.3-5.6-5.3c-1.6,0-3.3,0.3-5,0.9
+								c-0.4,0.1-0.7,0.3-1,0.4c-2.2,0.9-4.6,0.3-6-1.7l-1.6-2.3c4.3-3.1,9.3-4.7,14.8-4.7c4,0,7.3,1,9.8,3 C373.2,34,374.4,37.2,374.4,41.5z M365.2,48.4h-5.8c-3.7,0-5.5,1.1-5.5,3.4c0,1.2,0.4,2.1,1.3,2.7c0.9,0.6,2.1,0.9,3.8,0.9 c1.6,0,3.1-0.5,4.3-1.5c1.2-1,1.9-2.3,1.9-4V48.4z"></path>
+								<path style="fill:#D3585D;" d="M316.8,15.1h-18.4c5-3.9,11.3-6.1,18-6.1c6.7,0,13,2.2,18,6.1h-1.8 c-2.4,0-4.3,1.9-4.3,4.3v4.7h23.7C346.4,10,332.5,0,316.3,0c-16.2,0-30,10-35.7,24.1H321v-4.7C321,17,319.1,15.1,316.8,15.1z"></path>
+							</g>
+
+						</defs>
+					</svg>
+
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 viewBox="0 0 149.8 150" style="enable-background:new 0 0 149.8 150;" xml:space="preserve">
+						<defs>
+							<g id="bug-extension">
+								<path d="M148,102.4l-9.3-4.8c0.2-1.5,0.4-3.1,0.4-4.7l3.1-0.4c0.6-0.1,1.2-0.3,1.7-0.8l4.9-4.5c1.2-1.1,1.3-3,0.2-4.2
+									c-1.1-1.2-3-1.3-4.2-0.2l-4.2,3.8l-2,0.2c-1.5-7.8-6-14.3-12-17.5c1.2-10.1,9.1-11.6,10-11.7c1.6-0.2,2.8-1.7,2.6-3.3
+									c-0.2-1.6-1.7-2.8-3.3-2.6c-4.5,0.6-12.7,4.4-14.9,14.8V43.7c0-4.3-3.5-7.8-7.8-7.8H85.2c0,0-0.2,0-0.2-0.1c-0.1-0.1,0-0.2,0-0.2
+									c1.6-3.7,2.3-7.7,2-11.7c-0.8-12.8-11-23-23.8-23.8C56-0.4,49.2,2,44,6.9c-5.1,4.8-8,11.6-8,18.6c0,3.5,0.7,6.9,2.1,10.1
+									c0,0,0.1,0.1,0,0.3C38,36,37.9,36,37.8,36H7.8C3.5,36,0,39.5,0,43.7v25.6c0,2.1,1.1,4.1,2.8,5.2c1.8,1.2,4,1.3,5.9,0.5
+									c2.8-1.2,5.9-1.8,9-1.6c9.6,0.6,17.6,8.6,18.2,18.2c0.3,5.5-1.5,10.6-5.2,14.6c-3.7,4-8.8,6.1-14.2,6.1c-2.7,0-5.3-0.5-7.7-1.6
+									c-1.9-0.8-4.2-0.6-5.9,0.5c-1.8,1.2-2.8,3.1-2.8,5.2v25.6c0,4.3,3.5,7.8,7.8,7.8h30.1c2.1,0,4.1-1.1,5.2-2.8c1.2-1.8,1.4-4,0.5-5.9
+									c-1.2-2.8-1.8-5.9-1.6-9c0.6-9.6,8.6-17.6,18.2-18.2c5.5-0.3,10.6,1.5,14.6,5.2c4,3.7,6.1,8.8,6.1,14.2c0,2.7-0.5,5.3-1.6,7.7
+									c-0.8,1.9-0.7,4.2,0.5,5.9s3.1,2.8,5.2,2.8h28.1c4.3,0,7.8-3.5,7.8-7.8V118c4.5-0.7,8.5-3.2,11.6-6.8l2.2,2l3.3,7.2
+									c0.5,1.1,1.6,1.7,2.7,1.7c0.4,0,0.9-0.1,1.3-0.3c1.5-0.7,2.2-2.5,1.5-4l-3.6-7.8c-0.2-0.3-0.4-0.7-0.7-0.9l-3.3-3.1
+									c0.4-0.8,0.8-1.7,1.2-2.6l8.1,4.2c0.4,0.2,0.9,0.3,1.4,0.3c1.1,0,2.1-0.6,2.7-1.6C150,105,149.5,103.2,148,102.4z M131.2,83.2
+									c-3.9,2.4-8.4,3.6-13,3.6c-4.7,0-9.1-1.2-13-3.6c2.6-5.9,7.5-9.9,13-9.9C123.7,73.3,128.6,77.3,131.2,83.2z M103.1,92.8
+									c0-2.4,0.3-4.6,0.9-6.7c3.8,2.2,8.1,3.4,12.6,3.7v22.5C109.1,111.2,103.1,102.9,103.1,92.8z M113.3,144H85.2c0,0-0.1,0-0.2-0.1
+									c-0.1-0.1,0-0.2,0-0.3c1.4-3.2,2.1-6.6,2.1-10.1c0-7-2.9-13.8-8-18.6c-5.2-4.9-12-7.3-19.1-6.9c-12.8,0.8-23,11-23.8,23.8
+									c-0.3,4.1,0.4,8,2,11.7c0,0,0.1,0.1,0,0.2c-0.1,0.1-0.2,0.1-0.2,0.1H7.8c-1,0-1.8-0.8-1.8-1.8v-25.6c0,0,0-0.1,0.1-0.2
+									c0.1-0.1,0.2,0,0.3,0c3.2,1.4,6.6,2.1,10.1,2.1c7,0,13.8-2.9,18.6-8c4.9-5.2,7.3-12,6.9-19.1c-0.8-12.8-11-23-23.8-23.8
+									c-4.1-0.3-8,0.4-11.7,2c0,0-0.1,0.1-0.2,0C6,69.5,6,69.4,6,69.3V43.7c0-1,0.8-1.8,1.8-1.8h30.1c2.1,0,4.1-1.1,5.2-2.8s1.4-4,0.5-5.9
+									c-1.1-2.4-1.6-5-1.6-7.7c0-5.4,2.2-10.5,6.1-14.2c4-3.7,9.1-5.6,14.6-5.2c9.6,0.6,17.6,8.6,18.2,18.2c0.2,3.1-0.3,6.2-1.6,9
+									c-0.8,1.9-0.7,4.1,0.5,5.9c1.2,1.8,3.1,2.8,5.2,2.8h28.1c1,0,1.8,0.8,1.8,1.8v22.5c-2.3-10.1-10.3-13.9-14.8-14.4
+									c-1.7-0.2-3.1,1-3.3,2.6c-0.2,1.6,1,3.1,2.6,3.3c0.4,0,8.8,1.2,10,11.8c-5.9,3.2-10.3,9.7-11.8,17.4l-2.2-0.3l-4.2-3.8
+									c-1.2-1.1-3.1-1-4.2,0.2c-1.1,1.2-1,3.1,0.2,4.2l4.9,4.5c0.5,0.4,1.1,0.7,1.7,0.8l3.3,0.4c0,1.6,0.1,3.1,0.4,4.6l-9.5,4.9
+									c-1.5,0.8-2,2.6-1.3,4c0.5,1,1.6,1.6,2.7,1.6c0.5,0,0.9-0.1,1.4-0.3l8.3-4.3c0.3,0.9,0.7,1.7,1.1,2.5l-3.5,3.3
+									c-0.3,0.3-0.5,0.6-0.7,0.9l-3.6,7.8c-0.7,1.5,0,3.3,1.5,4c0.4,0.2,0.8,0.3,1.3,0.3c1.1,0,2.2-0.6,2.7-1.7l3.3-7.2l2.3-2.2
+									c3.1,3.6,7,6.1,11.5,6.9v24.3C115,143.2,114.2,144,113.3,144z M119.6,112.2V89.7c4.5-0.2,8.7-1.5,12.6-3.7c0.6,2.1,0.9,4.4,0.9,6.7
+									C133.1,102.9,127.2,111.2,119.6,112.2z"/>
+							</g>
+							<g id="bug-binaries">
+								<path d="M100,98.3c0.6-0.1,1.2-0.3,1.7-0.8l4.9-4.5c1.2-1.1,1.3-3,0.2-4.2c-1.1-1.2-3-1.3-4.2-0.2l-4.2,3.8l-2,0.2
+									c-1.5-7.8-6-14.3-12-17.5c1.2-10.1,9.1-11.6,10-11.7c1.6-0.2,2.8-1.7,2.6-3.3c-0.2-1.6-1.7-2.8-3.3-2.6c-4.6,0.6-13.1,4.6-15,15.7
+									C77.7,73,76.8,73,75.9,73c-1,0-1.9,0.1-2.9,0.2c-1.9-11.1-10.4-15.1-15-15.7c-1.6-0.2-3.1,1-3.3,2.6c-0.2,1.6,0.9,3.1,2.6,3.4
+									c0.9,0.1,8.9,1.6,10,11.8c-5.9,3.2-10.3,9.7-11.8,17.4l-2.2-0.3L49,88.6c-1.2-1.1-3.1-1-4.2,0.2c-1.1,1.2-1,3.1,0.2,4.2l4.9,4.5
+									c0.5,0.4,1.1,0.7,1.7,0.8l3.3,0.4c0,1.6,0.1,3.1,0.4,4.6l-9.5,4.9c-1.5,0.8-2,2.6-1.3,4c0.5,1,1.6,1.6,2.7,1.6
+									c0.5,0,0.9-0.1,1.4-0.3l8.3-4.3c0.3,0.9,0.7,1.7,1.1,2.5l-3.5,3.3c-0.3,0.3-0.5,0.6-0.7,0.9l-3.6,7.8c-0.7,1.5,0,3.3,1.5,4
+									c0.4,0.2,0.8,0.3,1.3,0.3c1.1,0,2.2-0.6,2.7-1.7l3.3-7.2l2.3-2.2c3.8,4.4,8.9,7.2,14.6,7.2c5.6,0,10.7-2.7,14.5-7.1l2.2,2l3.3,7.2
+									c0.5,1.1,1.6,1.7,2.7,1.7c0.4,0,0.9-0.1,1.3-0.3c1.5-0.7,2.2-2.5,1.5-4l-3.6-7.8c-0.2-0.3-0.4-0.7-0.7-0.9l-3.3-3.1
+									c0.4-0.8,0.8-1.7,1.2-2.6l8.1,4.2c0.4,0.2,0.9,0.3,1.4,0.3c1.1,0,2.1-0.6,2.7-1.6c0.8-1.5,0.2-3.3-1.3-4l-9.3-4.8
+									c0.2-1.5,0.4-3.1,0.4-4.7L100,98.3z M75.9,79c5.6,0,10.5,4,13,9.9c-3.9,2.4-8.4,3.6-13,3.6c-4.7,0-9.1-1.2-13-3.6
+									C65.4,83,70.3,79,75.9,79z M60.9,98.5c0-2.4,0.3-4.6,0.9-6.7c3.8,2.2,8.1,3.4,12.6,3.7v22.5C66.8,116.9,60.9,108.5,60.9,98.5z
+									 M77.4,117.9V95.4c4.5-0.2,8.7-1.5,12.6-3.7c0.6,2.1,0.9,4.4,0.9,6.7C90.9,108.5,85,116.9,77.4,117.9z"/>
+								<path d="M138.5,0h-127C5.2,0,0,5.2,0,11.5v127c0,6.3,5.2,11.5,11.5,11.5h127c6.3,0,11.5-5.2,11.5-11.5v-127
+									C150,5.2,144.8,0,138.5,0z M11.5,6h127c3,0,5.5,2.5,5.5,5.5V36H6V11.5C6,8.5,8.5,6,11.5,6z M138.5,144h-127c-3,0-5.5-2.5-5.5-5.5
+									V42h138v96.5C144,141.5,141.5,144,138.5,144z"/>
+								<path d="M21.5,27.5c3.3,0,6-2.7,6-6s-2.7-6-6-6s-6,2.7-6,6S18.2,27.5,21.5,27.5z M21.5,18.5c1.7,0,3,1.3,3,3s-1.3,3-3,3s-3-1.3-3-3
+									S19.8,18.5,21.5,18.5z"/>
+								<path d="M122.9,27.1c0.3,0.3,0.7,0.4,1.1,0.4s0.8-0.1,1.1-0.4l3.4-3.4l3.4,3.4c0.3,0.3,0.7,0.4,1.1,0.4s0.8-0.1,1.1-0.4
+									c0.6-0.6,0.6-1.5,0-2.1l-3.4-3.4l3.4-3.4c0.6-0.6,0.6-1.5,0-2.1s-1.5-0.6-2.1,0l-3.4,3.4l-3.4-3.4c-0.6-0.6-1.5-0.6-2.1,0
+									s-0.6,1.5,0,2.1l3.4,3.4l-3.4,3.4C122.4,25.5,122.4,26.5,122.9,27.1z"/>
+								<path d="M102,27.5h9c0.8,0,1.5-0.7,1.5-1.5s-0.7-1.5-1.5-1.5h-9c-0.8,0-1.5,0.7-1.5,1.5S101.2,27.5,102,27.5z"/>
+							</g>
+
+							<g id="bug-binaries-circle" transform="translate(20, 20)">
+								<circle cx="100" cy="100" r="120" fill="#D3585D"/>
+								<use xlink:href="#bug-binaries" fill="white" transform="translate(25, 25)"/>
+							</g>
+
+							<g id="bug">
+								<path d="M104.4,90.4l-9.3-4.8c0.2-1.5,0.4-3.1,0.4-4.7l3.1-0.4c0.6-0.1,1.2-0.3,1.7-0.8l4.9-4.5c1.2-1.1,1.3-3,0.2-4.2
+									c-1.1-1.2-3-1.3-4.2-0.2l-4.2,3.8l-2,0.2c-1.5-7.8-6-14.3-12-17.5c1.2-10.1,9.1-11.6,10-11.7c1.6-0.2,2.8-1.7,2.6-3.3
+									c-0.2-1.6-1.7-2.8-3.3-2.6c-4.6,0.6-13.1,4.6-15,15.7c-0.9-0.1-1.8-0.2-2.7-0.2c-1,0-1.9,0.1-2.9,0.2c-1.9-11.1-10.4-15.1-15-15.7
+									c-1.6-0.2-3.1,1-3.3,2.6c-0.2,1.6,0.9,3.1,2.6,3.4c0.9,0.1,8.9,1.6,10,11.8C60,60.7,55.5,67.2,54,75l-2.2-0.3l-4.2-3.8
+									c-1.2-1.1-3.1-1-4.2,0.2c-1.1,1.2-1,3.1,0.2,4.2l4.9,4.5c0.5,0.4,1.1,0.7,1.7,0.8l3.3,0.4c0,1.6,0.1,3.1,0.4,4.6l-9.5,4.9
+									c-1.5,0.8-2,2.6-1.3,4c0.5,1,1.6,1.6,2.7,1.6c0.5,0,0.9-0.1,1.4-0.3l8.3-4.3c0.3,0.9,0.7,1.7,1.1,2.5L53,97.3
+									c-0.3,0.3-0.5,0.6-0.7,0.9l-3.6,7.8c-0.7,1.5,0,3.3,1.5,4c0.4,0.2,0.8,0.3,1.3,0.3c1.1,0,2.2-0.6,2.7-1.7l3.3-7.2l2.3-2.2
+									c3.8,4.4,8.9,7.2,14.6,7.2c5.6,0,10.7-2.7,14.5-7.1l2.2,2l3.3,7.2c0.5,1.1,1.6,1.7,2.7,1.7c0.4,0,0.9-0.1,1.3-0.3
+									c1.5-0.7,2.2-2.5,1.5-4l-3.6-7.8c-0.2-0.3-0.4-0.7-0.7-0.9l-3.3-3.1c0.4-0.8,0.8-1.7,1.2-2.6l8.1,4.2c0.4,0.2,0.9,0.3,1.4,0.3
+									c1.1,0,2.1-0.6,2.7-1.6C106.4,93,105.8,91.2,104.4,90.4z M74.5,61.2c5.6,0,10.5,4,13,9.9c-3.9,2.4-8.4,3.6-13,3.6
+									c-4.7,0-9.1-1.2-13-3.6C64,65.2,68.9,61.2,74.5,61.2z M59.5,80.7c0-2.4,0.3-4.6,0.9-6.7c3.8,2.2,8.1,3.4,12.6,3.7v22.5
+									C65.4,99.2,59.5,90.8,59.5,80.7z M76,100.1V77.7c4.5-0.2,8.7-1.5,12.6-3.7c0.6,2.1,0.9,4.4,0.9,6.7C89.5,90.8,83.5,99.2,76,100.1z"
+									/>
+							</g>
+							<g id="bug-circle" transform="translate(5, 5)">
+								<circle cx="75" cy="75" r="80" fill="#D3585D"/>
+								<use xlink:href="#bug" fill="white"/>
+							</g>
+							<g id="bug-extension-circle" transform="translate(10, 10)">
+								<circle cx="90" cy="90" r="100"/>
+								<use xlink:href="#bug-extension" fill="white" transform="translate(30, 10)"/>
+							</g>
+
+							<g id="umbrella">
+								<path fill="white" d="M150,56.6c-0.4-21.1-32.1-46.3-72-47.6V3c0-1.7-1.3-3-3-3c-1.7,0-3,1.3-3,3v6.1C31.9,10.3,0,35.8,0,57c0,1.7,1.3,3,3,3h70.5
+									v57.4c-0.9,0.5-1.5,1.5-1.5,2.6v18c0,6.6,5.4,12,12,12s12-5.4,12-12c0-1.7-1.3-3-3-3s-3,1.3-3,3c0,3.3-2.7,6-6,6s-6-2.7-6-6v-18
+									c0-1.1-0.6-2.1-1.5-2.6V60H147c0,0,0,0,0,0c1.7,0,3-1.3,3-3C150,56.9,150,56.7,150,56.6z M100.4,54H76.5V15c1.6,0,3.3,0.1,4.9,0.2
+									C91.5,20.7,99.5,38.2,100.4,54z M68.6,15.2c1.6-0.1,3.2-0.2,4.9-0.2v39H49.6C50.5,38.2,58.5,20.7,68.6,15.2z M62.7,15.8
+									c-9,8-15.3,23.8-16.1,38.2H22.7c1.7-14.5,15.7-30.5,34.2-37.2C58.8,16.4,60.7,16.1,62.7,15.8z M103.4,54
+									c-0.8-14.4-7.1-30.2-16.1-38.2c2,0.3,3.9,0.6,5.8,0.9c18.5,6.7,32.5,22.7,34.2,37.2H103.4z M42,21.1c-2.1,1.5-4.2,3.1-6.2,4.9
+									C26.6,34.2,20.7,44.5,19.7,54H6.3C8.4,42.7,21.8,28.8,42,21.1z M130.3,54c-1-9.5-6.9-19.8-16.1-28.1c-2-1.8-4-3.4-6.2-4.9
+									c20.1,7.8,33.6,21.6,35.7,32.9H130.3z"/>
+							</g>
+							<g id="umbrella-circle" transform="translate(10, 10)">
+								<circle cx="90" cy="90" r="100"/>
+								<use xlink:href="#umbrella"  transform="translate(15, 15)"/>
+							</g>
+							<g id="happy-mike" transform="translate(20, 20)">
+								<circle cx="100" cy="100" r="120"/>
+								<g transform="translate(25, 25)">
+									<path style="fill: white;" d="M58.3,54.2c-0.4-0.7-1.4-0.9-2.1-0.5c-0.7,0.4-0.9,1.4-0.5,2.1C56,56.2,62,65.5,75,65.5c13,0,19-9.3,19.3-9.7
+										c0.4-0.7,0.2-1.6-0.5-2.1c-0.7-0.4-1.6-0.2-2.1,0.5c-0.1,0.1-5.4,8.3-16.7,8.3C63.7,62.5,58.5,54.5,58.3,54.2z"/>
+									<path style="fill: white;" d="M61.5,40.5c3.3,0,6-2.7,6-6s-2.7-6-6-6s-6,2.7-6,6S58.2,40.5,61.5,40.5z M61.5,31.5c1.7,0,3,1.3,3,3s-1.3,3-3,3s-3-1.3-3-3
+										S59.8,31.5,61.5,31.5z"/>
+									<path style="fill: white;" d="M88.5,40.5c3.3,0,6-2.7,6-6s-2.7-6-6-6s-6,2.7-6,6S85.2,40.5,88.5,40.5z M88.5,31.5c1.7,0,3,1.3,3,3s-1.3,3-3,3s-3-1.3-3-3
+										S86.8,31.5,88.5,31.5z"/>
+									<path style="fill: white;" d="M110.2,69c5.2-7.2,8.3-16,8.3-25.5C118.5,19.5,99,0,75,0C51,0,31.5,19.5,31.5,43.5c0,9.5,3.1,18.4,8.3,25.5
+										C26.1,82.4,18,102.8,18,124.5c0,16.6,29.4,25.5,57,25.5c27.4,0,57-9.7,57-25.5C132,102.8,123.9,82.4,110.2,69z M75,6
+										c20.7,0,37.5,16.8,37.5,37.5S95.7,81,75,81S37.5,64.2,37.5,43.5S54.3,6,75,6z M75,144c-27.6,0-51-8.9-51-19.5
+										c0-19.9,7.3-38.7,19.7-50.9C51.6,81.9,62.7,87,75,87c12.3,0,23.4-5.1,31.3-13.4c12.4,12.2,19.7,31,19.7,50.9
+										C126,133.5,103.7,144,75,144z"/>
+								</g>
+							</g>
+						</defs>
+					</svg>
+				</div>
+				<!-- end of SVG's definitions -->
+
+				<section data-background="./img/laptop.jpg">
+					<h1>
+						<svg viewBox="0 0 374.4 63">
+							<use xlink:href="#wulogo"/>
+						</svg>
+					</h1>
+					<h3>New security for the web</h3>
+					<p>
+						<small>Created by <a href="http://webumbrella.com">Webumbrella Team &copy;</a> / <a href="http://twitter.com/pdeszynski">@pdeszynski</a></small>
+					</p>
+					<aside class="notes">
+						Hello, My name's Piotr Deszyński. I'm a developer, team leader, CTO and whatever's necessary at Webumbrella project.
+						I was asked to tell you a little about our new project called Webumbrella.
+
+						Not native speaker, if anything will be obscure
+				    </aside>
+				</section>
+
+				<section>
+					<h2>Did you know</h2>
+					<p>
+						<strong>Every day 20-30% users are being stolen from you?</strong>
+					</p>
+					<aside class="notes">
+						Ok, so let's get started. Firstly about the problem: did you know that 25-30% of your users
+						are stolen from you? It's quite a huge amount I would say and may look unbelieveble.
+					</aside>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section data-background="#1E1C2B" style="text-align: left;">
+					<h2>How is that possible?</h2>
+					<h4 class="fragment">The answer: <span class="red">Client-side Injected Malware</span></h4>
+
+					<aside class="notes">
+						How's that possible? Our webites's Usability is great. We have really useful service etc.
+
+						The problem is that we tend to think that our users are really great in IT and the security is
+						their matter a concern. The truth is, it isn't and mostly it looks like this (movie)
+
+						So the answer for the question is: Client side injected malware. What do i mean by that?
+						(points)
+						...
+						All these badly affect User Experience and may even render your website completely unusable.
+				    </aside>
+				</section>
+
+				<section>
+					<h2>What's a malware?</h2>
+					<blockquote cite="https://en.wikipedia.org/wiki/Malware">
+						Malware, short for malicious software, is any software used to disrupt computer operation, gather sensitive information, or gain access to private computer systems.
+					</blockquote>
+				</section>
+
+				<section data-background="#1E1C2B" >
+					<h2>Every malware has at least 2 basic elements</h2>
+					<ul>
+						<li class="fragment">Infection point</li>
+						<li class="fragment">Command &amp; Control</li>
+					</ul>
+					<aside class="notes">
+						Before going further - let's look a little bit into the malware. Each malware has at least 3 basic elements
+						...
+						An infection point as a place where an user gets infected with a malware. It can be an email, a website
+						or a link on a social network
+
+						Command and control allows Cybercriminal to send updates or commands to an infected user. It can be for example
+						a code which will render a widget with ad on a page or some kind of code which will redirect user out this page.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Here's an example of a malware infection</h2>
+					<aside class="notes">
+						So after the small intro about the malware I'll show a small example of such an infection
+					</aside>
+				</section>
+
+				<section data-background="#1E1B2B" data-transition="slide-in-fade-out">
+					<h2>Let's have a happy, unaware user</h2>
+					<svg viewBox="0 0 250 250" width="200" height="200" >
+						<use xlink:href="#happy-mike" fill="#55B860" style="fill: #55B860"/>
+					</svg>
+				</section>
+
+				<section data-background="#1E1B2B" data-transition="fade">
+					<h2>He get's an email from a friend</h2>
+					<p class="fragment">This email contains an attachment which he downloadsf and clicks</p>
+					<svg viewBox="0 0 250 250" width="200" height="200" >
+						<use xlink:href="#happy-mike" fill="#E89E41" style="fill: #E89E41"/>
+					</svg>
+					<span class="fragment">
+						<svg viewBox="0 0 250 250" width="200" height="200" style="position:relative; left:-40px;">
+							<use xlink:href="#bug-binaries-circle" />
+						</svg>
+					</span>
+				</section>
+
+				<section data-background="#1E1B2B">
+					<h2>After that he enters a website</h2>
+				</section>
+
+				<section data-background="#1E1B2B" data-transition="fade">
+					<h2>But he sees a page that's different than expected</h2>
+					<img src="img/zalando1.png" class="cleanup"/>
+					<aside class="notes">
+						At the end he sees something different than usual. He sees a page which is
+						"enhanced" by an installed malware. He can see either version less obtrusive
+						like here
+					</aside>
+				</section>
+
+				<section data-background="#1E1B2B" data-transition="fade">
+					<h2>&nbsp;</h2>
+					<img src="img/lazada1.png" class="cleanup" />
+					<aside class="notes">
+						Or a version which badly changes his browsing experience
+					</aside>
+				</section>
+
+				<section data-background="#1E1B2B" data-transition="fade">
+					<h2>TODO: Annoying dialogs</h2>
+					<img src="img/lazada1.png" class="cleanup" />
+					<aside class="notes">
+						Or even a version which dissallows to use the page completely
+					</aside>
+				</section>
+
+				<section data-background="#1E1B2B">
+					<h2>What can a malware do?</h2>
+					<ul>
+						<li class="fragment">Annoying pop-ups</li>
+						<li class="fragment">strange, intrusive advertisements</li>
+						<li class="fragment">spyware scripts</li>
+						<li class="fragment">all types of 'custom widgets'</li>
+						<li class="fragment fade">
+							<span class="">
+								badly affects User Experience
+								<strong><span class="icon-lossuser"></span></strong>
+							</span>
+						</li>
+					</ul>
+					<aside class="notes">
+						So summarizing a malware can cause annoying popups to show up, ..., ...
+
+					</aside>
+				</section>
+
+				<section data-state="notebook-state-stop">
+					<h2>But that's not all</h2>
+					<p>
+
+					</p>
+					<aside class="notes">
+						But that's not all. There are a lot of more problems that can happen within your page.
+					</aside>
+				</section>
+
+				<section data-background="#1E1C2B" data-state="notebook-state" style="text-align: left;">
+					<h2>Users are exposed to many dangers</h2>
+					<p>
+						<strong>CSIM</strong> can <strong>replace your advertisements, search results, website elements or even whole pages</strong>
+					</p>
+					<p>
+						It will do harm your website by
+						<ul>
+							<li><strong class="fragment highlight-red">distracting your users</strong></li>
+							<li><strong class="fragment highlight-red">stealing traffic</strong></li>
+							<li><strong class="fragment highlight-red">violating their privacy</strong></li>
+							<li><strong class="fragment highlight-red">stealing private data</strong></li>
+						</ul>
+						<span class="notebook-holder" data-step="item-1" style="float:right;">
+							<div class="notebook animated"></div>
+							<div class="notebook animated" style="opacity: 0"></div>
+							<div class="notebook animated" style="opacity: 0"></div>
+						</span>
+					</p>
+					<aside class="notes">
+						Client side injected malware can even replace whole or a part of your website. In that
+						case they will distract your users from doing what they intended to.
+						But what's worse, sometimes such malware can replace parts of your page
+						without users being realized that something's not right. This way they can for example
+						replace links on your page stealing your traffic, or even your user's private data, like
+						their email, home address or even credit card data.
+						In that case they will blame no other than you for all these problems.
+					</aside>
+				</section>
+
+
+
+				<section data-state="notebook-state-stop" class="darken">
+					<h2>Scale of the problem</h2>
+					<p style="padding:0 10px 0 10px;">
+						<div style="display: block;">
+							<div style="float:left;margin-left: 100px;" class="fragment fadeIn" >
+								<svg width="150" height="150" style="float:left;">
+									<use xlink:href="#bug-extension" style="fill: #f75f65;"/>
+								</svg>
+								<span style="float:left;text-align:left;padding: 10px;">
+									Over<br />
+									<strong style="color: #f75f65;">50000</strong><br />
+									extensions *
+								</span>
+							</div>
+							<div style="float:right;margin-right: 100px;" class="fragment fadeIn">
+								<svg width="150" height="150" style="float:left;">
+									<use xlink:href="#bug-binaries" style="fill: #478DC3;"/>
+								</svg>
+								<span style="float:left;text-align:left;padding: 10px;">
+									Over<br />
+									<strong style="color: #478DC3;">34000</strong><br />
+									binaries *
+								</span>
+							</div>
+						</div>
+						<br style="clear: both;" />
+					</p>
+
+					<div class="fragment" style="background-color: #E89E41;margin: 10px;padding:10px;border-radius: 5px;">
+						<div style="border: 1px solid white;">
+							<span class="icon-buguser" style="font-size: 80px; font-weight: 550;vertical-align:middle;"></span>
+							<span>Most of users <strong>are not aware</strong> of their computer's infection</span>
+						</div>
+					</div>
+					<p style="font-size: 14px;">* Data according to Google's "Ad Injection at Scale" report</p>
+				</section>
+
+				<section data-background="#1E1B2B">
+					<h2>Affected platforms</h2>
+					<p>
+						There is a malware on <strong class="green-pastel">every</strong> popular <strong style="color: #55B860;"> OS and browser</strong>
+						<img src="img/platforms.png" style="border:0; box-shadow:0 0 0; background: inherit;" />
+					</p>
+				</section>
+
+				<section data-background="#1E1B2B">
+					<h2>Affected regions</h2>
+					<img src="img/injection-map.png" class="cleanup"/>
+					<p style="font-size: 14px;">* Data according to Google's "Ad Injection at Scale" report</p>
+				</section>
+
+				<section data-state="notebook-state-stop" data-background="img/pattern-2.png" data-background-size="400px" data-background-repeat="repeat">
+					<h2>CSIM impacts many sites</h2>
+					<p>
+						Page owners are mostly unaware of that fact and do not develop any counter-measures.
+						Consequences can be grave for the bussiness:
+						<style>
+							ul.inline li {
+								display: inline;
+								width:33%;
+							}
+						</style>
+						<ul class="inline" style="font-size: 36px;list-style: none;text-align: center;">
+							<li class="fragment" >
+								<div style="float:left;width: 33%;">
+									<div style="width:40%; float:left;">
+										<svg style="">
+											<circle cx="50" cy="50" r="50" fill="white"/>
+										</svg>
+										<span class="icon-losstrust red" style="font-size: 80px; position:relative;z-index:2;top:-160px;left:-10px;"></span>
+									</div>
+									<strong>Loss of trust</strong>
+								</div>
+							</li>
+							<li class="fragment" >
+								<div style="float:left;width: 33%;">
+									<div style="width:40%; float:left;">
+										<svg style="">
+											<circle cx="50" cy="50" r="50" fill="white"/>
+										</svg>
+										<span class="icon-lossuser red" style="font-size: 80px;position:relative;z-index:2;top:-160px;left:-10px;"></span>
+									</div>
+									<strong>Loss of users</strong>
+								</div>
+							</li>
+							<li class="fragment" >
+								<div style="float:left;width: 33%;">
+									<div style="width:40%; float:left;">
+										<svg style="">
+											<circle cx="50" cy="50" r="50" fill="white"/>
+										</svg>
+										<span class="icon-lossincome red" style="font-size: 80px;position:relative;z-index:2;top:-160px;left:-10px;"></span>
+									</div>
+									<strong>Loss of income</strong>
+								</div>
+							</li>
+						</ul>
+					</p>
+				</section>
+
+				<section>
+					<h2>There's a solution for all these problems</h2>
+				</section>
+
+				<section data-background="./img/laptop.jpg">
+					<h2>
+						<svg viewBox="0 0 374.4 63">
+							<use xlink:href="#wulogo"/>
+						</svg>
+					</h2>
+				</section>
+
+				<section data-background="./img/laptop.jpg" class="darken">
+					<h2>
+						What is Webumbrella
+					</h2>
+
+					<ul class="bullet">
+						<li class="fragment">
+							<div class="bullet">
+								<span class="icon-radar" style="color: #f75f65;"></span>
+							</div>
+							An early threat detection
+						</li>
+						<li class="fragment">
+							<div class="bullet">
+								<span class="icon-umbrella" style="color: #f75f65;"></span>
+							</div>
+							Full-time protection
+						</li>
+						<li class="fragment">
+							<div class="bullet">
+								<span class="icon-trashcan" style="color: #f75f65;"></span>
+							</div>
+
+							Cleanup mechanism
+						</li>
+						<li class="fragment">
+							<div class="bullet">
+								<span class="icon-gauge" style="color: #f75f65;"></span>
+							</div>
+							Performance optimization
+						</li>
+					</ul>
+					<aside class="notes">
+						Webumbrella detects all as we call it anomalies on your page which are
+						verified. This way they are blocked almost instantly.
+						Users are protected whole the time. No matter on which page on your website
+						they are.
+						All invalid elements are removed, all events unattached. This way
+						in users eyes your website is more performant, because it does not load
+						unnecessary HTML, images or huge scripts.
+					</aside>
+				</section>
+
+				<section data-background="./img/laptop.jpg">
+					<h2> And all of that with only one line of code on your website</h2>
+					<p style="font-weight: bold" class="fragment">(Without any user interaction)</p>
+
+					<pre><code data-trim>
+						<script src="https://canopy.webumbrella.com/index.min.js"></script>
+					</code></pre>
+				</section>
+
+				<section data-background="#1E1C2B">
+					<h2>Webumbrella in action</h2>
+					<img src="img/umbrella-cycle.png" class="cleanup" />
+				</section>
+
+				<section>
+					<h2>Questions?</h2>
+				</section>
+
+				<section style="text-align: left;">
+					<h1>THE END</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script src="lib/bower_components/wow/dist/wow.js"></script>
+
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				parallaxBackgroundImage: './img/baba-parasol-1080.jpg',
+				parallaxBackgroundSize: '2500px 1080px',
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		var interval;
+		Reveal.addEventListener('notebook-state', function () {
+			var elem = document.querySelector('.notebook-holder');
+			var index = 1;
+			interval = setInterval(function() {
+				index = index % 3 + 1;
+				console.log('index', index);
+				elem.setAttribute('data-step', "item-" + index);
+				[].forEach.call(elem.querySelectorAll('.notebook'), function(element){
+					element.classList.remove('animated');
+					element.classList.remove('fadeIn');
+					element.classList.add('fadeOut');
+				});
+				var inner = elem.querySelector('.notebook:nth-child(' + index + ')');
+				inner.classList.add('animated');
+				inner.classList.add('fadeIn');
+				inner.classList.remove('fadeOut');
+			}, 2000);
+		}, false);
+
+
+		Reveal.addEventListener('notebook-state-stop', function () {
+			clearInterval(interval);
+		}, false);
+
+		function addAnimation(element) {
+			var animationName = element.getAttribute('data-animation');
+			if(animationName) {
+				var styles = element.style;
+				styles['animation-name'] = animationName;
+				styles['-webkit-animation-name'] = animationName;
+			}
+		}
+
+		Reveal.addEventListener( 'slidechanged', function( event ) {
+		    [].forEach.call(
+				event
+					.currentSlide
+					.querySelectorAll('.wow'),
+				function(element) {
+					addAnimation(element);
+					element.classList.add('animated');
+				}
+			);
+
+			[].forEach.call(
+				event
+					.previousSlide
+					.querySelectorAll('.wow'),
+				function(element) {
+					element.classList.remove('animated')
+				}
+			);
+		} );
+
+		Reveal.addEventListener( 'ready', function( event ) {
+			[].forEach.call(
+				event
+					.currentSlide
+					.querySelectorAll('.wow'),
+				function(element) {
+					addAnimation(element);
+					element.classList.add('animated');
+				}
+			);
+		} );
+
+		</script>
+
+	</body>
+</html>
