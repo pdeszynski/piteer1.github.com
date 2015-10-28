@@ -206,7 +206,7 @@
 						<small>Created by <a href="http://webumbrella.com">Webumbrella Team &copy;</a> / <a href="http://twitter.com/pdeszynski">@pdeszynski</a></small>
 					</p>
 					<aside class="notes">
-						Hello, My name's Piotr Deszyński. I'm a developer, team leader, CTO and whatever's necessary at Webumbrella project.
+						Hello, My name's Piotr Deszyński. I'm a developer, team leader, currently a CEO and a CTO and whatever's necessary at Webumbrella project.
 						I was asked to tell you a little about our new project called Webumbrella.
 
 						Not native speaker, if anything will be obscure
@@ -228,17 +228,12 @@
 				<section data-background="#1E1C2B" style="text-align: left;">
 					<h2>How is that possible?</h2>
 					<h4 class="fragment">The answer: <span class="red">Client-side Injected Malware</span></h4>
+					<h5 class="fragment"  style="text-align: center;"><span class="red">(Man in the Browser)</span></h5>
 
 					<aside class="notes">
-						How's that possible? Our webites's Usability is great. We have really useful service etc.
+						How's that possible? Our webites's Usability is great. We have really useful service.
 
-						The problem is that we tend to think that our users are really great in IT and the security is
-						their matter a concern. The truth is, it isn't and mostly it looks like this (movie)
 
-						So the answer for the question is: Client side injected malware. What do i mean by that?
-						(points)
-						...
-						All these badly affect User Experience and may even render your website completely unusable.
 				    </aside>
 				</section>
 
@@ -252,8 +247,8 @@
 				<section data-background="#1E1C2B" >
 					<h2>Every malware has at least 2 basic elements</h2>
 					<ul>
-						<li class="fragment">Infection point</li>
-						<li class="fragment">Command &amp; Control</li>
+						<li class="fragment grow">Infection point</li>
+						<li class="fragment grow">Command &amp; Control</li>
 					</ul>
 					<aside class="notes">
 						Before going further - let's look a little bit into the malware. Each malware has at least 3 basic elements
@@ -298,10 +293,10 @@
 				</section>
 
 				<section data-background="#1E1B2B" data-transition="fade">
-					<h2>But he sees a page that's different than expected</h2>
-					<img src="img/zalando1.png" class="cleanup"/>
+					<h2>But something changed</h2>
+					<img src="img/zalando3.png" class="cleanup"/>
 					<aside class="notes">
-						At the end he sees something different than usual. He sees a page which is
+						At the end he sees something different than usual. User sees a page which is
 						"enhanced" by an installed malware. He can see either version less obtrusive
 						like here
 					</aside>
@@ -309,17 +304,35 @@
 
 				<section data-background="#1E1B2B" data-transition="fade">
 					<h2>&nbsp;</h2>
-					<img src="img/lazada1.png" class="cleanup" />
+					<img src="img/lazada3.png" class="cleanup" />
 					<aside class="notes">
-						Or a version which badly changes his browsing experience
+						Or a version which badly affects his browsing experience. But such a malware doesn't
+						end at only affecting directly the page
 					</aside>
 				</section>
 
 				<section data-background="#1E1B2B" data-transition="fade">
-					<h2>TODO: Annoying dialogs</h2>
-					<img src="img/lazada1.png" class="cleanup" />
+					<h2>
+						<a href="http://www.my-rq.com/voucher-giveaways/de/Zalando.html?voluumdata=vid..00000000-a47d-455c-8000-000000000000__vpid..81cb8000-f1f0-11e4-8570-6a2c2e219938__caid..7340a5b6-3758-471c-a786-a010ad812be4__lid..68169188-b6dc-4d5a-9b84-82ea4fdc4290__rt..R__oid1..5842ffb3-cb1d-4d48-a45e-7db27ed48ab9__var1..\.\">
+							Pop-ups
+						</a>
+					</h2>
+					<img src="img/zalando4.png" class="cleanup" />
 					<aside class="notes">
-						Or even a version which dissallows to use the page completely
+						Or even a version which is a popup mimicking original page, that's just
+						a scam to get some potential client's data
+					</aside>
+				</section>
+
+				<section data-background="#1E1B2B" data-transition="fade">
+					<h2>Shady business ad</h2>
+
+					<img src="img/casino.png" class="cleanup" />
+
+					<aside class="notes">
+						Or a popups advertising some shade businesses like online casinos.
+
+						All these are affecting company's image in unaware's users eyes
 					</aside>
 				</section>
 
@@ -329,7 +342,7 @@
 						<li class="fragment">Annoying pop-ups</li>
 						<li class="fragment">strange, intrusive advertisements</li>
 						<li class="fragment">spyware scripts</li>
-						<li class="fragment">all types of 'custom widgets'</li>
+						<li class="fragment">generate all types of 'custom widgets'</li>
 						<li class="fragment fade">
 							<span class="">
 								badly affects User Experience
@@ -338,8 +351,8 @@
 						</li>
 					</ul>
 					<aside class="notes">
-						So summarizing a malware can cause annoying popups to show up, ..., ...
-
+						So summarizing a malware can take control of your page
+						causing annoying popups to show up, ..., ...
 					</aside>
 				</section>
 
@@ -349,7 +362,7 @@
 
 					</p>
 					<aside class="notes">
-						But that's not all. There are a lot of more problems that can happen within your page.
+						But that's not all.
 					</aside>
 				</section>
 
@@ -373,17 +386,14 @@
 						</span>
 					</p>
 					<aside class="notes">
-						Client side injected malware can even replace whole or a part of your website. In that
-						case they will distract your users from doing what they intended to.
-						But what's worse, sometimes such malware can replace parts of your page
+						Because client side injected malware can even replace whole or a part of your website it
+						will distract your users from doing what they intended to.
+						But what's worse, sometimes such a malware will make small changes
 						without users being realized that something's not right. This way they can for example
 						replace links on your page stealing your traffic, or even your user's private data, like
-						their email, home address or even credit card data.
-						In that case they will blame no other than you for all these problems.
+						their email, home address or even a credit card data.
 					</aside>
 				</section>
-
-
 
 				<section data-state="notebook-state-stop" class="darken">
 					<h2>Scale of the problem</h2>
