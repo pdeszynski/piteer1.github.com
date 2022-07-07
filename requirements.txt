@@ -9,7 +9,7 @@ docutils==0.9.1
 feedgenerator==1.2.1
 git-remote-helpers==0.1.0
 logilab-astng==0.24.1
-logilab-common==0.58.3
+logilab-common==0.61.0
 pylint==0.26.0
 pytz==2012h
 stevedore==0.6
